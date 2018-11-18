@@ -29,7 +29,7 @@ return [
     'connections' => [
         'workflow' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => env('DB_HOST', 'mysql'),
             'port' => env('DB_PORT', '3306'),
             'database' => env('DB_DATABASE', 'workflow'),
             'username' => env('DB_USERNAME', 'workflow'),
@@ -38,7 +38,7 @@ return [
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
             'prefix' => '',
-            'strict' => true,
+            'strict' => false,
             'engine' => 'InnoDB',
         ]
     ],

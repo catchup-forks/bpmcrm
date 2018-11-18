@@ -1,32 +1,12 @@
-# ProcessMaker 4.1 Community Edition Documentation
+** Prerequisites **
+node 10+
 
-![ProcessMaker](http://www.processmaker.com/themes/processmaker/images/logo.jpg)
-
-[![CircleCI](https://circleci.com/gh/ProcessMaker/bpm/tree/develop.svg?style=svg&circle-token=bc15deff649712440252088a12ec20b4b7c96826)](https://circleci.com/gh/ProcessMaker/bpm/tree/develop)
-
-## ProcessMaker 4.1 Community Edition Documentation
-
-#### Overview
-
-ProcessMaker is an open source, workflow management software suite, which includes tools to automate your workflow, design forms, create documents, assign roles and users, create routing rules, and map an individual process quickly and easily. It's relatively lightweight and doesn't require any kind of installation on the client computer. This file describes the requirements and installation steps for the server.
-
-### Development
-
-#### System Requirements
-
-You can develop ProcessMaker as well as ProcessMaker packages locally. In order to do so, you must have the following:
-
-* [Virtualbox  5.2](https://www.virtualbox.org/) or above
-* [Vagrant 2.2.0](https://www.vagrantup.com/) or above
-* [PHP 7.2.0](https://php.net) or above
-  * Windows users can install [XAMPP](https://www.apachefriends.org/index.html)
-* [Composer](https://getcomposer.org/)
-* [Node.js 10.13.0](https://nodejs.org/en/) or above
 
 **Steps for Development Installation**
 
 * Clone the repository into a directory
-* Perform `composer install` to install required libraries. If you are on windows, you may need to run `composer install --ignore-platform-reqs` due to Horizon requiring the pcntl extension. You can safely ignore this as the application runs in the virtual machine which has the appropriate extensions installed.
+* Perform `composer install` to install required libraries. If you are on windows, you may need to run `composer install --ignore-platform-reqs` due to Horizon requiring the pcntl extension.
+	You can safely ignore this as the application runs in the virtual machine which has the appropriate extensions installed.
 * Perform `npm install` in the project directory
 * Perform `npm run dev` to build the front-end assets
 * Modify your local `/etc/hosts` file to point `bpm4.local.processmaker.com` to `192.168.10.10`. On Windows, this file is located at `C:\Windows\System32\Drivers\etc\hosts`.

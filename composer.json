@@ -7,10 +7,15 @@
   ],
   "homepage": "http://processmaker.com",
   "license": "GNU Affero General Public License version 3",
+  "config": {
+    "preferred-install": "dist",
+    "sort-packages": true,
+    "optimize-autoloader": true
+  },
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "php": ">=7.2.0",
+    "php": ">=7.1.0",
     "TYPO3/class-alias-loader": "^1.0",
     "darkaonline/l5-swagger": "5.7.*",
     "doctrine/dbal": "^2.5",
@@ -76,10 +81,5 @@
       "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
       "@php artisan package:discover"
     ]
-  },
-  "config": {
-    "preferred-install": "dist",
-    "sort-packages": true,
-    "optimize-autoloader": true
   }
 }
