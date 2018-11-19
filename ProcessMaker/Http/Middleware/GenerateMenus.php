@@ -27,6 +27,31 @@ class GenerateMenus
             $menu->group(['prefix' => 'tasks'], function($request_items) {
                 $request_items->add(__('menus.topnav.tasks'), ['route' => 'tasks.index']);
             });
+
+
+
+
+
+
+            //@TODO change the index to the correct blade
+            $menu->group(['prefix' => 'tickets'], function($request_items) {
+                $request_items->add(__('menus.topnav.tickets'), ['route' => 'tickets.index']);
+            });
+            //@TODO change the index to the correct blade
+            $menu->group(['prefix' => 'projects'], function($request_items) {
+                $request_items->add(__('menus.topnav.projects'), ['route' => 'projects.index']);
+            });
+            //@TODO change the index to the correct blade
+            $menu->group(['prefix' => 'crm'], function($request_items) {
+                $request_items->add(__('menus.topnav.crm'), ['route' => 'relations.index']);
+            });
+
+
+
+
+
+
+
             //@TODO change the index to the correct blade
             $menu->group(['prefix' => 'processes'], function($request_items) {
                 $request_items->add(__('menus.topnav.processes'), ['route' => 'processes.index']);
@@ -35,6 +60,12 @@ class GenerateMenus
                 $admin_items->add(__('menus.topnav.admin'), ['route' => 'users.index']);
             });
         });
+
+
+
+
+
+
 
         // Build the menus
         Menu::make('sidebar_admin', function ($menu) {
@@ -68,6 +99,14 @@ class GenerateMenus
           ]);
 
         });
+
+
+
+
+
+
+
+
         Menu::make('sidebar_task', function ($menu) {
           $submenu = $menu->add(__('Tasks'));
           $submenu->add(__('To Do'), [
@@ -81,6 +120,59 @@ class GenerateMenus
               'id' => 'homeid'
           ]);
         });
+
+
+
+        Menu::make('sidebar_tickets', function ($menu) {
+            $submenu = $menu->add(__('Tickets'));
+            $submenu->add(__('To Do'), [
+                  'route' => 'tickets.index',
+                  'icon' => 'fa-list',
+                  'id' => 'homeid'
+            ]);
+            $submenu->add(__('Completed'), [
+                'route' => ['tickets.index', 'status' => 'CLOSED'],
+                'icon' => 'fa-check-square',
+                'id' => 'homeid'
+            ]);
+        });
+
+        Menu::make('sidebar_projects', function ($menu) {
+            $submenu = $menu->add(__('Projects'));
+            $submenu->add(__('To Do'), [
+                  'route' => 'projects.index',
+                  'icon' => 'fa-list',
+                  'id' => 'homeid'
+            ]);
+            $submenu->add(__('Completed'), [
+                'route' => ['projects.index', 'status' => 'CLOSED'],
+                'icon' => 'fa-check-square',
+                'id' => 'homeid'
+            ]);
+        });
+
+        Menu::make('sidebar_crm', function ($menu) {
+        $submenu = $menu->add(__('Crm'));
+        $submenu->add(__('To Do'), [
+                'route' => 'relations.index',
+                'icon' => 'fa-list',
+                'id' => 'homeid'
+        ]);
+        $submenu->add(__('Completed'), [
+            'route' => ['relations.index', 'status' => 'CLOSED'],
+            'icon' => 'fa-check-square',
+            'id' => 'homeid'
+        ]);
+        });
+
+
+
+
+
+
+
+
+
         Menu::make('sidebar_request', function ($menu) {
           $submenu = $menu->add(__('menus.sidebar_request.request'));
           $submenu->add(__('menus.sidebar_request.started_me'), [
@@ -101,7 +193,14 @@ class GenerateMenus
           ]);
        });
 
-        Menu::make('sidebar_processes', function ($menu) {
+
+
+
+
+
+
+
+       Menu::make('sidebar_processes', function ($menu) {
           $submenu = $menu->add(__('menus.sidebar_processes.processes'));
           $submenu->add(__('menus.sidebar_processes.processes'), [
               'route' => 'processes.index',
@@ -132,8 +231,24 @@ class GenerateMenus
 
         Menu::make('sidebar_designer', function ($menu) {});
 
+
+
+
+
+
         Menu::make('dropdown_nav', function ($menu) {
           $task_items = [
+
+            [
+                'label' =>__('Control Panel'),
+                'header' => false,
+                'route' => 'admincp.dashboard',
+                'icon' => 'fa-user',
+                'img' => '',
+                'id' => 'dropdownItem'
+            ],
+
+
           [
             'label' =>__('Profile'),
             'header' => false,
@@ -168,6 +283,11 @@ class GenerateMenus
                 }
             }
         });
+
+
+
+
+
         return $next($request);
     }
 }

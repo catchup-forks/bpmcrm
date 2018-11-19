@@ -56,6 +56,9 @@ return[
   'topnav' => [
     'requests' => 'Requests',
     'tasks' => 'Tasks',
+    'tickets' => 'Tickets',
+    'projects' => 'Projects',
+    'crm' => 'Crm',
     'processes' => 'Processes',
     'admin' => 'Admin'
   ]

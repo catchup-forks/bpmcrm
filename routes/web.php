@@ -26,6 +26,19 @@ Route::group(['middleware' => ['auth', 'authorize']], function () {
         ]);
     });
 
+    Route::get('/admincp', 'HomeController@index')->name('admincp.dashboard');
+    Route::resource('tickets', 'TicketsController');
+	Route::get('tickets/tickets', ['as'=> 'tickets.tickets.index', 'uses' => 'Tickets\TicketController@index']);
+	Route::post('tickets/tickets', ['as'=> 'tickets.tickets.store', 'uses' => 'Tickets\TicketController@store']);
+	Route::get('tickets/tickets/create', ['as'=> 'tickets.tickets.create', 'uses' => 'Tickets\TicketController@create']);
+	Route::put('tickets/tickets/{tickets}', ['as'=> 'tickets.tickets.update', 'uses' => 'Tickets\TicketController@update']);
+	Route::patch('tickets/tickets/{tickets}', ['as'=> 'tickets.tickets.update', 'uses' => 'Tickets\TicketController@update']);
+	Route::delete('tickets/tickets/{tickets}', ['as'=> 'tickets.tickets.destroy', 'uses' => 'Tickets\TicketController@destroy']);
+	Route::get('tickets/tickets/{tickets}', ['as'=> 'tickets.tickets.show', 'uses' => 'Tickets\TicketController@show']);
+	Route::get('tickets/tickets/{tickets}/edit', ['as'=> 'tickets.tickets.edit', 'uses' => 'Tickets\TicketController@edit']);
+    Route::resource('projects', 'ProjectsController');
+    Route::resource('relations', 'CrmController');
+
     Route::resource('processes', 'ProcessController');
     Route::get('profile/edit', 'ProfileController@edit')->name('profile.edit');
     Route::get('profile/{id}', 'ProfileController@show');
