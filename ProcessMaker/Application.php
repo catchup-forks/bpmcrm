@@ -5,6 +5,9 @@ use Igaster\LaravelTheme\Facades\Theme;
 use Illuminate\Foundation\Application as IlluminateApplication;
 use Illuminate\Support\Facades\Auth;
 
+/*
+Test
+*/
 /**
  * Class Application
  * @package ProcessMaker
