@@ -10,7 +10,7 @@ use Illuminate\Routing\Controller as BaseController;
  * Our base controller.  Any shared functionality across all web controllers can go here
  * @package ProcessMaker\Http\Controllers
  */
-class Controller extends BaseController
+class Controller
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
@@ -21,7 +21,8 @@ class Controller extends BaseController
      * @param array $parameters
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function callAction($method, $parameters)
+    /*
+	public function callAction($method, $parameters)
     {
         // Handled by the SetWorkspace middleware
         unset($parameters['workspace']);
@@ -34,4 +35,5 @@ class Controller extends BaseController
         // Now call our parent callAction which will route to the appropriate method
         return parent::callAction($method, $parameters);
     }
+	*/
 }

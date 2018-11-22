@@ -5,7 +5,7 @@ namespace ProcessMaker\Http\Controllers;
 use ProcessMaker\Http\Controllers\Controller;
 use ProcessMaker\Models\ProcessRequestToken;
 
-class CrmController extends Controller
+class CrmController
 {
     private static $dueLabels = [
         'open' => 'Due ',
