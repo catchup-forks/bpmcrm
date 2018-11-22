@@ -33,7 +33,18 @@
 
     <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css">
 
+	<!-- DataTable Bootstrap -->
+	<!-- Bootstrap core CSS-->
+	<link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+	<!-- Custom fonts for this template-->
+	<link href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+	<!-- Page level plugin CSS-->
+	<link href="/vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+	<!-- Custom styles for this template-->
+	<link href="/css/sb-admin.min.css" rel="stylesheet">
 
     @yield('css')
     <script type="text/javascript">
@@ -71,15 +82,28 @@
     <p>Something went wrong. Try refreshing the application</p>
   </div>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script> 
+<!-- Datatables -->
+<script src="/vendor/datatables/jquery.dataTables.min.js"></script>
+<script src="/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.colVis.min.js"></script>
+
 <!-- Scripts -->
 @if(config('broadcasting.broadcaster') == 'socket.io')
 <script src="{{config('broadcasting.host')}}/socket.io/socket.io.js"></script>
 @endif
-<script src="{{ mix('js/manifest.js') }}"></script>
+{{--  <script src="{{ mix('js/manifest.js') }}"></script>
 <script src="{{ mix('js/vendor.js') }}"></script>
 <script src="{{ mix('js/app.js') }}"></script>
-<script src="{{ mix('js/app-layout.js') }}"></script>
+<script src="{{ mix('js/app-layout.js') }}"></script>  --}}
     <!--javascript!-->
     @yield('js')
+
+    @yield('scripts')	
+	
+	
 </body>
 </html>

@@ -82,27 +82,27 @@ window.ProcessMaker.confirmModal = function (title, message, variant, callback) 
     ProcessMaker.navbar.confirmShow = true;
 };
 
-// Setup our api client interceptor to handle errors and reflect the error
-// in our skin.
-window.ProcessMaker.apiClient.interceptors.response.use(
-    response =>
-    // No need to handle success responses
-    response, (error) => {
-        let elem = document.getElementById("content-inner");
-        if (error.response.status != 422 && error.response.status != 404 && elem !== null) {
-            // Replace our content div with our error div
-            // Remove our #content-inner
-            elem.parentNode.removeChild(elem);
-            // Now show our #api-error div
-            elem = document.getElementById("api-error");
-            elem.setAttribute("style", "display: block");
-        }
-        if (error.response.data && error.response.data.message) {
-            window.ProcessMaker.alert(error.response.data.message, "danger");
-        }
-        return Promise.reject(error);
-    }
-);
+// // Setup our api client interceptor to handle errors and reflect the error
+// // in our skin.
+// window.ProcessMaker.apiClient.interceptors.response.use(
+//     response =>
+//     // No need to handle success responses
+//     response, (error) => {
+//         let elem = document.getElementById("content-inner");
+//         if (error.response.status != 422 && error.response.status != 404 && elem !== null) {
+//             // Replace our content div with our error div
+//             // Remove our #content-inner
+//             elem.parentNode.removeChild(elem);
+//             // Now show our #api-error div
+//             elem = document.getElementById("api-error");
+//             elem.setAttribute("style", "display: block");
+//         }
+//         if (error.response.data && error.response.data.message) {
+//             window.ProcessMaker.alert(error.response.data.message, "danger");
+//         }
+//         return Promise.reject(error);
+//     }
+// );
 
 new Vue({
     el: "#sidebar",

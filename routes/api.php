@@ -14,6 +14,7 @@ Route::group(
     Route::apiResource('screens', 'ScreenController');
     Route::apiResource('screen_categories', 'ScreenCategoryController');
     Route::post('scripts/preview', 'ScriptController@preview')->name('script.preview');
+    Route::get('relations', 'RelatisController@getData')->name('relations.data');
     Route::apiResource('scripts', 'ScriptController');
     Route::apiResource('processes', 'ProcessController');
     Route::apiResource('process_categories', 'ProcessCategoryController');

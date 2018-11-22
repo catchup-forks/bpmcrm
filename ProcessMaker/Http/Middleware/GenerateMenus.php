@@ -43,7 +43,7 @@ class GenerateMenus
             });
             //@TODO change the index to the correct blade
             $menu->group(['prefix' => 'crm'], function($request_items) {
-                $request_items->add(__('menus.topnav.crm'), ['route' => 'relations.index']);
+                $request_items->add(__('menus.topnav.crm'), ['route' => 'crm.relations.index']);
             });
 
 
@@ -154,12 +154,12 @@ class GenerateMenus
         Menu::make('sidebar_crm', function ($menu) {
         $submenu = $menu->add(__('Crm'));
         $submenu->add(__('To Do'), [
-                'route' => 'relations.index',
+                'route' => 'crm.relations.index',
                 'icon' => 'fa-list',
                 'id' => 'homeid'
         ]);
         $submenu->add(__('Completed'), [
-            'route' => ['relations.index', 'status' => 'CLOSED'],
+            'route' => ['crm.relations.index', 'status' => 'CLOSED'],
             'icon' => 'fa-check-square',
             'id' => 'homeid'
         ]);
