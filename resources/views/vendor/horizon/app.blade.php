@@ -1,5 +1,5 @@
 @extends('layouts.layout', ['title' => 'Queue Management']) 
-@section('sidebar')
+@section('mainbar')
         @include('layouts.sidebar', ['sidebar'=>
 Menu::get('sidebar_admin')])
 @endsection

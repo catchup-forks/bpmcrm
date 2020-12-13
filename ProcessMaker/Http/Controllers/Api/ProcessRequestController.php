@@ -204,7 +204,7 @@ class ProcessRequestController extends Controller
     public function update(ProcessRequest $request, Request $httpRequest)
     {
         $httpRequest->validate(ProcessRequest::rules($request));
-        $request->fill($httpRequest->json()->all());
+        $request->fill($httpRequest->mediumText()->all());
         $request->saveOrFail();
         return response([], 204);
     }

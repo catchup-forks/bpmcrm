@@ -111,7 +111,7 @@ class UserController extends Controller
     {
         $request->validate(User::rules());
         $user = new User();
-        $user->fill($request->json()->all());
+        $user->fill($request->mediumText()->all());
         $user->saveOrFail();
         return new UserResource($user->refresh());
     }
@@ -179,7 +179,7 @@ class UserController extends Controller
     public function update(User $user, Request $request)
     {
         $request->validate(User::rules($user));
-        $user->fill($request->json()->all());
+        $user->fill($request->mediumText()->all());
         $user->saveOrFail();
         if ($request->has('avatar')) {
             $this->uploadAvatar($user, $request);

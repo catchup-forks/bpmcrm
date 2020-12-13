@@ -33,7 +33,7 @@ class ScriptsTest extends TestCase
         $response = $this->apiCall('POST', $url);
         //validating the answer is an error
         $response->assertStatus(422);
-        $this->assertArrayHasKey('message', $response->json());
+        $this->assertArrayHasKey('message', $response->mediumText());
     }
 
     /**
@@ -126,7 +126,7 @@ class ScriptsTest extends TestCase
         ]);
 
         //verify count of data
-        $this->assertEquals($total, $response->json()['meta']['total']);
+        $this->assertEquals($total, $response->mediumText()['meta']['total']);
     }
 
     /**
@@ -169,7 +169,7 @@ class ScriptsTest extends TestCase
             'meta',
         ]);
         //verify response in meta
-        $json = $response->json();
+        $json = $response->mediumText();
         $meta = $json['meta'];
         $this->assertEquals(1, $meta['total']);
         $this->assertEquals($perPage, $meta['per_page']);

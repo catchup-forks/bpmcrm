@@ -52,6 +52,6 @@
 @section('js')
 <script src="{{mix('js/nayra/start.js')}}"></script>
 @endsection
-@section('sidebar')
+@section('mainbar')
   @include('layouts.sidebar', ['sidebar' => Menu::get('sidebar_request')])
 @endsection

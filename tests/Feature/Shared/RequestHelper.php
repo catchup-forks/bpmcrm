@@ -32,7 +32,7 @@ trait RequestHelper
         $url = preg_replace('/^.*\/api\/1\.0/i', '', $url);
 
         $response = $this->actingAs($this->user, 'api')
-                         ->json($method, '/api/1.0' . $url, $params);
+                         ->mediumText($method, '/api/1.0' . $url, $params);
         $this->_debug_response = $response;
         return $response;
     }
@@ -56,7 +56,7 @@ trait RequestHelper
 
         if ($this->hasFailed() && isset($this->_debug_response)) {
             try {
-                $json = $this->_debug_response->json();
+                $json = $this->_debug_response->mediumText();
             } catch (\Exception $e) {
                 $exception = $this->_debug_response->exception;
                 $json = [

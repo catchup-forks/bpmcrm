@@ -37,7 +37,7 @@ class GroupsTest extends TestCase
 
       //Validate the header status code
       $response->assertStatus(422);
-      $this->assertArrayHasKey('message', $response->json());
+      $this->assertArrayHasKey('message', $response->mediumText());
   }
 
   /**
@@ -73,7 +73,7 @@ class GroupsTest extends TestCase
 
       //Validate the header status code
       $response->assertStatus(422);
-      $this->assertArrayHasKey('message', $response->json());
+      $this->assertArrayHasKey('message', $response->mediumText());
   }
 
   /**
@@ -98,7 +98,7 @@ class GroupsTest extends TestCase
       ]);
 
       // Verify count
-      $this->assertEquals(10 + $existing, $response->json()['meta']['total']);
+      $this->assertEquals(10 + $existing, $response->mediumText()['meta']['total']);
 
   }
 
@@ -144,9 +144,9 @@ class GroupsTest extends TestCase
       ]);
 
       // Verify return data
-      $this->assertEquals(1, $response->json()['meta']['total']);
-      $this->assertEquals('name', $response->json()['meta']['sort_by']);
-      $this->assertEquals('DESC', $response->json()['meta']['sort_order']);
+      $this->assertEquals(1, $response->mediumText()['meta']['total']);
+      $this->assertEquals('name', $response->mediumText()['meta']['sort_by']);
+      $this->assertEquals('DESC', $response->mediumText()['meta']['sort_order']);
 
   }
 

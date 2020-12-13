@@ -139,7 +139,7 @@ class ProcessCategoryController extends Controller
     {
         $request->validate(ProcessCategory::rules());
         $category = new ProcessCategory();
-        $category->fill($request->json()->all());
+        $category->fill($request->mediumText()->all());
         $category->saveOrFail();
         return new Resource($category);
     }
@@ -179,7 +179,7 @@ class ProcessCategoryController extends Controller
     public function update(Request $request, ProcessCategory $processCategory)
     {
         $request->validate(ProcessCategory::rules($processCategory));
-        $processCategory->fill($request->json()->all());
+        $processCategory->fill($request->mediumText()->all());
         $processCategory->saveOrFail();
         return new Resource($processCategory);
     }

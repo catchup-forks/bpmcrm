@@ -129,7 +129,7 @@ class TasksTest extends TestCase
         //Verify the structure
         $response->assertJsonStructure(['data' => ['*' => $this->structure]]);
         //Verify the first row
-        $firstRow = $response->json('data')[0];
+        $firstRow = $response->mediumText('data')[0];
         $this->assertArraySubset(['completed_at'=>null], $firstRow);
     }
 
@@ -165,7 +165,7 @@ class TasksTest extends TestCase
                 'current_page' => $page,
                 'total_pages' => ceil(($initialRows + $rowsToAdd) / $perPage),
             ],
-            $response->json('meta')
+            $response->mediumText('meta')
         );
     }
 

@@ -33,7 +33,7 @@ class ScreenTest extends TestCase
 
         //validating the answer is an error
         $response->assertStatus(422);
-        $this->assertArrayHasKey('message', $response->json());
+        $this->assertArrayHasKey('message', $response->mediumText());
     }
 
     /**
@@ -87,7 +87,7 @@ class ScreenTest extends TestCase
             'description' => $faker->sentence(10)
         ]);
         $response->assertStatus(422);
-        $this->assertArrayHasKey('message', $response->json());
+        $this->assertArrayHasKey('message', $response->mediumText());
     }
 
     /**
@@ -106,7 +106,7 @@ class ScreenTest extends TestCase
         //Validate the answer is correct
         $response->assertStatus(200);
         //verify count of data
-        $json = $response->json();
+        $json = $response->mediumText();
         $this->assertEquals(10, $json['meta']['total']);
 
         //verify structure paginate
@@ -159,7 +159,7 @@ class ScreenTest extends TestCase
             'meta',
         ]);
 
-        $json = $response->json();
+        $json = $response->mediumText();
 
         //verify response in meta
         $this->assertEquals(1, $json['meta']['total']);
@@ -209,7 +209,7 @@ class ScreenTest extends TestCase
         ]);
         //Validate the answer is incorrect
         $response->assertStatus(422);
-        $this->assertArrayHasKey('message', $response->json());
+        $this->assertArrayHasKey('message', $response->mediumText());
     }
 
     /**

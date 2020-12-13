@@ -44,7 +44,7 @@ class ProcessCategoriesTest extends TestCase
         //validate structure
         $response->assertJsonStructure($this->structure);
         //Validate the correct information of the sent data
-        $this->assertArraySubset($base->toArray(), $response->json());
+        $this->assertArraySubset($base->toArray(), $response->mediumText());
     }
 
     /**
@@ -100,8 +100,8 @@ class ProcessCategoriesTest extends TestCase
         $response->assertStatus(200);
         //Verify the structure
         $response->assertJsonStructure(['data' => ['*' => $this->structure]]);
-        $data = $response->json('data');
-        $meta = $response->json('meta');
+        $data = $response->mediumText('data');
+        $meta = $response->mediumText('meta');
         // Verify the meta values
         $this->assertArraySubset([
             'total' => $initialCount + $countProcesses,
@@ -142,8 +142,8 @@ class ProcessCategoriesTest extends TestCase
         $response->assertStatus(200);
         //Verify the structure
         $response->assertJsonStructure(['data' => ['*' => $this->structure]]);
-        $data = $response->json('data');
-        $meta = $response->json('meta');
+        $data = $response->mediumText('data');
+        $meta = $response->mediumText('meta');
         // Verify the meta values
         $this->assertArraySubset( [
             'total' => $initialActiveCount + $processActive['num'],
@@ -159,8 +159,8 @@ class ProcessCategoriesTest extends TestCase
         $response->assertStatus(200);
         //Verify the structure
         $response->assertJsonStructure(['data' => ['*' => $this->structure]]);
-        $data = $response->json('data');
-        $meta = $response->json('meta');
+        $data = $response->mediumText('data');
+        $meta = $response->mediumText('meta');
         // Verify the meta values
         $this->assertArraySubset( [
             'total' => $initialInactiveCount + $processInactive['num'],
@@ -199,8 +199,8 @@ class ProcessCategoriesTest extends TestCase
         $response->assertStatus(200);
         //Verify the structure
         $response->assertJsonStructure(['data' => ['*' => $this->structure]]);
-        $data = $response->json('data');
-        $meta = $response->json('meta');
+        $data = $response->mediumText('data');
+        $meta = $response->mediumText('meta');
         // Verify the meta values
         $this->assertArraySubset( [
             'total' => $initialActiveCount + $processActive['num'],
@@ -231,8 +231,8 @@ class ProcessCategoriesTest extends TestCase
         $response->assertStatus(200);
         //Verify the structure
         $response->assertJsonStructure(['data' => ['*' => $this->structure]]);
-        $data = $response->json('data');
-        $meta = $response->json('meta');
+        $data = $response->mediumText('data');
+        $meta = $response->mediumText('meta');
         // Verify the meta values
         $this->assertArraySubset([
             'count' => count($data)
@@ -250,8 +250,8 @@ class ProcessCategoriesTest extends TestCase
         $response->assertStatus(200);
         //Verify the structure
         $response->assertJsonStructure(['data' => ['*' => $this->structure]]);
-        $data = $response->json('data');
-        $meta = $response->json('meta');
+        $data = $response->mediumText('data');
+        $meta = $response->mediumText('meta');
         //Verify the data size
         $this->assertCount($meta['count'], $data);
 
@@ -320,7 +320,7 @@ class ProcessCategoriesTest extends TestCase
         //validate structure
         $response->assertJsonStructure($this->structure);
         //validate data
-        $this->assertArraySubset($fields, $response->json());
+        $this->assertArraySubset($fields, $response->mediumText());
     }
 
     /*
@@ -341,7 +341,7 @@ class ProcessCategoriesTest extends TestCase
         //validate structure
         $response->assertJsonStructure($this->structure);
         //validate data
-        $this->assertArraySubset($fields, $response->json());
+        $this->assertArraySubset($fields, $response->mediumText());
     }
 
     /*

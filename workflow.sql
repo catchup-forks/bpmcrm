@@ -126,7 +126,7 @@ CREATE TABLE `group_members` (
 
 LOCK TABLES `group_members` WRITE;
 /*!40000 ALTER TABLE `group_members` DISABLE KEYS */;
-INSERT INTO `group_members` VALUES ('\èµ<ß¢\Ìè±ºŒ…eFG','\èµ<ßxJ£ÌŒ…eFG','\èµ<ß¢‡Ø¡MŒ…eFG','user','2018-09-11 04:02:48','2018-09-11 04:02:48');
+INSERT INTO `group_members` VALUES ('\ï¿½<ß¢\ï¿½è±ºï¿½ï¿½ï¿½eFG','\ï¿½<ßxJï¿½ÌŒï¿½ï¿½eFG','\ï¿½<ß¢ï¿½Ø¡Mï¿½ï¿½ï¿½eFG','user','2018-09-11 04:02:48','2018-09-11 04:02:48');
 /*!40000 ALTER TABLE `group_members` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,7 +153,7 @@ CREATE TABLE `groups` (
 
 LOCK TABLES `groups` WRITE;
 /*!40000 ALTER TABLE `groups` DISABLE KEYS */;
-INSERT INTO `groups` VALUES ('\èµ<ßxJ£ÌŒ…eFG','Users','ACTIVE','2018-09-11 04:02:48','2018-09-11 04:02:48');
+INSERT INTO `groups` VALUES ('\ï¿½<ßxJï¿½ÌŒï¿½ï¿½eFG','Users','ACTIVE','2018-09-11 04:02:48','2018-09-11 04:02:48');
 /*!40000 ALTER TABLE `groups` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -174,9 +174,9 @@ CREATE TABLE `media` (
   `mime_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `disk` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `size` int(10) unsigned NOT NULL,
-  `manipulations` json NOT NULL,
-  `custom_properties` json NOT NULL,
-  `responsive_images` json NOT NULL,
+  `manipulations` text NOT NULL,
+  `custom_properties` text NOT NULL,
+  `responsive_images` text NOT NULL,
   `order_column` int(10) unsigned DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -546,7 +546,7 @@ CREATE TABLE `process_requests` (
   `user_uuid` binary(16) DEFAULT NULL,
   `participant_uuid` varchar(36) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` enum('ACTIVE','COMPLETED') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `data` json NOT NULL,
+  `data` text NOT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `completed_at` timestamp NULL DEFAULT NULL,
   `initiated_at` timestamp NULL DEFAULT NULL,
@@ -766,7 +766,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES ('\èµ<ß¢‡Ø¡MŒ…eFG','benton59@gmail.com','$2y$10$h.LW6jomwiZufZgf.BjotOinS16naMTqMwKp2h21tuTqxSQV5tDX2','admin','admin','admin','ACTIVE','76944 Teagan Fort Apt. 911','North Joaquin','IN','41390-6046',NULL,'806.949.6823 x65755','1-349-330-8799 x008','+1 (613) 940-3189','Set Designer','1944-01-01','UTC','us_en',NULL,NULL,'2018-09-11 04:02:48','2018-09-11 04:02:48');
+INSERT INTO `users` VALUES ('\ï¿½<ß¢ï¿½Ø¡Mï¿½ï¿½ï¿½eFG','benton59@gmail.com','$2y$10$h.LW6jomwiZufZgf.BjotOinS16naMTqMwKp2h21tuTqxSQV5tDX2','admin','admin','admin','ACTIVE','76944 Teagan Fort Apt. 911','North Joaquin','IN','41390-6046',NULL,'806.949.6823 x65755','1-349-330-8799 x008','+1 (613) 940-3189','Set Designer','1944-01-01','UTC','us_en',NULL,NULL,'2018-09-11 04:02:48','2018-09-11 04:02:48');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

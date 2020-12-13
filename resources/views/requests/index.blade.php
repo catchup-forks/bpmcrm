@@ -4,9 +4,15 @@
 {{__($title)}}
 @endsection
 
-@section('sidebar')
+@section('mainbar')
 @include('layouts.sidebar', ['sidebar'=> Menu::get('sidebar_request')])
 @endsection
+
+@section('sidebar-inner')
+@include('layouts.sidebar-inner', ['innersidebar'=> Menu::get('inner-sidebar_request')])
+@endsection
+
+
 
 @section('content')
 <div class="container page-content mt-2" id="requests-listing">

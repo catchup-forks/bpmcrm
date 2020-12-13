@@ -30,6 +30,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link href="{{ mix('css/sidebar.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sidebar-inner.css') }}" rel="stylesheet">
     @yield('css')
     <script type="text/javascript">
     window.Processmaker = {
@@ -46,10 +47,12 @@
 
 <body>
 <div class="d-flex w-100 mw-100 h-100 mh-100" id="app-container">
-  <div id="sidebar" :class="{expanded: expanded}">
-      @yield('sidebar')
+  <div id="mainbar" class="expanded">
+      @yield('mainbar')
   </div>
-
+  <div id="sidebar-inner" class="expanded">
+    @yield('sidebar-inner')
+</div>
   <div class="d-flex flex-grow-1 flex-column" style="overflow: hidden;">
     @include('layouts.navbar')
     <div class="flex-grow-1 d-flex flex-column h-100" id="mainbody">
@@ -67,13 +70,15 @@
   </div>
 </div>
 <!-- Scripts -->
-@if(config('broadcasting.broadcaster') == 'socket.io')
+{{-- @if(config('broadcasting.broadcaster') == 'socket.io')
 <script src="{{config('broadcasting.host')}}/socket.io/socket.io.js"></script>
-@endif
-<script src="{{ mix('js/manifest.js') }}"></script>
-<script src="{{ mix('js/vendor.js') }}"></script>
+@endif --}}
+{{-- <script src="{{ mix('js/manifest.js') }}"></script> --}}
+<script src="{{ asset('js/jquery.slim.min.js') }}"></script>
+<script src="{{ asset('js/toggle.js') }}"></script>
+{{-- <script src="{{ mix('js/vendor.js') }}"></script>
 <script src="{{ mix('js/app.js') }}"></script>
-<script src="{{ mix('js/app-layout.js') }}"></script>
+<script src="{{ mix('js/app-layout.js') }}"></script> --}}
     <!--javascript!-->
     @yield('js')
 </body>

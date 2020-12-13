@@ -128,7 +128,7 @@ class ProcessController extends Controller
     public function store(Request $request)
     {
         $request->validate(Process::rules());
-        $data = $request->json()->all();
+        $data = $request->mediumText()->all();
 
         $process = new Process();
         $process->fill($data);
@@ -195,7 +195,7 @@ class ProcessController extends Controller
                 422);
         }
 
-        $process->fill($request->json()->all());
+        $process->fill($request->mediumText()->all());
         $process->saveOrFail();
         return new Resource($process->refresh());
     }

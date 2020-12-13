@@ -15,7 +15,7 @@ class CreateEnvironmentVariablesTable extends Migration
     {
         Schema::create('environment_variables', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name', 100);
             $table->text('description');
             $table->text('value');
             $table->timestamps();

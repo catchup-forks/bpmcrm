@@ -19,7 +19,7 @@ class CreateScreensTable extends Migration
             $table->text('title');
             $table->text('description');
             $table->string('type', 20)->default('FORM');
-            $table->json('config')->nullable();
+            $table->mediumText('config')->nullable();
             $table->timestamps();
 
             // Indexes

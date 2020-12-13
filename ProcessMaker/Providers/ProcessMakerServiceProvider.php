@@ -3,51 +3,48 @@
 namespace ProcessMaker\Providers;
 
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Schema;
+use Laravel\Horizon\Horizon;
+use Laravel\Passport\Passport;
+use ProcessMaker\Events\ScreenBuilderStarting;
 use ProcessMaker\Managers\DatabaseManager;
 use ProcessMaker\Managers\InputDocumentManager;
+use ProcessMaker\Managers\ModelerManager;
 use ProcessMaker\Managers\OutputDocumentManager;
 use ProcessMaker\Managers\ProcessCategoryManager;
 use ProcessMaker\Managers\ProcessFileManager;
 use ProcessMaker\Managers\ProcessManager;
 use ProcessMaker\Managers\ReportTableManager;
 use ProcessMaker\Managers\SchemaManager;
+use ProcessMaker\Managers\ScreenBuilderManager;
 use ProcessMaker\Managers\TaskAssigneeManager;
 use ProcessMaker\Managers\TaskManager;
 use ProcessMaker\Managers\TasksDelegationManager;
 use ProcessMaker\Managers\UserManager;
-use ProcessMaker\Managers\ModelerManager;
-use ProcessMaker\Managers\ScreenBuilderManager;
-use ProcessMaker\Events\ScreenBuilderStarting;
-use Laravel\Horizon\Horizon;
-use Laravel\Passport\Passport;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Event;
-use Illuminate\Http\Resources\Json\Resource;
 
 /**
- * Provide our ProcessMaker specific services
- * @package ProcessMaker\Providers
+ * Provide our ProcessMaker specific services.
  */
 class ProcessMakerServiceProvider extends ServiceProvider
 {
-
     /**
      * Bootstrap ProcessMaker services.
-     *
-     * @return void
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
         parent::boot();
     }
 
     /**
-     * Register our bindings in the service container
+     * Register our bindings in the service container.
      */
     public function register()
     {
         // Dusk, if env is appropriate
-        if(!$this->app->environment('production')) {
+        if (!$this->app->environment('production')) {
             $this->app->register(\Laravel\Dusk\DuskServiceProvider::class);
         }
         $this->app->singleton('user.manager', function ($app) {
@@ -98,24 +95,24 @@ class ProcessMakerServiceProvider extends ServiceProvider
             return new TasksDelegationManager();
         });
 
-        /**
-         * Maps our Modeler Manager as a singleton. The Modeler Manager is used 
+        /*
+         * Maps our Modeler Manager as a singleton. The Modeler Manager is used
          * to manage customizations to the Process Modeler.
          */
-        $this->app->singleton(ModelerManager::class, function($app) {
+        $this->app->singleton(ModelerManager::class, function ($app) {
             return new ModelerManager();
         });
 
-        /**
-         * Maps our Screen Builder Manager as a singleton. The Screen Builder Manager is used 
+        /*
+         * Maps our Screen Builder Manager as a singleton. The Screen Builder Manager is used
          * to manage customizations to the Screen Builder.
          */
-        $this->app->singleton(ScreenBuilderManager::class, function($app) {
+        $this->app->singleton(ScreenBuilderManager::class, function ($app) {
             return new ScreenBuilderManager();
         });
         // Listen to the events for our core screen types and add our javascript
-        Event::listen(ScreenBuilderStarting::class, function($event) {
-            switch($event->type) {
+        Event::listen(ScreenBuilderStarting::class, function ($event) {
+            switch ($event->type) {
                 case 'FORM':
                     $event->manager->addScript(mix('js/processes/screen-builder/typeForm.js'));
                     break;
@@ -124,7 +121,6 @@ class ProcessMakerServiceProvider extends ServiceProvider
                     break;
             }
         });
-
 
         //Enable
         Horizon::auth(function ($request) {

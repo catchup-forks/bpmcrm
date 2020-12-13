@@ -10,7 +10,7 @@
     </div>
 @endsection
 
-@section('sidebar')
+@section('mainbar')
     @include('layouts.sidebar', ['sidebar'=> Menu::get('sidebar_designer')])
 @endsection
 

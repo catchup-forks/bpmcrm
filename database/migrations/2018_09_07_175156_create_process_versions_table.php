@@ -17,7 +17,7 @@ class CreateProcessVersionsTable extends Migration
             // Columns
             $table->increments('id');
             $table->text('bpmn');
-            $table->string('name');
+            $table->string('name', 100);
             $table->unsignedInteger('process_category_id');
             $table->unsignedInteger('process_id');
             $table->enum('status', ['ACTIVE', 'INACTIVE'])

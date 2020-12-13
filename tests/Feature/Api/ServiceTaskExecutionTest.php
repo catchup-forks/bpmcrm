@@ -78,7 +78,7 @@ class ServiceTaskExecutionTest extends TestCase
         $response->assertStatus(201);
         //Verify the structure
         $response->assertJsonStructure($this->requestStructure);
-        $request = $response->json();
+        $request = $response->mediumText();
 
         $requestId = $request['id'];
 

@@ -46,7 +46,7 @@ class ProcessRequestsTest extends TestCase
 
         //Validate the header status code
         $response->assertStatus(422);
-        $this->assertArrayHasKey('message', $response->json());
+        $this->assertArrayHasKey('message', $response->mediumText());
     }
 
     /**
@@ -91,7 +91,7 @@ class ProcessRequestsTest extends TestCase
 
         //Validate the header status code
         $response->assertStatus(422);
-        $this->assertArrayHasKey('message', $response->json());
+        $this->assertArrayHasKey('message', $response->mediumText());
     }
 
     /**
@@ -115,7 +115,7 @@ class ProcessRequestsTest extends TestCase
         ]);
 
         // Verify count
-        $this->assertEquals(10, $response->json()['meta']['total']);
+        $this->assertEquals(10, $response->mediumText()['meta']['total']);
     }
 
     /**
@@ -161,9 +161,9 @@ class ProcessRequestsTest extends TestCase
         ]);
 
         // Verify return data
-        $this->assertEquals(1, $response->json()['meta']['total']);
-        $this->assertEquals('name', $response->json()['meta']['sort_by']);
-        $this->assertEquals('DESC', $response->json()['meta']['sort_order']);
+        $this->assertEquals(1, $response->mediumText()['meta']['total']);
+        $this->assertEquals('name', $response->mediumText()['meta']['sort_by']);
+        $this->assertEquals('DESC', $response->mediumText()['meta']['sort_order']);
     }
 
     /**
@@ -179,12 +179,12 @@ class ProcessRequestsTest extends TestCase
             'status' => 'COMPLETED',
         ]);
         $response = $this->apiCall('GET', self::API_TEST_URL . '/?type=completed');
-        $json = $response->json();
+        $json = $response->mediumText();
         $this->assertCount(1, $json['data']);
         $this->assertEquals($completed->id, $json['data'][0]['id']);
         
         $response = $this->apiCall('GET', self::API_TEST_URL . '/?type=in_progress');
-        $json = $response->json();
+        $json = $response->mediumText();
         $this->assertCount(1, $json['data']);
         $this->assertEquals($in_progress->id, $json['data'][0]['id']);
     }
@@ -201,7 +201,7 @@ class ProcessRequestsTest extends TestCase
         ]);
 
         $response = $this->apiCall('GET', self::API_TEST_URL . '/?include=process');
-        $json = $response->json();
+        $json = $response->mediumText();
         $this->assertEquals($process->id, $json['data'][0]['process']['id']);
     }
 

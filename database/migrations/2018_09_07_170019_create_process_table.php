@@ -21,7 +21,7 @@ class CreateProcessTable extends Migration
             $table->unsignedInteger('user_id');
             $table->text('bpmn');
             $table->text('description');
-            $table->string('name');
+            $table->string('name', 100);
             $table->enum('status', ['ACTIVE', 'INACTIVE']);
             $table->timestamps();
 

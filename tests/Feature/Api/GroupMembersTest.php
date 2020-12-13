@@ -52,7 +52,7 @@ class GroupMembersTest extends TestCase
 
       //Validate the header status code
       $response->assertStatus(422);
-      $this->assertArrayHasKey('message', $response->json());
+      $this->assertArrayHasKey('message', $response->mediumText());
   }
 
   /**

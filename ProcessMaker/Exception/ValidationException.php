@@ -27,7 +27,7 @@ class ValidationException extends ValidationExceptionBase
             ],
             'errors' => $errors
         ];
-        $response = response()->json($error, static::ERROR_CODE);
+        $response = response()->mediumText($error, static::ERROR_CODE);
         parent::__construct($validator, $response);
     }
 }

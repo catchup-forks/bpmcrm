@@ -73,15 +73,15 @@ class ProcessExecutionTest extends TestCase
         $response->assertStatus(201);
         //Verify the structure
         $response->assertJsonStructure($this->requestStructure);
-        $request = $response->json();
+        $request = $response->mediumText();
         //Get the active tasks of the request
         $route = route('api.tasks.index');
         $response = $this->apiCall('GET', $route);
-        $tasks = $response->json('data');
+        $tasks = $response->mediumText('data');
         //Complete the task
         $route = route('api.tasks.update', [$tasks[0]['id'], 'status' => 'COMPLETED']);
         $response = $this->apiCall('PUT', $route, $data);
-        $task = $response->json();
+        $task = $response->mediumText();
         //Check the task is closed
         $this->assertEquals('CLOSED', $task['status']);
         $this->assertNotNull($task['completed_at']);
@@ -136,22 +136,22 @@ class ProcessExecutionTest extends TestCase
         $response->assertStatus(201);
         //Verify the structure
         $response->assertJsonStructure($this->requestStructure);
-        $request = $response->json();
+        $request = $response->mediumText();
         //Get the active tasks of the request
         $route = route('api.tasks.index');
         $response = $this->apiCall('GET', $route);
-        $tasks = $response->json('data');
+        $tasks = $response->mediumText('data');
         //Complete the task
         $route = route('api.tasks.update', [$tasks[0]['id'], 'status' => 'COMPLETED']);
         $response = $this->apiCall('PUT', $route, $data);
-        $task = $response->json();
+        $task = $response->mediumText();
         //Check the task is closed
         $this->assertEquals('CLOSED', $task['status']);
         $this->assertNotNull($task['completed_at']);
         //Try to complete the task again
         $route = route('api.tasks.update', [$tasks[0]['id'], 'status' => 'COMPLETED']);
         $response = $this->apiCall('PUT', $route, $data);
-        $task = $response->json();
+        $task = $response->mediumText();
         $response->assertStatus(422);
     }
 
@@ -168,11 +168,11 @@ class ProcessExecutionTest extends TestCase
         $response->assertStatus(201);
         //Verify the structure
         $response->assertJsonStructure($this->requestStructure);
-        $request = $response->json();
+        $request = $response->mediumText();
         //Get the active tasks of the request
         $route = route('api.tasks.index');
         $response = $this->apiCall('GET', $route);
-        $tasks = $response->json('data');
+        $tasks = $response->mediumText('data');
         //Update to a FAILING status
         $route = route('api.tasks.update', [$tasks[0]['id'], 'status' => 'FAILING']);
         $response = $this->apiCall('PUT', $route, $data);
@@ -198,7 +198,7 @@ class ProcessExecutionTest extends TestCase
         $response = $this->apiCall('GET', $route);
         //Check the inclusion of events
         $response->assertJsonStructure(['data' => ['*' => ['events' => [['id', 'name']], 'category']]]);
-        $data = $response->json('data');
+        $data = $response->mediumText('data');
         $list = ['Uncategorized' => []];
         foreach ($data as $process) {
             $categoryName = $process['category'] ? $process['category']['name'] : 'Uncategorized';
@@ -231,11 +231,11 @@ class ProcessExecutionTest extends TestCase
         $response->assertStatus(201);
         //Verify the structure
         $response->assertJsonStructure($this->requestStructure);
-        $request = $response->json();
+        $request = $response->mediumText();
         //Get the active tasks of the request
         $route = route('api.tasks.index');
         $response = $this->apiCall('GET', $route);
-        $tasks = $response->json('data');
+        $tasks = $response->mediumText('data');
         //Get the task information
         $route = route('api.tasks.show', [$tasks[0]['id'], 'include' => 'definition']);
         $response = $this->apiCall('GET', $route, $data);

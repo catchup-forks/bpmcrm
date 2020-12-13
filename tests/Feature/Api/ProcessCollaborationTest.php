@@ -80,37 +80,37 @@ class ProcessCollaborationTest extends TestCase
         $response->assertStatus(201);
         //Verify the structure
         $response->assertJsonStructure($this->requestStructure);
-        $request = $response->json();
+        $request = $response->mediumText();
         //Get the active tasks of the request
         $route = route('api.tasks.index');
         $response = $this->apiCall('GET', $route);
-        $tasks = $response->json('data');
+        $tasks = $response->mediumText('data');
         //Complete the task
         $route = route('api.tasks.update', [$tasks[0]['id'], 'status' => 'COMPLETED']);
         $response = $this->apiCall('PUT', $route, $data);
-        $task = $response->json();
+        $task = $response->mediumText();
         //Get the list of tasks
         $route = route('api.tasks.index');
         $response = $this->apiCall('GET', $route);
-        $tasks = $response->json('data');
+        $tasks = $response->mediumText('data');
         //Complete the task
         $index = $this->findTaskByName($tasks, 'Process Order');
         $route = route('api.tasks.update', [$tasks[$index]['id'], 'status' => 'COMPLETED']);
         $response = $this->apiCall('PUT', $route, $data);
-        $task = $response->json();
+        $task = $response->mediumText();
         //Get the list of tasks
         $route = route('api.tasks.index');
         $response = $this->apiCall('GET', $route);
-        $tasks = $response->json('data');
+        $tasks = $response->mediumText('data');
         //Complete the Final task
         $index = $this->findTaskByName($tasks, 'Finish');
         $route = route('api.tasks.update', [$tasks[$index]['id'], 'status' => 'COMPLETED']);
         $response = $this->apiCall('PUT', $route, $data);
-        $task = $response->json();
+        $task = $response->mediumText();
         //Get the list of tasks
         $route = route('api.tasks.index');
         $response = $this->apiCall('GET', $route);
-        $tasks = $response->json('data');
+        $tasks = $response->mediumText('data');
         $this->assertEquals('CLOSED', $tasks[0]['status']);
         $this->assertEquals('CLOSED', $tasks[1]['status']);
         $this->assertEquals('CLOSED', $tasks[2]['status']);

@@ -1,4 +1,5 @@
 <?php
+
 namespace ProcessMaker\Http\Middleware;
 
 use Closure;
@@ -8,10 +9,11 @@ use Lavary\Menu\Facade as Menu;
 class GenerateMenus
 {
     /**
-     * Generate the core menus that are used in web requests for our application
+     * Generate the core menus that are used in web requests for our application.
      *
      * @param Request $request
      * @param Closure $next
+     *
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
@@ -20,18 +22,18 @@ class GenerateMenus
         app()->setLocale('en');
 
         Menu::make('topnav', function ($menu) {
-            $menu->group(['prefix' => 'requests'], function($request_items) {
+            $menu->group(['prefix' => 'requests'], function ($request_items) {
                 $request_items->add(__('menus.topnav.requests'), ['route' => 'requests.index']);
             });
             //@TODO change the index to the correct blade
-            $menu->group(['prefix' => 'tasks'], function($request_items) {
+            $menu->group(['prefix' => 'tasks'], function ($request_items) {
                 $request_items->add(__('menus.topnav.tasks'), ['route' => 'tasks.index']);
             });
             //@TODO change the index to the correct blade
-            $menu->group(['prefix' => 'processes'], function($request_items) {
+            $menu->group(['prefix' => 'processes'], function ($request_items) {
                 $request_items->add(__('menus.topnav.processes'), ['route' => 'processes.index']);
             });
-            $menu->group(['prefix' => 'admin'], function($admin_items) {
+            $menu->group(['prefix' => 'admin'], function ($admin_items) {
                 $admin_items->add(__('menus.topnav.admin'), ['route' => 'users.index']);
             });
         });
@@ -41,122 +43,143 @@ class GenerateMenus
             $submenu = $menu->add(__('menus.sidebar_admin.organization'));
             $submenu->add(__('menus.sidebar_admin.users'), [
               'route' => 'users.index',
-              'icon' => 'fa-user',
-              'id' => 'homeid'
+              'icon'  => 'fa-user',
+              'id'    => 'homeid',
           ]);
             $submenu->add(__('menus.sidebar_admin.groups'), [
               'route' => 'groups.index',
-              'icon' => 'fa-users',
-              'id' => 'homeid'
+              'icon'  => 'fa-users',
+              'id'    => 'homeid',
           ]);
 
-          $submenu->add(__('menus.sidebar_admin.preferences'), [
+            $submenu->add(__('menus.sidebar_admin.preferences'), [
                 'route' => 'preferences.index',
-                'icon' => 'fa-globe',
-                'id' => 'homeid'
+                'icon'  => 'fa-globe',
+                'id'    => 'homeid',
           ]);
 
-          $submenu = $menu->add(__('menus.sidebar_admin.system_information'));
-          $submenu->add(__('menus.sidebar_admin.app_version_details'), [
+            $submenu = $menu->add(__('menus.sidebar_admin.system_information'));
+            $submenu->add(__('menus.sidebar_admin.app_version_details'), [
                 'route' => 'about.index',
-                'icon' => 'fa-desktop',
-                'id' => 'homeid'
+                'icon'  => 'fa-desktop',
+                'id'    => 'homeid',
           ]);
-          $submenu->add(__('menus.sidebar_admin.queue_management'), [
+            $submenu->add(__('menus.sidebar_admin.queue_management'), [
                 'route' => 'horizon.index',
-                'icon' => 'fa-infinity',
+                'icon'  => 'fa-infinity',
           ]);
-
         });
         Menu::make('sidebar_task', function ($menu) {
-          $submenu = $menu->add(__('Tasks'));
-          $submenu->add(__('To Do'), [
+            $submenu = $menu->add(__('Tasks'));
+            $submenu->add(__('To Do'), [
                 'route' => 'tasks.index',
-                'icon' => 'fa-list',
-                'id' => 'homeid'
+                'icon'  => 'fa-list',
+                'id'    => 'homeid',
           ]);
-          $submenu->add(__('Completed'), [
+            $submenu->add(__('Completed'), [
               'route' => ['tasks.index', 'status' => 'CLOSED'],
-              'icon' => 'fa-check-square',
-              'id' => 'homeid'
+              'icon'  => 'fa-check-square',
+              'id'    => 'homeid',
           ]);
         });
+
+        Menu::make('inner-sidebar_request', function ($menu) {
+            $submenu = $menu->add(__('menus.sidebar_request.request'));
+            $submenu->add(__('menus.sidebar_request.started_me'), [
+                'route' => ['requests_by_type', ''],
+                'icon'  => 'fa-id-badge',
+            ]);
+            $submenu->add(__('menus.sidebar_request.in_progress'), [
+                  'route' => ['requests_by_type', 'in_progress'],
+                  'icon'  => 'fa-clipboard-list',
+            ]);
+            $submenu->add(__('menus.sidebar_request.completed'), [
+                'route' => ['requests_by_type', 'completed'],
+                'icon'  => 'fa-clipboard-check',
+            ]);
+            $submenu->add(__('menus.sidebar_request.all'), [
+                'route' => ['requests_by_type', 'all'],
+                'icon'  => 'fa-clipboard',
+            ]);
+        });
+
         Menu::make('sidebar_request', function ($menu) {
-          $submenu = $menu->add(__('menus.sidebar_request.request'));
-          $submenu->add(__('menus.sidebar_request.started_me'), [
+            $submenu = $menu->add(__('menus.sidebar_request.request'));
+            $submenu->add(__('menus.sidebar_request.started_me'), [
               'route' => ['requests_by_type', ''],
-              'icon' => 'fa-id-badge',
+              'icon'  => 'fa-id-badge',
           ]);
-          $submenu->add(__('menus.sidebar_request.in_progress'), [
+            $submenu->add(__('menus.sidebar_request.in_progress'), [
                 'route' => ['requests_by_type', 'in_progress'],
-                'icon' => 'fa-clipboard-list',
+                'icon'  => 'fa-clipboard-list',
           ]);
-          $submenu->add(__('menus.sidebar_request.completed'), [
+            $submenu->add(__('menus.sidebar_request.completed'), [
               'route' => ['requests_by_type', 'completed'],
-              'icon' => 'fa-clipboard-check',
+              'icon'  => 'fa-clipboard-check',
           ]);
-          $submenu->add(__('menus.sidebar_request.all'), [
+            $submenu->add(__('menus.sidebar_request.all'), [
               'route' => ['requests_by_type', 'all'],
-              'icon' => 'fa-clipboard',
+              'icon'  => 'fa-clipboard',
           ]);
-       });
+        });
 
         Menu::make('sidebar_processes', function ($menu) {
-          $submenu = $menu->add(__('menus.sidebar_processes.processes'));
-          $submenu->add(__('menus.sidebar_processes.processes'), [
+            $submenu = $menu->add(__('menus.sidebar_processes.processes'));
+            $submenu->add(__('menus.sidebar_processes.processes'), [
               'route' => 'processes.index',
-              'icon' => 'fa-play-circle',
-              'id' => 'processes'
+              'icon'  => 'fa-play-circle',
+              'id'    => 'processes',
           ]);
-          $submenu->add(__('menus.sidebar_processes.categories'), [
+            $submenu->add(__('menus.sidebar_processes.categories'), [
               'route' => 'categories.index',
-              'icon' => 'fa-sitemap',
-              'id' => 'process-categories'
+              'icon'  => 'fa-sitemap',
+              'id'    => 'process-categories',
           ]);
-          $submenu->add(__('menus.sidebar_processes.scripts'), [
+            $submenu->add(__('menus.sidebar_processes.scripts'), [
               'route' => 'scripts.index',
-              'icon' => 'fa-code',
-              'id' => 'process-scripts'
+              'icon'  => 'fa-code',
+              'id'    => 'process-scripts',
           ]);
-          $submenu->add(__('menus.sidebar_processes.screens'), [
+            $submenu->add(__('menus.sidebar_processes.screens'), [
               'route' => 'screens.index',
-              'icon' => 'fa-file-alt',
-              'id' => 'process-screens'
+              'icon'  => 'fa-file-alt',
+              'id'    => 'process-screens',
           ]);
-          $submenu->add(__('menus.sidebar_processes.environment_variables'), [
+            $submenu->add(__('menus.sidebar_processes.environment_variables'), [
               'route' => 'environment-variables.index',
-              'icon' => 'fa-cogs',
-              'id' => 'process-environment'
+              'icon'  => 'fa-cogs',
+              'id'    => 'process-environment',
           ]);
         });
 
-        Menu::make('sidebar_designer', function ($menu) {});
+        Menu::make('sidebar_designer', function ($menu) {
+        });
 
         Menu::make('dropdown_nav', function ($menu) {
-          $task_items = [
+            $task_items = [
           [
-            'label' =>__('Profile'),
+            'label'  => __('Profile'),
             'header' => false,
-            'route' => 'profile.edit',
-            'icon' => 'fa-user',
-            'img' => '',
-            'id' => 'dropdownItem'
+            'route'  => 'profile.edit',
+            'icon'   => 'fa-user',
+            'img'    => '',
+            'id'     => 'dropdownItem',
           ],
           [
-            'label' => __('Help'),
+            'label'  => __('Help'),
             'header' => false,
-            'route' => 'home',
-            'icon' => 'fa-info',
-            'img' => '',
-            'id' => 'dropdownItem'
+            'route'  => 'home',
+            'icon'   => 'fa-info',
+            'img'    => '',
+            'id'     => 'dropdownItem',
           ],
           [
-            'label' => __('Log Out'),
+            'label'  => __('Log Out'),
             'header' => false,
-            'route' => 'logout',
-            'icon' => 'fa-sign-out-alt',
-            'img' => '',
-            'id' => 'dropdownItem'
+            'route'  => 'logout',
+            'icon'   => 'fa-sign-out-alt',
+            'img'    => '',
+            'id'     => 'dropdownItem',
           ],
         ];
             $tasks = $menu;
@@ -168,6 +191,7 @@ class GenerateMenus
                 }
             }
         });
+
         return $next($request);
     }
 }

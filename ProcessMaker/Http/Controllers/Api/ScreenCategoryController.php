@@ -127,7 +127,7 @@ class ScreenCategoryController extends Controller
     {
         $request->validate(ScreenCategory::rules());
         $category = new ScreenCategory();
-        $category->fill($request->json()->all());
+        $category->fill($request->mediumText()->all());
         $category->saveOrFail();
         return new ApiResource($category);
     }
@@ -167,7 +167,7 @@ class ScreenCategoryController extends Controller
     public function update(Request $request, ScreenCategory $screenCategory)
     {
         $request->validate(ScreenCategory::rules($screenCategory));
-        $screenCategory->fill($request->json()->all());
+        $screenCategory->fill($request->mediumText()->all());
         $screenCategory->saveOrFail();
         return new ApiResource($screenCategory);
     }

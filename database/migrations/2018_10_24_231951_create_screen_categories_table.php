@@ -15,7 +15,7 @@ class CreateScreenCategoriesTable extends Migration
     {
         Schema::create('screen_categories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name', 100);
             $table->enum('status', ['ACTIVE', 'INACTIVE'])->default('ACTIVE');
             $table->timestamps();
         });

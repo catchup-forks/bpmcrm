@@ -1,12 +1,12 @@
-<div id="sidebar-inner" class="closed">
-  <ul class="nav flex-column" @click="expanded = !expanded" id="menu-toggle">
+<div id="mainbar-inner" class="closed">
+  <ul class="nav flex-column expanded" id="innerbar-toggle">
     <div>
       <li class="logo">
         <a href="#" >
             <img src="/img/processmaker-logo-white-sm.png">
         </a>
       </li>
-      <li class="logo-closed" id="menu-toggle">
+      <li class="logo-closed" id="innerbar-toggle">
         <a href="#">
             <img src="/img/processmaker_icon_logo-md.png">
         </a>

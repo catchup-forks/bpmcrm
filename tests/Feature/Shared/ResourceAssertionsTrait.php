@@ -33,8 +33,8 @@ trait ResourceAssertionsTrait
         $this->assertStatus(200, $response);
         //Verify the structure
         $response->assertJsonStructure(['data' => ['*' => $this->structure]]);
-        $data = $response->json('data');
-        $meta = $response->json('meta');
+        $data = $response->mediumText('data');
+        $meta = $response->mediumText('meta');
         // Verify the meta values
         $this->assertArraySubset($expectedMeta, $meta);
         //Verify the data size
@@ -45,7 +45,7 @@ trait ResourceAssertionsTrait
     protected function assertModelSorting($query, $expectedFirstRow)
     {
         $data = $this->assertCorrectModelListing($query)
-            ->json('data');
+            ->mediumText('data');
         $firstRow = $this->getDataAttributes($data[0]);
         $this->assertArraySubset($expectedFirstRow, $firstRow);
     }
@@ -66,7 +66,7 @@ trait ResourceAssertionsTrait
         $response = $this->apiCall('POST', $route, $array);
         $this->assertStatus(201, $response);
         $response->assertJsonStructure($this->structure);
-        $data = $response->json();
+        $data = $response->mediumText();
         $this->assertArraySubset($array, $data);
         return $response;
     }
@@ -164,7 +164,7 @@ trait ResourceAssertionsTrait
         //validate status
         $this->assertStatus(200, $response);
         $response->assertJsonStructure($this->structure);
-        $this->assertArraySubset($fields, $response->json());
+        $this->assertArraySubset($fields, $response->mediumText());
     }
 
     /**

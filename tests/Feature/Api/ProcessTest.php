@@ -108,7 +108,7 @@ class ProcessTest extends TestCase
             ]
         );
         //verify include
-        $response->assertJsonStructure(['*' => ['category']], $response->json('data'));
+        $response->assertJsonStructure(['*' => ['category']], $response->mediumText('data'));
 
         //Get active processes
         $response = $this->assertCorrectModelListing(
@@ -120,7 +120,7 @@ class ProcessTest extends TestCase
             ]
         );
         //verify include
-        $response->assertJsonStructure(['*' => ['category','user']], $response->json('data'));
+        $response->assertJsonStructure(['*' => ['category','user']], $response->mediumText('data'));
     }
 
     /**
@@ -226,7 +226,7 @@ class ProcessTest extends TestCase
         $response = $this->apiCall('POST', $route, $array);
         $response->assertStatus(201);
         $response->assertJsonStructure($this->structure);
-        $data = $response->json();
+        $data = $response->mediumText();
         $process = Process::where('id', $data['id'])->first();
         $this->assertEquals($array['bpmn'], $process->bpmn);
     }
