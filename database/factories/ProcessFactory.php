@@ -1,9 +1,9 @@
 <?php
 
 use Faker\Generator as Faker;
-use ProcessMaker\Models\Process;
-use ProcessMaker\Models\ProcessCategory;
-use ProcessMaker\Models\User;
+use App\Models\Process;
+use App\Models\ProcessCategory;
+use App\Models\User;
 
 /**
  * Model factory for a process

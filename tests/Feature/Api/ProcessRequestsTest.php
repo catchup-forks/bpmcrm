@@ -4,8 +4,8 @@ namespace Tests\Feature\Api;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Foundation\Testing\WithFaker;
-use ProcessMaker\Models\Process;
-use ProcessMaker\Models\ProcessRequest;
+use App\Models\Process;
+use App\Models\ProcessRequest;
 use Tests\Feature\Shared\RequestHelper;
 use Tests\TestCase;
 

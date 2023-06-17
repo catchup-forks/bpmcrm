@@ -52,7 +52,7 @@
         mounted() {
             // Listen for our notifications
             let userId = document.head.querySelector('meta[name="user-id"]').content;
-            Echo.private(`ProcessMaker.Model.User.${userId}`)
+            Echo.private(`app.Model.User.${userId}`)
                 .notification((token) => {
                     ProcessMaker.pushNotification(token);
                 });

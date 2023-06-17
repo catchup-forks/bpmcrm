@@ -1,9 +1,12 @@
 <?php
+
+use Illuminate\Support\Facades\Route;
+
 Route::group(
     [
     'middleware' => ['auth:api', 'bindings', 'authorize'],
     'prefix' => 'api/1.0',
-    'namespace' => 'ProcessMaker\Http\Controllers\Api',
+    'namespace' => 'app\Http\Controllers\Api',
     'as' => 'api.',
     ], function() {
 

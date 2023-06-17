@@ -49,7 +49,7 @@
                     <div class="form-group">
                         {!!Form::label('datetime_format', 'Date format');!!}
                         {!!Form::select('datetime_format',
-                        array_reduce(\ProcessMaker\Models\JsonData::datetimeFormats(),
+                        array_reduce(\app\Models\JsonData::datetimeFormats(),
                             function ($result, $item) {
                                 $result[$item['format']] = $item['title'];
                                 return $result;
@@ -62,7 +62,7 @@
                     <div class="form-group">
                         {!!Form::label('timezone', 'Time zone');!!}
                         {!!Form::select('timezone',
-                        array_reduce(\ProcessMaker\Models\JsonData::timezones(),
+                        array_reduce(\app\Models\JsonData::timezones(),
                             function ($result, $item) {
                                 $result[$item] = $item;
                                 return $result;
@@ -249,7 +249,7 @@
                                             ProcessMaker.apiClient
                                                 .post('group_members', {
                                                     'group_id': group.id,
-                                                    'member_type': 'ProcessMaker\\Models\\User',
+                                                    'member_type': 'app\\Models\\User',
                                                     'member_id': that.formData.id
                                                 })
                                                 .then(() => {

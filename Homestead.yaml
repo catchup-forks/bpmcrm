@@ -23,7 +23,7 @@ folders:
 sites:
     -
         map: bpm4.local.processmaker.com
-        to: /home/vagrant/processmaker/public
+        to: /home/vagrant/processmaker/public_html
 databases:
     - workflow
     - test

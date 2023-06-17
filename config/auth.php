@@ -57,7 +57,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => ProcessMaker\Models\User::class
+            'model' => app\Models\User::class
         ]
     ],
     /*

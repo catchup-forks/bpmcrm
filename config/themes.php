@@ -47,7 +47,7 @@ return [
 	| 	'theme-name' => [
 	| 		'extends'	 	=> 'theme-to-extend',  // optional
 	| 		'views-path' 	=> 'path-to-views',    // defaults to: resources/views/theme-name
-	| 		'asset-path' 	=> 'path-to-assets',   // defaults to: public/theme-name
+	| 		'asset-path' 	=> 'path-to-assets',   // defaults to: public_html/theme-name
 	|
 	|		// You can add your own custom keys
 	|		// Use Theme::getSetting('key') & Theme::setSetting('key', 'value') to access them
@@ -69,17 +69,17 @@ return [
 		|	'example1' => [
 		|		'extends'	 	=> null, 	// doesn't extend any theme
 		|		'views-path' 	=> example, // = resources/views/example_theme
-		|		'asset-path' 	=> example, // = public/example_theme
+		|		'asset-path' 	=> example, // = public_html/example_theme
 		|	],
 		|	
 		|	// Use all Defaults:
 		|	
-		|	'example2',	// Assets =\public\example2, Views =\resources\views\example2
+		|	'example2',	// Assets =\public_html\example2, Views =\resources\views\example2
 		|				// Note that if you use all default values, you can ommit decleration completely.
 		|				// i.e. defaults will be used when you call Theme::set('undefined-theme')
 		|	
 		|	
-		|	// This theme shares the views with example2 but defines its own assets in \public\example3
+		|	// This theme shares the views with example2 but defines its own assets in \public_html\example3
 		|	
 		|	'example3' => [
 		|		'views-path'	=> 'example',

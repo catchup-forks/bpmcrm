@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use ProcessMaker\Models\ProcessCategory;
+use App\Models\ProcessCategory;
 
 /**
  * Model factory for a process category.

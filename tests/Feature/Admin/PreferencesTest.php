@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
-use ProcessMaker\Models\User;
+use App\Models\User;
 use Tests\Feature\Shared\RequestHelper;
 
 class PreferencesTest extends TestCase

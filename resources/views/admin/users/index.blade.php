@@ -172,7 +172,7 @@
                                     promises.push(new Promise(
                                         (resolve, reject) => {
                                             ProcessMaker.apiClient.post("/group_members", {
-                                                member_type: "ProcessMaker\\Models\\User",
+                                                member_type: "app\\Models\\User",
                                                 member_id: response.data.id,
                                                 group_id: group.id
                                             })

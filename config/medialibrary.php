@@ -6,7 +6,7 @@ return [
      * The disk on which to store added files and derived images by default. Choose
      * one or more of the disks you've configured in config/filesystems.php.
      */
-    'disk_name' => 'public',
+    'disk_name' => 'public_html',
 
     /*
      * The maximum file size of an item in bytes.
@@ -80,7 +80,7 @@ return [
     /*
      * The class that contains the strategy for determining a media file's path.
      */
-    'path_generator' => ProcessMaker\Models\MediaPathGenerator::class,
+    'path_generator' => app\Models\MediaPathGenerator::class,
 
     /*
      * Medialibrary will try to optimize all converted images by removing

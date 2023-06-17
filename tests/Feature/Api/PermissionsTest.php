@@ -3,11 +3,11 @@
 namespace Tests\Feature\Api;
 
 use Tests\TestCase;
-use ProcessMaker\Models\User;
-use ProcessMaker\Models\Group;
-use ProcessMaker\Models\GroupMember;
-use ProcessMaker\Models\Permission;
-use ProcessMaker\Models\PermissionAssignment;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\GroupMember;
+use App\Models\Permission;
+use App\Models\PermissionAssignment;
 use Tests\Feature\Shared\RequestHelper;
 use \PermissionSeeder;
 
@@ -62,7 +62,7 @@ class PermissionsTest extends TestCase
         ]);
         $this->user->giveDirectPermission($show_process_perm->guard_name);
 
-        $this->process = factory(\ProcessMaker\Models\Process::class)->create([
+        $this->process = factory(\app\Models\Process::class)->create([
             'name' => 'foo',
         ]);
     }

@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use ProcessMaker\Models\User;
-use ProcessMaker\Models\Group;
-use ProcessMaker\Models\GroupMember;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\GroupMember;
 
 class UserSeeder extends Seeder
 {

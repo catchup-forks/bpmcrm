@@ -1,8 +1,8 @@
 ---
-description: Learn how to use ProcessMaker features.
+description: Learn how to use app features.
 ---
 
-# Using ProcessMaker
+# Using app
 
 
 

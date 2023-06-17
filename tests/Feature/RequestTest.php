@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Tests\Feature\Shared\RequestHelper;
-use ProcessMaker\Models\ProcessRequest;
+use App\Models\ProcessRequest;
 
 class RequestTest extends TestCase
 {

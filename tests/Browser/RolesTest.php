@@ -6,8 +6,8 @@ use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 use Tests\Browser\Pages\Management\Roles;
 use Tests\Browser\Pages\Auth\Login;
-use ProcessMaker\Model\Role;
-use ProcessMaker\Model\User;
+use App\Model\Role;
+use App\Model\User;
 
 class RolesTest extends DuskTestCase
 {

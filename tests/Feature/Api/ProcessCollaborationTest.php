@@ -2,9 +2,9 @@
 namespace Tests\Feature\Api;
 
 use Illuminate\Foundation\Testing\WithFaker;
-use ProcessMaker\Models\Process;
-use ProcessMaker\Models\ProcessTaskAssignment;
-use ProcessMaker\Models\User;
+use App\Models\Process;
+use App\Models\ProcessTaskAssignment;
+use App\Models\User;
 use Tests\TestCase;
 use Tests\Feature\Shared\RequestHelper;
 

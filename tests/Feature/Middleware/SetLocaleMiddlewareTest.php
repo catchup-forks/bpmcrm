@@ -1,7 +1,7 @@
 <?php
 namespace Tests\Feature\Middleware;
 
-use ProcessMaker\Http\Middleware\SetLocale;
+use App\Http\Middleware\SetLocale;
 use Tests\TestCase;
 use Illuminate\Support\Facades\App;
 use Route;

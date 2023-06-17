@@ -2,9 +2,9 @@
 namespace Tests\Feature\Api;
 
 use Illuminate\Foundation\Testing\WithFaker;
-use ProcessMaker\Models\Screen;
-use ProcessMaker\Models\ScreenCategory;
-use ProcessMaker\Models\User;
+use App\Models\Screen;
+use App\Models\ScreenCategory;
+use App\Models\User;
 use Tests\Feature\Shared\ResourceAssertionsTrait;
 use Tests\TestCase;
 use Tests\Feature\Shared\RequestHelper;

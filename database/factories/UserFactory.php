@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 use Illuminate\Support\Facades\Hash;
-use ProcessMaker\Models\User;
+use App\Models\User;
 
 /**
  * Model factory for a User

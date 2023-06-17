@@ -3,9 +3,9 @@
 namespace Tests\Feature\Api;
 
 use Faker\Factory as Faker;
-use ProcessMaker\Models\User;
-use ProcessMaker\Models\Group;
-use ProcessMaker\Models\GroupMember;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\GroupMember;
 use Tests\TestCase;
 use Tests\Feature\Shared\RequestHelper;
 use Illuminate\Support\Facades\Hash;

@@ -1,6 +1,6 @@
 ---
 description: >-
-  Understand ProcessMaker prerequisites, and then install ProcessMaker
+  Understand app prerequisites, and then install app
   on-premise.
 ---
 

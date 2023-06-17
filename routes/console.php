@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Inspiring;
+use Illuminate\Support\Facades\Artisan;
 
 /*
   |--------------------------------------------------------------------------
@@ -17,14 +18,14 @@ Artisan::command('inspire', function () {
 })->describe('Display an inspiring quote');
 
 Artisan::command('notifications:resend {username}', function ($username) {
-    $user = ProcessMaker\Models\User::where('username', $username)->firstOrFail();
-    $tokens = ProcessMaker\Models\ProcessRequestToken
+    $user = app\Models\User::where('username', $username)->firstOrFail();
+    $tokens = app\Models\ProcessRequestToken
         ::where('status', 'ACTIVE')
         ->where('user_id', $user->getKey())
         ->get();
     foreach ($tokens as $token) {
         dump($token->id);
-        $notification = new ProcessMaker\Notifications\ActivityActivatedNotification($token);
+        $notification = new app\Notifications\ActivityActivatedNotification($token);
         $user->notify($notification);
     }
 })->describe('Resend to user the notifications of his/her active tasks');

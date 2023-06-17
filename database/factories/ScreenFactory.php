@@ -1,8 +1,8 @@
 <?php
 
 use Faker\Generator as Faker;
-use ProcessMaker\Models\Screen;
-use ProcessMaker\Models\ScreenCategory;
+use App\Models\Screen;
+use App\Models\ScreenCategory;
 
 /**
  * Model factory for a screen.

@@ -4,7 +4,7 @@ namespace Tests\Feature\Api;
 
 use Carbon\Carbon;
 use Faker\Factory as Faker;
-use ProcessMaker\Models\User;
+use App\Models\User;
 use Tests\TestCase;
 use Tests\Feature\Shared\RequestHelper;
 use Illuminate\Support\Facades\Hash;
@@ -191,7 +191,7 @@ class UsersTest extends TestCase
   /**
    * Get a user with the memberships
    */
-  // public function testGetUserIncledMembership()
+  // public_html function testGetUserIncledMembership()
   // {
   //     //get the id from the factory
   //     $user = factory(User::class)->create()->id;

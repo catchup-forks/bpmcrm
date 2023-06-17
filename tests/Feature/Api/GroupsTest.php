@@ -4,8 +4,8 @@ namespace Tests\Feature\Api;
 
 use Carbon\Carbon;
 use Faker\Factory as Faker;
-use ProcessMaker\Models\User;
-use ProcessMaker\Models\Group;
+use App\Models\User;
+use App\Models\Group;
 use Tests\TestCase;
 use Tests\Feature\Shared\RequestHelper;
 use Illuminate\Support\Facades\Hash;
@@ -171,7 +171,7 @@ class GroupsTest extends TestCase
   /**
    * Get a group with the memberships
    */
-  // public function testGetGroupIncludeMembership()
+  // public_html function testGetGroupIncludeMembership()
   // {
   //     //get the id from the factory
   //     $group = factory(Group::class)->create()->id;

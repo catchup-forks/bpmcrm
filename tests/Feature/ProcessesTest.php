@@ -3,8 +3,8 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Tests\Feature\Shared\RequestHelper;
-use ProcessMaker\Models\Process;
-use ProcessMaker\Models\ProcessCategory;
+use App\Models\Process;
+use App\Models\ProcessCategory;
 
 class ProcessesTest extends TestCase
 {

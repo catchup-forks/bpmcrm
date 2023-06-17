@@ -2,8 +2,8 @@
 namespace Tests\Feature\Shared;
 
 use Illuminate\Support\Facades\Hash;
-use ProcessMaker\Models\User;
-use ProcessMaker\Models\Permission;
+use App\Models\User;
+use App\Models\Permission;
 
 trait RequestHelper
 {

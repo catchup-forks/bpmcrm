@@ -1,7 +1,7 @@
 <?php
 namespace Tests\Feature\Middleware;
 
-use ProcessMaker\Http\Middleware\SetSkin;
+use App\Http\Middleware\SetSkin;
 use Tests\TestCase;
 use Route;
 use Igaster\LaravelTheme\Facades\Theme;

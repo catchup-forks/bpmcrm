@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Processes;
 
-use ProcessMaker\Models\Screen;
+use App\Models\Screen;
 use Tests\TestCase;
 use Tests\Feature\Shared\RequestHelper;
 

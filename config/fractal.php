@@ -6,7 +6,7 @@ return [
      * may be left empty to use Fractal's default one. This can either be a
      * string or a League\Fractal\Serializer\SerializerAbstract subclass.
      */
-    'default_serializer' => ProcessMaker\Serializers\ApiSerializer::class,
+    'default_serializer' => app\Serializers\ApiSerializer::class,
 
     /* The default paginator to be used when performing a transformation. It
      * may be left empty to use Fractal's default one. This can either be a

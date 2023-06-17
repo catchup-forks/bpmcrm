@@ -4,11 +4,11 @@ use Illuminate\Cache\CacheServiceProvider;
 use Illuminate\Filesystem\FilesystemServiceProvider;
 use Illuminate\View\ViewServiceProvider;
 use Illuminate\Database\DatabaseServiceProvider;
-use ProcessMaker\Providers\RouteServiceProvider;
+use App\Providers\RouteServiceProvider;
 
 return [
     // The name of our application
-    'name' => env('APP_NAME', 'ProcessMaker'),
+    'name' => env('APP_NAME', 'app'),
 
     // The url of our host, will usually be set during installation
     'url' => env('APP_URL', 'http://localhost'),
@@ -43,7 +43,7 @@ return [
     'disable_php_upload_execution' => env('DISABLE_PHP_UPLOAD_EXECUTION', 0),
 
     //Option Fractal, Serializer
-    'serialize_fractal' => env('SERIALIZE_FRACTAL', \ProcessMaker\Transformers\ProcessMakerSerializer::class),
+    'serialize_fractal' => env('SERIALIZE_FRACTAL', \app\Transformers\ProcessMakerSerializer::class),
 
     //Option Fractal, paginator
     'paginate_fractal' => env('PAGINATE_FRACTAL', \League\Fractal\Pagination\IlluminatePaginatorAdapter::class),
@@ -81,14 +81,14 @@ return [
 
 
         /**
-         * ProcessMaker Providers
+         * app Providers
          */
-        ProcessMaker\Providers\ProcessMakerServiceProvider::class,
-        ProcessMaker\Providers\AuthServiceProvider::class,
-        ProcessMaker\Providers\EventServiceProvider::class,
-        ProcessMaker\Providers\RouteServiceProvider::class,
-        ProcessMaker\Providers\BroadcastServiceProvider::class,
-        ProcessMaker\Providers\WorkflowServiceProvider::class,
+        App\Providers\ProcessMakerServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
+        App\Providers\WorkflowServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 
@@ -133,10 +133,10 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
 
         /**
-         * ProcessMaker specific Facades
+         * app specific Facades
          */
-        'WorkspaceManager' => ProcessMaker\Facades\WorkspaceManager::class,
-        'SkinManager' => ProcessMaker\Facades\SkinManager::class,
+        'WorkspaceManager' => app\Facades\WorkspaceManager::class,
+        'SkinManager' => app\Facades\SkinManager::class,
 
         /**
          * Other Facades

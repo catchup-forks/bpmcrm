@@ -58,11 +58,11 @@ return [
             'driver' => 'local',
             'root' => env('PROCESS_TEMPLATES_PATH') ? base_path(env('PROCESS_TEMPLATES_PATH')) : database_path('processes/templates')
         ],
-        'public' => [
+        'public_html' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
+            'root' => storage_path('app/public_html'),
             'url' => env('APP_URL').'/storage',
-            'visibility' => 'public',
+            'visibility' => 'public_html',
         ],
         's3' => [
             'driver' => 's3',
@@ -74,9 +74,9 @@ return [
         ],
         'profile' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/profile'),
+            'root' => storage_path('app/public_html/profile'),
             'url' => env('APP_URL').'/storage/profile',
-            'visibility' => 'public',
+            'visibility' => 'public_html',
         ],
     ]
 

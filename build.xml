@@ -14,7 +14,7 @@
             </else>
         </if>
 
-        <echo msg="Packaging ProcessMaker into ${package_name}..."/>
+        <echo msg="Packaging app into ${package_name}..."/>
 
         <delete includeemptydirs="true">
             <!-- Remove any logs that were produced during testing -->

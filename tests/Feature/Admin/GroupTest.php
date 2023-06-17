@@ -4,8 +4,8 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
-use ProcessMaker\Models\User;
-use ProcessMaker\Models\Group;
+use App\Models\User;
+use App\Models\Group;
 use Tests\Feature\Shared\RequestHelper;
 
 class GroupTest extends TestCase

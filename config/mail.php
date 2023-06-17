@@ -48,7 +48,7 @@ return [
     */
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'admin@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'ProcessMaker'),
+        'name' => env('MAIL_FROM_NAME', 'app'),
     ],
     /*
     |--------------------------------------------------------------------------

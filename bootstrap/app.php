@@ -3,10 +3,10 @@
 use Illuminate\Contracts\Console\Kernel as ConsoleKernelContract;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Contracts\Http\Kernel as HttpKernelContract;
-use ProcessMaker\Application;
-use ProcessMaker\Console\Kernel as ConsoleKernel;
-use ProcessMaker\Exception\Handler;
-use ProcessMaker\Http\Kernel as HttpKernel;
+use App\Application;
+use App\Console\Kernel as ConsoleKernel;
+use App\Exception\Handler;
+use App\Http\Kernel as HttpKernel;
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\RotatingFileHandler;
 
@@ -21,7 +21,7 @@ use Monolog\Handler\RotatingFileHandler;
 |
 */
 
-$app = new Application(
+$app = new \App\Application(
     realpath(__DIR__ . '/../')
 );
 

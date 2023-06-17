@@ -1,9 +1,9 @@
 <?php
 
-use ProcessMaker\Models\Group;
-use ProcessMaker\Models\Process;
-use ProcessMaker\Models\ProcessTaskAssignment;
-use ProcessMaker\Models\User;
+use App\Models\Group;
+use App\Models\Process;
+use App\Models\ProcessTaskAssignment;
+use App\Models\User;
 
 /**
  * Model factory for a Process Task Assignment

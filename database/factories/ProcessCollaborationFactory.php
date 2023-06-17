@@ -1,8 +1,8 @@
 <?php
 
 use Faker\Generator as Faker;
-use ProcessMaker\Models\Process;
-use ProcessMaker\Models\ProcessCollaboration;
+use App\Models\Process;
+use App\Models\ProcessCollaboration;
 
 /**
  * Model factory for a process collaboration

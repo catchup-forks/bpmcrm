@@ -4,8 +4,8 @@ namespace Tests\Feature\Api;
 
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use ProcessMaker\Models\Media;
-use ProcessMaker\Models\User;
+use App\Models\Media;
+use App\Models\User;
 use Tests\TestCase;
 use Tests\Feature\Shared\RequestHelper;
 use Illuminate\Support\Facades\Hash;
@@ -42,7 +42,7 @@ class FilesTest extends TestCase
   public function testListFiles()
   {
       // We create a fake file to upload
-      Storage::fake('public');
+      Storage::fake('public_html');
       $fileUpload = UploadedFile::fake()->create('my_test_file123.txt', 1);
 
       // We create a model (in this case a user) and associate to him the file
@@ -86,7 +86,7 @@ class FilesTest extends TestCase
   {
       // We create a fake file to upload
       $testFileName = 'test.txt';
-      Storage::fake('public');
+      Storage::fake('public_html');
       $fileUpload = UploadedFile::fake()->create($testFileName, 1);
 
       // We create a model (in this case a user) and associate to him the file
@@ -108,7 +108,7 @@ class FilesTest extends TestCase
   public function testCreateFile()
   {
       // We create a fake file to upload
-      Storage::fake('public');
+      Storage::fake('public_html');
       $fileUpload = UploadedFile::fake()->create('test.txt', 1);
 
       // In the data array add the file to upload
@@ -134,7 +134,7 @@ class FilesTest extends TestCase
 
       // Validate that a file was created in the media directory
       $mediaObj = json_decode($response->getContent());
-      Storage::disk('public')->assertExists($mediaObj->id . '/test.txt');
+      Storage::disk('public_html')->assertExists($mediaObj->id . '/test.txt');
   }
 
     /**
@@ -143,7 +143,7 @@ class FilesTest extends TestCase
     public function testUpdateFile()
   {
       // We create a fake file to upload
-      Storage::fake('public');
+      Storage::fake('public_html');
       $fileUploadInsert = UploadedFile::fake()->create('insertedFile.txt', 1);
       $fileUploadUpdate= UploadedFile::fake()->create('updatedFile.txt', 2);
 
@@ -162,7 +162,7 @@ class FilesTest extends TestCase
       $response->assertStatus(201);
 
       // Validate that the file was updated in the directory of the inserted media
-      Storage::disk('public')->assertExists($addedMedia->id . '/updatedFile.txt');
+      Storage::disk('public_html')->assertExists($addedMedia->id . '/updatedFile.txt');
 
       // Validate that the media table has been updated
       $updatedMediaModel = Media::find($addedMedia->id);
@@ -176,7 +176,7 @@ class FilesTest extends TestCase
   public function testDestroyFile()
   {
       // We create a fake file to upload
-      Storage::fake('public');
+      Storage::fake('public_html');
       $fileUpload = UploadedFile::fake()->create('test.txt', 1);
 
       // We create a model (in this case a user) and associate to him the file

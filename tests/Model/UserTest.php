@@ -2,11 +2,11 @@
 namespace Tests\Model;
 
 use Tests\TestCase;
-use ProcessMaker\Models\User;
-use ProcessMaker\Models\Group;
-use ProcessMaker\Models\Permission;
-use ProcessMaker\Models\GroupMember;
-use ProcessMaker\Models\PermissionAssignment;
+use App\Models\User;
+use App\Models\Group;
+use App\Models\Permission;
+use App\Models\GroupMember;
+use App\Models\PermissionAssignment;
 
 class UserTest extends TestCase
 {

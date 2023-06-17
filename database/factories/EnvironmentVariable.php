@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use ProcessMaker\Models\EnvironmentVariable;
+use App\Models\EnvironmentVariable;
 
 $factory->define(EnvironmentVariable::class, function (Faker $faker) {
     return [

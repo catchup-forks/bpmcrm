@@ -3,9 +3,9 @@
 namespace Tests\Browser;
 
 use Faker\Factory as Faker;
-use ProcessMaker\Model\Process;
-use ProcessMaker\Model\Task;
-use ProcessMaker\Model\User;
+use App\Model\Process;
+use App\Model\Task;
+use App\Model\User;
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
 

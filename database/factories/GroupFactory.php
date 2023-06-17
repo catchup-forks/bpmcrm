@@ -1,7 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
-use ProcessMaker\Models\Group;
+use App\Models\Group;
 
 /**
  * Model factory for a Group

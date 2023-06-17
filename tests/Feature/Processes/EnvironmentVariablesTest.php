@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Processes;
 
-use ProcessMaker\Models\EnvironmentVariable;
+use App\Models\EnvironmentVariable;
 use Tests\TestCase;
 use Tests\Feature\Shared\RequestHelper;
 

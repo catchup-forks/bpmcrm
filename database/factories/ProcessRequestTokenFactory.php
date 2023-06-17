@@ -1,10 +1,10 @@
 <?php
 
 use Faker\Generator as Faker;
-use ProcessMaker\Models\Process;
-use ProcessMaker\Models\ProcessRequest;
-use ProcessMaker\Models\ProcessRequestToken;
-use ProcessMaker\Models\User;
+use App\Models\Process;
+use App\Models\ProcessRequest;
+use App\Models\ProcessRequestToken;
+use App\Models\User;
 
 /**
  * Model factory for a ProcessRequestToken

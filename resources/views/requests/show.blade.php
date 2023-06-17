@@ -261,7 +261,7 @@
                  */
                 listenRequestUpdates() {
                     let userId = document.head.querySelector('meta[name="user-id"]').content;
-                    Echo.private(`ProcessMaker.Models.User.${userId}`)
+                    Echo.private(`app.Models.User.${userId}`)
                         .notification((token) => {
                             if (token.request_id === this.requestId) {
                                 this.refreshRequest();

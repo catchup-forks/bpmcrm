@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(ProcessMaker\Models\PermissionAssignment::class, function (Faker $faker) {
+$factory->define(app\Models\PermissionAssignment::class, function (Faker $faker) {
     return [
     ];
 });

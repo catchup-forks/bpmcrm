@@ -5,8 +5,8 @@ namespace Tests\Feature\Api;
 use Carbon\Carbon;
 use Faker\Factory as Faker;
 use Illuminate\Support\Facades\Hash;
-use ProcessMaker\Models\Screen;
-use ProcessMaker\Models\User;
+use App\Models\Screen;
+use App\Models\User;
 use Tests\TestCase;
 use Tests\Feature\Shared\RequestHelper;
 

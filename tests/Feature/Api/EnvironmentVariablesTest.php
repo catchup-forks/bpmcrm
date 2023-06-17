@@ -5,8 +5,8 @@ namespace Tests\Feature\Api;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
-use ProcessMaker\Models\User;
-use ProcessMaker\Models\EnvironmentVariable;
+use App\Models\User;
+use App\Models\EnvironmentVariable;
 use Tests\Feature\Shared\RequestHelper;
 
 class EnvironmentVariablesTest extends TestCase

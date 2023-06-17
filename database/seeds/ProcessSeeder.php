@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use ProcessMaker\Models\EnvironmentVariable;
-use ProcessMaker\Models\Screen;
-use ProcessMaker\Models\Process;
-use ProcessMaker\Models\ProcessTaskAssignment;
-use ProcessMaker\Models\Script;
-use ProcessMaker\Models\User;
-use ProcessMaker\Providers\WorkflowServiceProvider;
+use App\Models\EnvironmentVariable;
+use App\Models\Screen;
+use App\Models\Process;
+use App\Models\ProcessTaskAssignment;
+use App\Models\Script;
+use App\Models\User;
+use App\Providers\WorkflowServiceProvider;
 
 class ProcessSeeder extends Seeder
 {

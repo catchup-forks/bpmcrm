@@ -35,7 +35,7 @@ window.ProcessMaker = {
      */
     EventBus: new Vue(),
     /**
-     * ProcessMaker Notifications
+     * app Notifications
      */
     notifications: [],
     /**

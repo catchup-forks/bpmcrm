@@ -24,10 +24,10 @@ window.moment = moment;
 
 Vue.component("multiselect", Multiselect);
 
-//Event bus ProcessMaker
+//Event bus app
 window.ProcessMaker.events = new Vue();
 
-// Assign our navbar component to our global ProcessMaker object
+// Assign our navbar component to our global app object
 window.ProcessMaker.navbar = new Vue({
   el: "#navbar",
   components: {
@@ -67,7 +67,7 @@ window.ProcessMaker.navbar = new Vue({
   }
 });
 
-// Set our own specific alert function at the ProcessMaker global object that could
+// Set our own specific alert function at the app global object that could
 // potentially be overwritten by some custom theme support
 window.ProcessMaker.alert = function(msg, variant) {
   ProcessMaker.navbar.alertText = msg;

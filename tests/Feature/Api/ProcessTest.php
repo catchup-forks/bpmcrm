@@ -3,11 +3,11 @@ namespace Tests\Feature\Api;
 
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\WithFaker;
-use ProcessMaker\Models\Process;
-use ProcessMaker\Models\ProcessCategory;
-use ProcessMaker\Models\ProcessCollaboration;
-use ProcessMaker\Models\ProcessRequest;
-use ProcessMaker\Models\User;
+use App\Models\Process;
+use App\Models\ProcessCategory;
+use App\Models\ProcessCollaboration;
+use App\Models\ProcessRequest;
+use App\Models\User;
 use Tests\Feature\Shared\ResourceAssertionsTrait;
 use Tests\TestCase;
 use Tests\Feature\Shared\RequestHelper;

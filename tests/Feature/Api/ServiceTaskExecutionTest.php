@@ -3,9 +3,9 @@
 namespace Tests\Feature\Api;
 
 use Illuminate\Foundation\Testing\WithFaker;
-use ProcessMaker\Models\Process;
-use ProcessMaker\Models\ProcessRequest;
-use ProcessMaker\Models\Script;
+use App\Models\Process;
+use App\Models\ProcessRequest;
+use App\Models\Script;
 use Tests\Feature\Shared\RequestHelper;
 use Tests\TestCase;
 

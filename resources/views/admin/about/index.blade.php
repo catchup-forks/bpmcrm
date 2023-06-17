@@ -10,13 +10,13 @@
 
 @section('content')
  <div class="container">
-    <h1>About ProcessMaker</h1>
+    <h1>About app</h1>
     <div class="row">
       <div class="col-8">
         <div class="card card-body">
         <img class="about-logo" src="/img/md-blk-logo.png">
         <hr>
-        <div>ProcessMaker v4.0</div>
+        <div>app v4.0</div>
         <hr>
         <a href="https://github.com/ProcessMaker/bpm/issues">Report an issue  <i class="fas fa-caret-right fa-lg float-right mr-1"></i></a>
         <hr>
