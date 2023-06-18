@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *  @OA\Schema(
+ * @OA\Schema(
  *   schema="group_membersEditable",
  *   @OA\Property(property="id", type="string", format="id"),
  *   @OA\Property(property="group_id", type="string", format="id"),
@@ -24,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 final class GroupMember extends Model
 {
-
+    use HasFactory;
 
     protected $fillable = [
         'group_id', 'member_id', 'member_type',

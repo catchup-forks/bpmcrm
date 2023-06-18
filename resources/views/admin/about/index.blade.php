@@ -14,7 +14,7 @@
     <div class="row">
       <div class="col-8">
         <div class="card card-body">
-        <img class="about-logo" src="/public_html/img/md-blk-logo.png">
+        <img class="about-logo" src="/img/md-blk-logo.png">
         <hr>
         <div>app v4.0</div>
         <hr>

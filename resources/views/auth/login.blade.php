@@ -1,7 +1,7 @@
 @extends('layouts.minimal')
 @section('content')
     <div class="formContainer">
-        <img src="/public_html/img/md-blue-logo.png">
+        <img src="/img/md-blue-logo.png">
         <form method="POST" class="form" action="{{ route('login') }}">
             @if (session()->has('login-error'))
                 <div class="alert alert-danger">{{ session()->get('login-error')}}</div>

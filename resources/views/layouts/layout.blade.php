@@ -27,7 +27,7 @@
     @endif
 
     <title>@yield('title',__('Welcome')) - {{__('app')}}</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/public_html/img/favicon.ico"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico"/>
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     <link href="{{ mix('css/sidebar.css') }}" rel="stylesheet">
     <link href="{{ asset('css/sidebar-inner.css') }}" rel="stylesheet">

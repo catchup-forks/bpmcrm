@@ -4,12 +4,12 @@
         <div>
             <li class="logo">
                 <a href="#">
-                    <img src="/public_html/img/processmaker-logo-white-sm.png">
+                    <img src="/img/processmaker-logo-white-sm.png">
                 </a>
             </li>
             <li class="logo-closed" id="innerbar-toggle">
                 <a href="#">
-                    <img src="/public_html/img/processmaker_icon_logo-md.png">
+                    <img src="/img/processmaker_icon_logo-md.png">
                 </a>
             </li>
     </ul>

@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\User;
 use App\Models\Group;
 use App\Models\GroupMember;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
 {
@@ -17,13 +17,14 @@ class UserSeeder extends Seeder
     public function run()
     {
         //Create default All Users group
-        $group_id = factory(Group::class)->create([
+        $group_id = Group::factory()->create([
             'name' => 'Users',
             'status' => 'ACTIVE'
         ])->id;
 
         //Create admin user
-        $user = factory(User::class)->create([
+
+        $user = User::factory()->create([
             'username' => 'admin',
             'password' => 'admin',
             'firstname' => 'admin',
@@ -33,9 +34,8 @@ class UserSeeder extends Seeder
             'status' => 'ACTIVE',
             'is_administrator' => true,
         ]);
-        
 
-        factory(GroupMember::class)->create([
+        GroupMember::factory()->create([
           'member_id' => $user->id,
           'member_type' => User::class,
           'group_id' => $group_id,

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use App\Traits\SerializeToIso8601;
@@ -33,6 +34,7 @@ use App\Traits\SerializeToIso8601;
 final class Group extends Model
 {
     use SerializeToIso8601;
+    use HasFactory;
 
     protected $fillable = [
         'name',

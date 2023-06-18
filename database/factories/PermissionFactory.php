@@ -3,7 +3,8 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Database\Factories\app\Models\Permission;
+use App\Models\Permission;
+
 class PermissionFactory extends Factory
 {
     protected $model = Permission::class;

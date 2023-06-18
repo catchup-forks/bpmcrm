@@ -11,7 +11,7 @@ class GroupFactory extends Factory
     /**
      * @return array{name: string, description: string, status: mixed}
      */
-    public function definition()
+    public function definition(): array
     {
         return [
             'name' => $this->faker->sentence(3),

@@ -2,7 +2,7 @@
 @section('content')
 <div class="error-404">
     <div class="error-404-icon">
-      <img src="/public_html/img/robot.png"/>
+      <img src="/img/robot.png"/>
     </div>
     <div class="error-content">
       <h1>Oops!</h1>

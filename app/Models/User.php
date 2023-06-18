@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Traits\HasAuthorization;
 use App\Traits\SerializeToIso8601;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -17,6 +18,7 @@ final class User extends Authenticatable
     use Notifiable;
     use HasAuthorization;
     use SerializeToIso8601;
+    use HasFactory;
 
     //Disk
     public const DISK_PROFILE = 'profile';

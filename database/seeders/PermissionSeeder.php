@@ -96,7 +96,7 @@ class PermissionSeeder extends Seeder
 
     public function run($user = null)
     {
-        $group = factory(Group::class)->create([
+        $group = Group::factory()->create([
             'name' => 'All Permissions',
         ]);
 
@@ -104,18 +104,18 @@ class PermissionSeeder extends Seeder
             $user = User::first()->id;
         }
 
-        factory(GroupMember::class)->create([
+        GroupMember::factory()->create([
             'group_id' => $group->id,
             'member_type' => User::class,
             'member_id' => User::first()->id,
         ]);
 
         foreach ($this->permissions as $permissionString) {
-            $permission = factory(Permission::class)->create([
+            $permission = Permission::factory()->create([
                 'name' => $permissionString,
                 'guard_name' => $permissionString,
             ]);
-            factory(PermissionAssignment::class)->create([
+            PermissionAssignment::factory()->create([
                 'permission_id' => $permission->id,
                 'assignable_type' => Group::class,
                 'assignable_id' => $group->id,
