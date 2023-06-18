@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -20,9 +21,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string 'custom_properties',
  * @property string 'responsive_images',
  * @property string 'order_column',
- * @property \Carbon\Carbon $updated_at
- * @property \Carbon\Carbon $created_at
- *
+ * @property Carbon $updated_at
+ * @property Carbon $created_at
  */
 class Media extends Model
 {

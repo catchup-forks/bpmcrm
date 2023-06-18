@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 
 class AboutController extends Controller
@@ -10,7 +10,7 @@ class AboutController extends Controller
    /**
    * Get the list of users.
    *
-   * @return \Illuminate\View\View|\Illuminate\Contracts\View
+   * @return View|\Illuminate\Contracts\View
    */
   public function index()
   {

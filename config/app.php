@@ -90,10 +90,9 @@ return [
         App\Providers\BroadcastServiceProvider::class,
         App\Providers\WorkflowServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
-        Collective\Html\HtmlServiceProvider::class,
+        Spatie\Html\HtmlServiceProvider::class,
 
     ],
-
 
     'aliases' => [
         'App' => Illuminate\Support\Facades\App::class,

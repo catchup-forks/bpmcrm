@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,9 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string process_category_id
  * @property string process_id
  * @property string status
- * @property \Carbon\Carbon $updated_at
- * @property \Carbon\Carbon $created_at
- *
+ * @property Carbon $updated_at
+ * @property Carbon $created_at
  */
 class ProcessVersion extends Model
 {

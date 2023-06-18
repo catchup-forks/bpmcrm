@@ -2,6 +2,7 @@
 
 namespace App\Managers;
 
+use Throwable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Pagination\Paginator;
@@ -113,7 +114,7 @@ class TaskAssigneeManager
      * @return array
      *
      * @throws TaskAssignedException
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function saveAssignee(Task $activity, array $options): array
     {

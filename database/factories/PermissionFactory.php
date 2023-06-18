@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Factories;
+
 use Faker\Generator as Faker;
 
 $factory->define(app\Models\Permission::class, function (Faker $faker) {

@@ -3,7 +3,7 @@
 @section('content')
 <div align="center">
   <div class="formContainer">
-    <img src="/img/md-blue-logo.png">
+    <img src="/public_html/img/md-blue-logo.png">
     <h3>{{__('Forgot Your Password?')}}</h3>
     <p>{{__("Enter your email address and we'll send you a reset link.")}}</p>
     <form method="POST" class="form" action="{{ route('password.email') }}">

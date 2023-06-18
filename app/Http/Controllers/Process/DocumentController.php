@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Process;
 
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 
 class DocumentController extends Controller
@@ -10,7 +10,7 @@ class DocumentController extends Controller
     /**
      * Get the list of environment variables
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View
+     * @return View|\Illuminate\Contracts\View
      */
     public function index()
     {

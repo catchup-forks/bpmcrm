@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Auth;
 use App\Models\Process;
 use Illuminate\Http\Request;
 use App\Models\ProcessCategory;
@@ -43,7 +44,7 @@ class ProcessController extends Controller
         $request->validate(Process::rules());
         $process = new Process();
         $process->fill($request->input());
-        $process->user_id = \Auth::user()->getKey();
+        $process->user_id = Auth::user()->getKey();
         $process->bpmn = '';
         $process->saveOrFail();
         return redirect('/processes');

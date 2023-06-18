@@ -2,6 +2,8 @@
 
 namespace App\Managers;
 
+use Throwable;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -82,7 +84,7 @@ class UserManager
      * @param Request $request
      *
      * @return User
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(User $user, Request $request): User
     {
@@ -105,7 +107,7 @@ class UserManager
      * @param User $user
      * @param Request $request
      *
-     * @throws \Exception
+     * @throws Exception
      */
     public function uploadAvatar(User $user, Request $request)
     {
@@ -116,13 +118,13 @@ class UserManager
             $type = strtolower($type[1]); // jpg, png, gif
 
             if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' , 'svg'])) {
-                throw new \Exception('invalid image type');
+                throw new Exception('invalid image type');
             }
 
             $data = base64_decode($data);
 
             if ($data === false) {
-                throw new \Exception('base64_decode failed');
+                throw new Exception('base64_decode failed');
             }
 
             file_put_contents("/tmp/img.{$type}", $data);

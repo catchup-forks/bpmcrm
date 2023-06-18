@@ -2,6 +2,26 @@
 
 namespace App\Http;
 
+use Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode;
+use Illuminate\Foundation\Http\Middleware\ValidatePostSize;
+use App\Http\Middleware\TrimStrings;
+use Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull;
+use App\Http\Middleware\TrustProxies;
+use App\Http\Middleware\EncryptCookies;
+use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
+use Illuminate\Session\Middleware\StartSession;
+use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Illuminate\Routing\Middleware\SubstituteBindings;
+use App\Http\Middleware\GenerateMenus;
+use Laravel\Passport\Http\Middleware\CreateFreshApiToken;
+use Illuminate\Auth\Middleware\Authenticate;
+use Illuminate\Auth\Middleware\AuthenticateWithBasicAuth;
+use App\Http\Middleware\Authorize;
+use App\Http\Middleware\RedirectIfAuthenticated;
+use app\Http\Middleware\PermissionCheck;
+use Illuminate\Routing\Middleware\ThrottleRequests;
+use App\Http\Middleware\SetLanguage;
+use App\Http\Middleware\SetSkin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -14,11 +34,11 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $middleware = [
-        \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
-        \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \App\Http\Middleware\TrimStrings::class,
-        \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        \App\Http\Middleware\TrustProxies::class,
+        CheckForMaintenanceMode::class,
+        ValidatePostSize::class,
+        TrimStrings::class,
+        ConvertEmptyStringsToNull::class,
+        TrustProxies::class,
     ];
     /**
      * The application's route middleware groups.
@@ -27,15 +47,15 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \App\Http\Middleware\EncryptCookies::class,
-            \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
-            \Illuminate\Session\Middleware\StartSession::class,
+            EncryptCookies::class,
+            AddQueuedCookiesToResponse::class,
+            StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,   // In case we want to log users out after changing password, we need this
-            \Illuminate\View\Middleware\ShareErrorsFromSession::class,
+            ShareErrorsFromSession::class,
             //\app\Http\Middleware\VerifyCsrfToken::class,         // This is disabled until all routes are handled by our new engine
-            \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \App\Http\Middleware\GenerateMenus::class,
-            \Laravel\Passport\Http\Middleware\CreateFreshApiToken::class,
+            SubstituteBindings::class,
+            GenerateMenus::class,
+            CreateFreshApiToken::class,
 
 
         ],
@@ -53,15 +73,15 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [
-        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
-        'authorize' => \App\Http\Middleware\Authorize::class,
-        'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
-        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'permission' => \app\Http\Middleware\PermissionCheck::class,
-        'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'setlang' => \App\Http\Middleware\SetLanguage::class,
-        'setskin' => \App\Http\Middleware\SetSkin::class,
-        'session' => \Illuminate\Session\Middleware\StartSession::class,
+        'auth' => Authenticate::class,
+        'auth.basic' => AuthenticateWithBasicAuth::class,
+        'authorize' => Authorize::class,
+        'bindings' => SubstituteBindings::class,
+        'guest' => RedirectIfAuthenticated::class,
+        'permission' => PermissionCheck::class,
+        'throttle' => ThrottleRequests::class,
+        'setlang' => SetLanguage::class,
+        'setskin' => SetSkin::class,
+        'session' => StartSession::class,
     ];
 }

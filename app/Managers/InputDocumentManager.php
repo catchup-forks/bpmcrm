@@ -2,6 +2,8 @@
 
 namespace App\Managers;
 
+use Throwable;
+use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use App\Exception\ValidationException;
@@ -44,7 +46,7 @@ class InputDocumentManager
      * @param array $data
      *
      * @return InputDocument
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function save(Process $process, $data): InputDocument
     {
@@ -66,7 +68,7 @@ class InputDocumentManager
      * @param array $data
      *
      * @return InputDocument
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(Process $process, InputDocument $inputDocument, $data): InputDocument
     {
@@ -85,7 +87,7 @@ class InputDocumentManager
      * @param InputDocument $inputDocument
      *
      * @return bool|null
-     * @throws \Exception
+     * @throws Exception
      */
     public function remove(InputDocument $inputDocument): ?bool
     {

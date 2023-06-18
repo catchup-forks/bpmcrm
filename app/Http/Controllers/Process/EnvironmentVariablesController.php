@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\process;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\EnvironmentVariable;
 
@@ -10,7 +12,7 @@ class EnvironmentVariablesController extends Controller
     /**
      * Get the list of environment variables
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -22,7 +24,7 @@ class EnvironmentVariablesController extends Controller
      *
      * @param EnvironmentVariable $environmentVariable
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(EnvironmentVariable $environmentVariable)
     {

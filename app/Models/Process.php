@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
@@ -25,8 +26,8 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  * @property string $description
  * @property string $name
  * @property string $status
- * @property \Carbon\Carbon $updated_at
- * @property \Carbon\Carbon $created_at
+ * @property Carbon $updated_at
+ * @property Carbon $created_at
  *
  * @OA\Schema(
  *   schema="ProcessEditable",

@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
@@ -19,10 +20,10 @@ use App\Traits\SerializeToIso8601;
  * @property string $name
  * @property string $status
  * @property string $data
- * @property \Carbon\Carbon $initiated_at
- * @property \Carbon\Carbon $completed_at
- * @property \Carbon\Carbon $updated_at
- * @property \Carbon\Carbon $created_at
+ * @property Carbon $initiated_at
+ * @property Carbon $completed_at
+ * @property Carbon $updated_at
+ * @property Carbon $created_at
  * @property Process $process
  *
  * @OA\Schema(
@@ -38,6 +39,14 @@ use App\Traits\SerializeToIso8601;
  *   allOf={@OA\Schema(ref="#/components/schemas/requestsEditable")},
  *   @OA\Property(property="id", type="string", format="id"),
  *
+ *   @OA\Property(property="process_collaboration_id", type="string", format="id"),
+ *   @OA\Property(property="user_id", type="string", format="id"),
+ *   @OA\Property(property="participant_id", type="string", format="id"),
+ *
+ *   @OA\Property(property="process_category_id", type="string", format="id"),
+ *   @OA\Property(property="created_at", type="string", format="date-time"),
+ *   @OA\Property(property="updated_at", type="string", format="date-time"),
+ * )
  *   @OA\Property(property="process_collaboration_id", type="string", format="id"),
  *   @OA\Property(property="user_id", type="string", format="id"),
  *   @OA\Property(property="participant_id", type="string", format="id"),
@@ -247,7 +256,7 @@ class ProcessRequest extends Model implements ExecutionInstanceInterface
     /**
      * Returns the list of users that have participated in the request
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     * @return HasManyThrough
      */
     public function participants()
     {

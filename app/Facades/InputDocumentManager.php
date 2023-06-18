@@ -2,7 +2,6 @@
 
 namespace App\Facades;
 
-use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Facade;
 use App\Model\InputDocument;

@@ -9,7 +9,7 @@ class LoginListener
     /**
      * Handle the event.
      *
-     * @param  Illuminate\Auth\Events\Login  $user
+     * @param Login $user
      * @return void
      */
     public function handle(Login $event)

@@ -2,6 +2,7 @@
 
 namespace App\Facades;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -10,12 +11,12 @@ use Illuminate\Support\Facades\Facade;
  * @package app\Facades
  * @see \app\Managers\ProcessCategoryManager
  *
- * @method \Illuminate\Database\Eloquent\Collection index($filter, $start, $limit)
+ * @method Collection index($filter, $start, $limit)
  * @method \app\Model\ProcessCategory store($data)
  * @method \app\Model\ProcessCategory update(\app\Model\ProcessCategory $processCategory, $data)
  * @method bool remove(\app\Model\ProcessCategory $processCategory)
  * @method array format(\app\Model\ProcessCategory $processCategory)
- * @method array formatList(\Illuminate\Database\Eloquent\Collection $processCategories)
+ * @method array formatList(Collection $processCategories)
  */
 class ProcessCategoryManager extends Facade
 {

@@ -1,10 +1,10 @@
 <?php
 namespace App\Traits;
 
+use Auth;
 use App\Models\User;
 use App\Models\Permission;
 use App\Models\PermissionAssignment;
-use Illuminate\Support\Facades\Cache;
 
 trait HasAuthorization
 {
@@ -28,7 +28,7 @@ trait HasAuthorization
 
     public function hasPermission($permissionString)
     {
-        if (\Auth::user() == $this) {
+        if (Auth::user() == $this) {
             if (session('permissions')) {
                 $permissionStrings = session('permissions');
             } else {

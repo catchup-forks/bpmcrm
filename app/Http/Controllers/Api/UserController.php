@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Exception;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApiCollection;
@@ -83,7 +84,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      *
      *     @OA\Get(
@@ -229,7 +230,7 @@ class UserController extends Controller
      * @param User $user
      * @param Request $request
      *
-     * @throws \Exception
+     * @throws Exception
      */
     private function uploadAvatar(User $user, Request $request)
     {
@@ -246,13 +247,13 @@ class UserController extends Controller
             $type = strtolower($type[1]); // jpg, png, gif
 
             if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' , 'svg'])) {
-                throw new \Exception('invalid image type');
+                throw new Exception('invalid image type');
             }
 
             $data = base64_decode($data);
 
             if ($data === false) {
-                throw new \Exception('base64_decode failed');
+                throw new Exception('base64_decode failed');
             }
 
             file_put_contents("/tmp/img.{$type}", $data);

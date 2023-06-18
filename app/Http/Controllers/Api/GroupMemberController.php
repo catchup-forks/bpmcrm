@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
-
-use App\Models\User;
 use App\Models\Group;
 use App\Models\GroupMember;
 
@@ -76,7 +74,7 @@ class GroupMemberController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return \Illuminate\Http\Response
      *
      *     @OA\Post(

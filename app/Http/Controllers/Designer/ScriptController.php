@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Designer;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Model\Script;
 use App\Model\Process;
@@ -14,7 +16,7 @@ class ScriptController extends Controller
      * @param Process $process
      * @param Form $form
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(Process $process = null, Script $script = null)
     {

@@ -1,10 +1,3 @@
-import "bootstrap-vue/dist/bootstrap-vue.css";
-import BootstrapVue from "bootstrap-vue";
-import Echo from "laravel-echo";
-import VueRouter from "vue-router";
-import datetime_format from "../js/data/datetime_formats.json"
-
-
 window._ = require("lodash");
 window.Popper = require("popper.js").default;
 
@@ -18,37 +11,9 @@ window.$ = window.jQuery = require("jquery");
 
 require("bootstrap");
 
-/**
- * Vue is a modern JavaScript library for building interactive web interfaces
- * using reactive data binding and reusable components. Vue's API is clean
- * and simple, leaving you to focus on building your next great project.
- */
+//const datetime_format = require("./data/datetime_formats.json");
 
-window.Vue = require("vue");
 
-window.Vue.use(BootstrapVue);
-window.Vue.use(VueRouter);
-
-window.ProcessMaker = {
-    /**
-     * A general use global event bus that can be used
-     */
-    EventBus: new Vue(),
-    /**
-     * app Notifications
-     */
-    notifications: [],
-    /**
-     * Push a notification.
-     *
-     * @param {object} notification
-     *
-     * @returns {void}
-     */
-    pushNotification (notification) {
-        this.notifications.push(notification);
-    }
-};
 
 /**
  * Create a axios instance which any vue component can bring in to call
@@ -73,16 +38,21 @@ if (token) {
     console.error("CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token");
 }
 
-window.ProcessMaker.apiClient.defaults.baseURL = "/api/1.0/";
+//window.ProcessMaker.apiClient.defaults.baseURL = "/api/1.0/";
 // Default to a 5 second timeout, which is an eternity in web app terms
-window.ProcessMaker.apiClient.defaults.timeout = 5000;
+//window.ProcessMaker.apiClient.defaults.timeout = 5000;
 
 // Default alert functionality
+/*
 window.ProcessMaker.alert = function (text, variant) {
     window.alert(`${variant}: ${text}`);
 };
+*/
 
-let userID = document.head.querySelector("meta[name=\"user-id\"]");
+
+
+
+/*let userID = document.head.querySelector("meta[name=\"user-id\"]");
 let formatDate = document.head.querySelector("meta[name=\"datetime-format\"]");
 let timezone = document.head.querySelector("meta[name=\"timezone\"]");
 
@@ -97,9 +67,9 @@ if (userID) {
             window.ProcessMaker.user.datetime_format = value.momentFormat
         }
     });
-}
+}*/
 
-let broadcaster = document.head.querySelector("meta[name=\"broadcaster\"]");
+/*let broadcaster = document.head.querySelector("meta[name=\"broadcaster\"]");
 let key = document.head.querySelector("meta[name=\"broadcasting-key\"]");
 let host = document.head.querySelector("meta[name=\"broadcasting-host\"]");
 
@@ -114,4 +84,4 @@ if (userID) {
         .notification((token) => {
             ProcessMaker.pushNotification(token);
         });
-}
+}*/

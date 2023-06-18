@@ -2,6 +2,8 @@
 
 namespace App\Managers;
 
+use Throwable;
+use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
 use App\Model\Task;
 use App\Model\Process;
@@ -40,7 +42,7 @@ class TaskManager
      * @param array $data
      *
      * @return Task
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function save(Process $process, $data): Task
     {
@@ -61,7 +63,7 @@ class TaskManager
      * @param array $data
      *
      * @return Task
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(Process $process, Task $task, $data): Task
     {
@@ -78,7 +80,7 @@ class TaskManager
      * @param Task $task
      *
      * @return bool|null
-     * @throws \Exception
+     * @throws Exception
      */
     public function remove(Task $task): ?bool
     {

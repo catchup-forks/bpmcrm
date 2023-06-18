@@ -2,6 +2,7 @@
 
 namespace App\Managers;
 
+use Throwable;
 use Illuminate\Support\Facades\Validator;
 use App\Exception\ValidationException;
 use App\Model\Process;
@@ -20,7 +21,7 @@ class ProcessManager
      * @param $data
      *
      * @return Process
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function store($data): Process
     {
@@ -46,7 +47,7 @@ class ProcessManager
      * @param array $data
      *
      * @return Process
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(Process $process, $data): Process
     {

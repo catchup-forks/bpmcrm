@@ -2,6 +2,7 @@
 
 namespace App\Managers;
 
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
@@ -17,7 +18,7 @@ class ProcessFileManager
     /**
      * Disk of the request.
      *
-     * @var \Illuminate\Contracts\Filesystem\Filesystem $disk
+     * @var Filesystem $disk
      */
     private $disk;
 

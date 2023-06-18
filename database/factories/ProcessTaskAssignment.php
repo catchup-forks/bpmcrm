@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Factories;
+
 use App\Models\Group;
 use App\Models\Process;
 use App\Models\ProcessTaskAssignment;

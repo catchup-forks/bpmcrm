@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Auth;
 
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\Controller;
 
@@ -47,7 +48,7 @@ class LoginController extends Controller
         return 'username';
     }
 
-     protected function credentials(\Illuminate\Http\Request $request)
+     protected function credentials(Request $request)
     {
         return array_merge($request->only($this->username(), 'password'), ['status' => 'ACTIVE']);
     }

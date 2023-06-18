@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ScreenCategory;
@@ -13,7 +16,7 @@ class ScreenCategoryController extends Controller
     /**
      * Display a listing of the Screen Categories.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      *
      * @OA\Get(
      *     path="/screen_categories",
@@ -26,6 +29,24 @@ class ScreenCategoryController extends Controller
      *     @OA\Parameter(ref="#/components/parameters/per_page"),
      *     @OA\Parameter(ref="#/components/parameters/include"),
      *
+     *     @OA\Response(
+     *         response=200,
+     *         description="list of screens categories",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/ScreenCategory"),
+     *             ),
+     *             @OA\Property(
+     *                 property="meta",
+     *                 type="object",
+     *                 allOf={@OA\Schema(ref="#/components/schemas/metadata")},
+     *             ),
+     *         ),
+     *     ),
+     * )
      *     @OA\Response(
      *         response=200,
      *         description="list of screens categories",
@@ -73,7 +94,7 @@ class ScreenCategoryController extends Controller
      *
      * @param ScreenCategory $screenCategory
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      *     * @OA\Get(
      *     path="/screen_categories/screen_category_id",
      *     summary="Get single screen category by ID",
@@ -105,7 +126,7 @@ class ScreenCategoryController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      *
      *     * @OA\Post(
      *     path="/screen_categories",
@@ -138,7 +159,7 @@ class ScreenCategoryController extends Controller
      * @param Request $request
      * @param ScreenCategory $screenCategory
      *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return ResponseFactory|Response
      *      * @OA\Put(
      *     path="/screen_categories/screen_category_id",
      *     summary="Update a screen Category",
@@ -177,7 +198,7 @@ class ScreenCategoryController extends Controller
      *
      * @param ScreenCategory $screenCategory
      *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return ResponseFactory|Response
      *
      *      * @OA\Delete(
      *     path="/screen_categories/screen_category_id",

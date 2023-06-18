@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -19,7 +20,7 @@ class Controller extends BaseController
      * controllers don't care about them
      * @param string $method
      * @param array $parameters
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
     public function callAction($method, $parameters)
     {

@@ -18,14 +18,13 @@ use App\Traits\SerializeToIso8601;
  * @property string $element_id
  * @property string $element_type
  * @property string $status
- * @property \Carbon\Carbon $completed_at
- * @property \Carbon\Carbon $due_at
- * @property \Carbon\Carbon $initiated_at
- * @property \Carbon\Carbon $riskchanges_at
- * @property \Carbon\Carbon $updated_at
- * @property \Carbon\Carbon $created_at
+ * @property Carbon $completed_at
+ * @property Carbon $due_at
+ * @property Carbon $initiated_at
+ * @property Carbon $riskchanges_at
+ * @property Carbon $updated_at
+ * @property Carbon $created_at
  * @property ProcessRequest $request
- *
  */
 class ProcessRequestToken extends Model implements TokenInterface
 {

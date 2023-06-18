@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers\Api;
 
+use Throwable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Facades\WorkflowManager;
@@ -74,7 +75,7 @@ class TaskController extends Controller
      * @param ProcessRequestToken $task
      *
      * @return Resource
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(Request $request, ProcessRequestToken $task)
     {

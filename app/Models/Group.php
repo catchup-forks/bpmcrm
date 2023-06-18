@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use App\Traits\SerializeToIso8601;
@@ -11,8 +12,8 @@ use App\Traits\SerializeToIso8601;
  *
  * @property string $id
  * @property string $name
- * @property \Carbon\Carbon $updated_at
- * @property \Carbon\Carbon $created_at
+ * @property Carbon $updated_at
+ * @property Carbon $created_at
  *
  *   @OA\Schema(
  *   schema="groupsEditable",

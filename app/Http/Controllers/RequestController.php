@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\ProcessRequest;
@@ -12,7 +13,7 @@ class RequestController extends Controller
     /**
      * Get the list of requests.
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View
+     * @return View|\Illuminate\Contracts\View
      */
     public function index($type = null)
     {
@@ -40,7 +41,7 @@ class RequestController extends Controller
      *
      * @param ProcessRequest $request
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(ProcessRequest $request)
     {

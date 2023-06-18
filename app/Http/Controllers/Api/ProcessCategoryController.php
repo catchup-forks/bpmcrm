@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Contracts\Routing\ResponseFactory;
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ProcessCategory;
@@ -13,7 +16,7 @@ class ProcessCategoryController extends Controller
     /**
      * Display a listing of the Process Categories.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      *
      * @OA\Get(
      *     path="/process_categories",
@@ -26,6 +29,24 @@ class ProcessCategoryController extends Controller
      *     @OA\Parameter(ref="#/components/parameters/per_page"),
      *     @OA\Parameter(ref="#/components/parameters/include"),
      *
+     *     @OA\Response(
+     *         response=200,
+     *         description="list of processes categories",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/ProcessCategory"),
+     *             ),
+     *             @OA\Property(
+     *                 property="meta",
+     *                 type="object",
+     *                 allOf={@OA\Schema(ref="#/components/schemas/metadata")},
+     *             ),
+     *         ),
+     *     ),
+     * )
      *     @OA\Response(
      *         response=200,
      *         description="list of processes categories",
@@ -85,7 +106,7 @@ class ProcessCategoryController extends Controller
      *
      * @param ProcessCategory $processCategory
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      *     * @OA\Get(
      *     path="/process_categories/process_category_id",
      *     summary="Get single process category by ID",
@@ -117,7 +138,7 @@ class ProcessCategoryController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      *
      *     * @OA\Post(
      *     path="/process_categories",
@@ -150,7 +171,7 @@ class ProcessCategoryController extends Controller
      * @param Request $request
      * @param ProcessCategory $processCategory
      *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return ResponseFactory|Response
      *      * @OA\Put(
      *     path="/process_categories/process_category_id",
      *     summary="Update a process Category",
@@ -189,7 +210,7 @@ class ProcessCategoryController extends Controller
      *
      * @param ProcessCategory $processCategory
      *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return ResponseFactory|Response
      *
      *      * @OA\Delete(
      *     path="/process_categories/process_category_id",

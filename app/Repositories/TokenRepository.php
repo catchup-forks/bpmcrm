@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use this;
 use Carbon\Carbon;
 use App\Models\ProcessRequest as Instance;
 use App\Models\ProcessRequestToken as Token;
@@ -22,18 +23,12 @@ use App\Repositories\ExecutionInstanceRepository;
 class TokenRepository implements TokenRepositoryInterface
 {
     /**
-     * @var ExecutionInstanceRepository 
-     */
-    private $instanceRepository;
-
-    /**
      * Initialize the Token Repository.
      *
      * @param ExecutionInstanceRepository $instanceRepository
      */
-    public function __construct(ExecutionInstanceRepository $instanceRepository)
+    public function __construct(private ExecutionInstanceRepository $instanceRepository)
     {
-        $this->instanceRepository = $instanceRepository;
     }
 
     /**
@@ -228,7 +223,7 @@ class TokenRepository implements TokenRepositoryInterface
         
     }
 
-    public function store(TokenInterface $token, $saveChildElements = false): \this
+    public function store(TokenInterface $token, $saveChildElements = false): this
     {
         
     }

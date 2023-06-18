@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Horizon\Http\Controllers\Controller;
@@ -16,7 +17,7 @@ class FileController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(Request $request)
     {
@@ -43,8 +44,8 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(Request $request)
     {
@@ -78,8 +79,7 @@ class FileController extends Controller
      * Display the specified resource.
      *
      * @param Media $file
-     * @return \Illuminate\Http\Response
-     *
+     * @return Response
      */
     public function show(Media $file)
     {
@@ -92,10 +92,10 @@ class FileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param Request $request
      * @param Media $file
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function update(Request $request, Media $file)
     {
@@ -109,7 +109,7 @@ class FileController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Media $file
-     * @return \Illuminate\Http\Response
+     * @return Response
      *
      * @internal param int $id
      */

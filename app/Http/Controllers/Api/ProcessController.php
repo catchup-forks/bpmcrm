@@ -1,6 +1,9 @@
 <?php
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Http\JsonResponse;
+use Illuminate\Validation\ValidationException;
+use Throwable;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -106,8 +109,8 @@ class ProcessController extends Controller
      *
      * @param Request $request
      *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Validation\ValidationException
+     * @return JsonResponse
+     * @throws ValidationException
      *
      * @OA\Post(
      *     path="/processes",
@@ -152,7 +155,7 @@ class ProcessController extends Controller
      * @param Request $request
      * @param Process $process
      * @return ResponseFactory|Response
-     * @throws \Throwable
+     * @throws Throwable
      *
      * @OA\Put(
      *     path="/processes/processId",
@@ -206,7 +209,7 @@ class ProcessController extends Controller
      * @param Process $process
      *
      * @return ResponseFactory|Response
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      *
      * @OA\Delete(
      *     path="/processes/processId",

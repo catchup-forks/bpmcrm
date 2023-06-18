@@ -2,6 +2,7 @@
 
 namespace App\Managers;
 
+use app\Models\ProcessRequest;
 use Illuminate\Support\Facades\Log;
 use App\Jobs\CallProcess;
 use App\Jobs\CompleteActivity;
@@ -39,7 +40,7 @@ class WorkflowManager
      * @param Definitions $definitions
      * @param StartEventInterface $event
      *
-     * @return \app\Models\ProcessRequest
+     * @return ProcessRequest
      */
     public function triggerStartEvent(Definitions $definitions, StartEventInterface $event, array $data)
     {
@@ -55,7 +56,7 @@ class WorkflowManager
      * @param ProcessInterface $process
      * @param array $data
      *
-     * @return \app\Models\ProcessRequest
+     * @return ProcessRequest
      */
     public function callProcess(Definitions $definitions, ProcessInterface $process, array $data)
     {

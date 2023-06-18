@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 
@@ -11,7 +11,7 @@ class GroupController extends Controller
   /**
    * Get the list of groups.
    *
-   * @return \Illuminate\View\View|\Illuminate\Contracts\View
+   * @return View|\Illuminate\Contracts\View
    */
   public function index()
   {
@@ -19,10 +19,10 @@ class GroupController extends Controller
   }
 
   /**
-   * Get a specific group
-   *
-   * @return \Illuminate\View\View|\Illuminate\Contracts\View
-   */
+    * Get a specific group
+    *
+    * @return View|\Illuminate\Contracts\View
+    */
    public function edit(Group $group)
    {
      return view('admin.groups.edit', compact('group'));

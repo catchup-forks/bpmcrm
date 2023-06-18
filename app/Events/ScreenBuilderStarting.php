@@ -11,7 +11,6 @@ use App\Managers\ScreenBuilderManager;
 class ScreenBuilderStarting
 {
     public $manager;
-    public $type;
 
     /**
      * Create a new event instance.
@@ -20,10 +19,9 @@ class ScreenBuilderStarting
      *
      * @return void
      */
-    public function __construct(ScreenBuilderManager $manager, $type)
+    public function __construct(ScreenBuilderManager $manager, public $type)
     {
         $this->manager = $manager;
-        $this->type = $type;
     }
 
 }

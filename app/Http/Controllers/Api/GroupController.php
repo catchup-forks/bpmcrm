@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use Throwable;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ApiCollection;
@@ -87,7 +88,7 @@ class GroupController extends Controller
      * @param Request $request
      *
      * @return GroupResource
-     * @throws \Throwable
+     * @throws Throwable
      *
      * @OA\Post(
      *     path="/groups",
@@ -153,7 +154,7 @@ class GroupController extends Controller
      * @param Request $request
      *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
-     * @throws \Throwable
+     * @throws Throwable
      *
      * @OA\Put(
      *     path="/groups/groupId",

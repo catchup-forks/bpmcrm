@@ -2,11 +2,8 @@
 
 namespace App;
 
-use Illuminate\Http\File;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
-use Spatie\MediaLibrary\FileManipulator;
-use Spatie\MediaLibrary\Filesystem\Filesystem;
 use Spatie\MediaLibrary\Models\Media as BaseMedia;
 
 class Media extends BaseMedia

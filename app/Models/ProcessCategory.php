@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use App\Models\Process;
@@ -13,8 +15,8 @@ use App\Traits\SerializeToIso8601;
  * @property string $id
  * @property string $name
  * @property string $status
- * @property \Carbon\Carbon $updated_at
- * @property \Carbon\Carbon $created_at
+ * @property Carbon $updated_at
+ * @property Carbon $created_at
  *
  *  * @OA\Schema(
  *   schema="ProcessCategoryEditable",
@@ -57,7 +59,7 @@ class ProcessCategory extends Model
     /**
      * Get processes
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function processes()
     {

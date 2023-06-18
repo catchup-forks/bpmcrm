@@ -2,6 +2,8 @@
 
 namespace App\Managers;
 
+use Throwable;
+use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Validator;
 use App\Exception\ValidationException;
@@ -47,7 +49,7 @@ class OutputDocumentManager
      * @param array $data
      *
      * @return OutputDocument
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function save(Process $process, $data): OutputDocument
     {
@@ -70,7 +72,7 @@ class OutputDocumentManager
      * @param array $data
      *
      * @return OutputDocument
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function update(Process $process, OutputDocument $outputDocument, $data): OutputDocument
     {
@@ -92,7 +94,7 @@ class OutputDocumentManager
      * @param OutputDocument $outputDocument
      *
      * @return bool|null
-     * @throws \Exception
+     * @throws Exception
      */
     public function remove(OutputDocument $outputDocument): ?bool
     {

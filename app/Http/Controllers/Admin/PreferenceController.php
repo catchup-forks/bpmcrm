@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\JsonData;
 
@@ -11,7 +11,7 @@ class PreferenceController extends Controller
   /**
    * Get the preferences form
    *
-   * @return \Illuminate\View\View|\Illuminate\Contracts\View
+   * @return View|\Illuminate\Contracts\View
    */
   public function index()
   {

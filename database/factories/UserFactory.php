@@ -12,7 +12,7 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'username' => $faker->unique()->userName,
         'email' => $faker->unique()->email,
-        'password' => Hash::make($faker->password),
+        'password' => Hash::make('password'),
 
         'status' => $faker->randomElement(['ACTIVE', 'INACTIVE']),
 

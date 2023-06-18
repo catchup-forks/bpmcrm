@@ -43,24 +43,24 @@
                         $user->avatar  = Auth::user()->getAvatar();
                     }
                 @endphp
-                <navbar-profile :info="{{$user}}"  :items="{{$items}}"></navbar-profile>
+                <navbar-profile :info="{{$user}}" :items="{{$items}}"></navbar-profile>
             </li>
         </b-navbar-nav>
     </b-navbar>
 </div>
 
 <style lang="scss" scoped>
-    .seperator {
-        border-left: 1px solid rgb(227, 231, 236);
-        height: 30px;
-        margin-top: 17px;
-    }
+  .seperator {
+    border-left: 1px solid rgb(227, 231, 236);
+    height: 30px;
+    margin-top: 17px;
+  }
 
-    .nav-item {
-        padding-top: 5px;
-    }
+  .nav-item {
+    padding-top: 5px;
+  }
 
-    .nav-notification {
-        padding-top: 8px;
-    }
+  .nav-notification {
+    padding-top: 8px;
+  }
 </style>

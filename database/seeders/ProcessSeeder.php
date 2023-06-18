@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 use App\Models\EnvironmentVariable;
 use App\Models\Screen;
@@ -8,7 +10,6 @@ use App\Models\ProcessTaskAssignment;
 use App\Models\Script;
 use App\Models\User;
 use App\Providers\WorkflowServiceProvider;
-
 class ProcessSeeder extends Seeder
 {
 

@@ -3,12 +3,10 @@
 // @import '../sass/_variables.scss';
 @import "~bootstrap/scss/bootstrap";
 // Font Awesome
-@import '~@fortawesome/fontawesome/styles.css';
-@import '~@fortawesome/fontawesome-free-webfonts/scss/fa-brands';
-@import '~@fortawesome/fontawesome-free-webfonts/scss/fa-regular';
-@import '~@fortawesome/fontawesome-free-webfonts/scss/fa-solid';
-@import '~@fortawesome/fontawesome-free-webfonts/scss/fontawesome';
-@import '~vue-multiselect/dist/vue-multiselect.min.css';
+//@import 'fontawesome';
+//@import '~@fortawesome/fontawesome-free-brands';
+//@import '~@fortawesome/fontawesome-free-solid';
+//@import '~vue-multiselect/dist/vue-multiselect.min.css';
 
 @font-face {
   font-family: 'Open Sans';
@@ -59,8 +57,8 @@ html {
   margin-right: 0;
   margin-left: 0;
 
-  &>[class^="col-"],
-  &>[class*=" col-"] {
+  & > [class^="col-"],
+  & > [class*=" col-"] {
     padding-right: 0;
     padding-left: 0;
   }
@@ -332,7 +330,6 @@ table.vuetable {
   }
 
 
-
   th {
     background-color: $grey-bg;
     color: $secondary;
@@ -350,13 +347,13 @@ table.vuetable {
 }
 
 ///icomoon
-@font-face {
+/*@font-face {
   font-family: 'icomoon';
   src: url('fonts/icomoon.eot?9f4tqy');
   src: url('fonts/icomoon.eot?9f4tqy#iefix') format('embedded-opentype'), url('fonts/icomoon.ttf?9f4tqy') format('truetype'), url('fonts/icomoon.woff?9f4tqy') format('woff'), url('fonts/icomoon.svg?9f4tqy#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
-}
+}*/
 
 [class^="icon-"],
 [class*=" icon-"] {
@@ -451,7 +448,7 @@ table.vuetable {
     height: 200px;
     width: 260px;
     margin: auto;
-    background-image: url('/img/gears-big.png');
+    background-image: url('/public_html/img/gears-big.png');
     background-repeat: no-repeat;
   }
 

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Process;
 
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\ProcessCategory;
 
@@ -10,7 +12,7 @@ class ProcessCategoryController extends Controller
     /**
      * Get list of Process Categories
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function index()
     {
@@ -22,7 +24,7 @@ class ProcessCategoryController extends Controller
      *
      * @param ProcessCategory $processCategory
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function edit(ProcessCategory $processCategory)
     {

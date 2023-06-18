@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Pagination\AbstractPaginator;
 
@@ -28,7 +30,7 @@ class ApiCollection extends ResourceCollection
     /**
      * Generic collection to add sorting and filtering metadata.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param Request $request
      * @return array
      */
     public function toArray($request)
@@ -56,8 +58,8 @@ class ApiCollection extends ResourceCollection
     /**
      * Create an HTTP response that represents the object.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return JsonResponse
      */
     public function toResponse($request)
     {

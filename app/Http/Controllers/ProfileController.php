@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Auth;
 use App\Models\User;
 use App\Models\JsonData;
 
@@ -12,11 +13,11 @@ class ProfileController extends Controller
     /**
      * edit your profile.
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View
+     * @return View|\Illuminate\Contracts\View
      */
     public function edit()
     {
-        $currentUser = \Auth::user();
+        $currentUser = Auth::user();
         $states = JsonData::states();
         $countries = JsonData::countries();
 
@@ -41,7 +42,7 @@ class ProfileController extends Controller
     /**
      * show other users profile
      *
-     * @return \Illuminate\View\View|\Illuminate\Contracts\View
+     * @return View|\Illuminate\Contracts\View
      */
     public function show($id)
     {

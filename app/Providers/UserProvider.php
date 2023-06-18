@@ -1,6 +1,7 @@
 <?php
 namespace App\Providers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Contracts\Auth\Authenticatable as UserContract;
 use Illuminate\Contracts\Hashing\Hasher as HasherContract;
@@ -50,7 +51,7 @@ class UserProvider extends EloquentUserProvider
      * Retrieve a user by passed in credentials
      * If it's by email address, let's try to first get by email
      * @param array $credentials
-     * @return UserContract|\Illuminate\Database\Eloquent\Model|null|static
+     * @return UserContract|Model|null|static
      */
     public function retrieveByCredentials(array $credentials)
     {

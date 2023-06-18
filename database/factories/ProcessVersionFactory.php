@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Factories;
+
 use Faker\Generator as Faker;
 use App\Models\ProcessVersion;
 use App\Models\Process;
@@ -18,7 +20,7 @@ $factory->define(ProcessVersion::class, function (Faker $faker) {
             return factory(ProcessCategory::class)->create()->getKey();
         },
         'process_id' => function () {
-                return factory(Process::class)->create()->getKey();
+            return factory(Process::class)->create()->getKey();
         }
     ];
 });
