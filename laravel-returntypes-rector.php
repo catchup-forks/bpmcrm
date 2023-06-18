@@ -7,9 +7,12 @@ use PHPStan\Type\MixedType;
 use PHPStan\Type\StringType;
 use Rector\CodeQuality\Rector\ClassMethod\ReturnTypeFromStrictScalarReturnExprRector;
 use Rector\Config\RectorConfig;
+use Rector\Core\Configuration\Option;
 use Rector\Set\ValueObject\SetList;
 use Rector\TypeDeclaration\Rector\ClassMethod\AddReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\Rector\ClassMethod\ReturnTypeFromStrictNativeCallRector;
+use Rector\TypeDeclaration\Rector\FunctionLike\ParamTypeDeclarationRector;
+use Rector\TypeDeclaration\Rector\FunctionLike\ReturnTypeDeclarationRector;
 use Rector\TypeDeclaration\Rector\Property\AddPropertyTypeDeclarationRector;
 use Rector\TypeDeclaration\ValueObject\AddPropertyTypeDeclaration;
 use Rector\TypeDeclaration\ValueObject\AddReturnTypeDeclaration;
@@ -36,7 +39,10 @@ return static function (RectorConfig $rectorConfig): void {
     $rectorConfig->rules([
         ReturnTypeFromStrictNativeCallRector::class,
         ReturnTypeFromStrictScalarReturnExprRector::class,
-        AddGenericReturnTypeToRelationsRector::class
+        AddGenericReturnTypeToRelationsRector::class,
+
+        ReturnTypeFromStrictNativeCallRector::class,
+        ReturnTypeFromStrictScalarReturnExprRector::class,
     ]);
 
     $rectorConfig->sets([
