@@ -10,7 +10,7 @@ use App\Nayra\Contracts\Bpmn\FormalExpressionInterface;
  *
  * @package app\Model
  */
-class FormalExpression implements FormalExpressionInterface
+final class FormalExpression implements FormalExpressionInterface
 {
 
     use BaseTrait;
@@ -48,11 +48,10 @@ class FormalExpression implements FormalExpressionInterface
     /**
      * Invoke the format expression.
      *
-     * @param mixed $data
      *
      * @return string
      */
-    public function __invoke($data)
+    public function __invoke(mixed $data)
     {
         extract($data);
         return eval('return ' . $this->getBody() . ';');

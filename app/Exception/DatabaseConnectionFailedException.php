@@ -10,7 +10,7 @@ use Exception;
  * @package app\Exceptions
  */
 
-class DatabaseConnectionFailedException extends Exception
+final class DatabaseConnectionFailedException extends Exception
 {
 
 }

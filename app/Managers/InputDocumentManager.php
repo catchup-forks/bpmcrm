@@ -10,7 +10,7 @@ use App\Exception\ValidationException;
 use App\Model\InputDocument;
 use App\Model\Process;
 
-class InputDocumentManager
+final class InputDocumentManager
 {
 
 
@@ -18,9 +18,7 @@ class InputDocumentManager
      * Get a list of All Input Documents in a process.
      *
      * @param Process $process
-     * @param array $options
      *
-     * @return LengthAwarePaginator
      */
     public function index(Process $process, array $options): LengthAwarePaginator
     {
@@ -28,7 +26,7 @@ class InputDocumentManager
         $filter = $options['filter'];
         if (!empty($filter)) {
             $filter = '%' . $filter . '%';
-            $query->where(function ($query) use ($filter) {
+            $query->where(function ($query) use ($filter): void {
                 $query->Where('title', 'like', $filter)
                     ->orWhere('description', 'like', $filter)
                     ->orWhere('versioning', 'like', $filter);
@@ -86,7 +84,6 @@ class InputDocumentManager
      *
      * @param InputDocument $inputDocument
      *
-     * @return bool|null
      * @throws Exception
      */
     public function remove(InputDocument $inputDocument): ?bool
@@ -98,11 +95,10 @@ class InputDocumentManager
      * Validate extra rules
      *
      * @param array $data
-     * @param boolean $update
      *
      * @throws ValidationException
      */
-    private function validate($data, $update=false)
+    private function validate($data, bool $update=false)
     {
         $type = $update ? InputDocument::FORM_NEEDED_TYPE : array_keys(InputDocument::FORM_NEEDED_TYPE);
         /* @var $validator \Illuminate\Validation\Validator */

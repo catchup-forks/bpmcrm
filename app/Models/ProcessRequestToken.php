@@ -26,7 +26,7 @@ use App\Traits\SerializeToIso8601;
  * @property Carbon $created_at
  * @property ProcessRequest $request
  */
-class ProcessRequestToken extends Model implements TokenInterface
+final class ProcessRequestToken extends Model implements TokenInterface
 {
     use TokenTrait;
     use SerializeToIso8601;
@@ -54,17 +54,6 @@ class ProcessRequestToken extends Model implements TokenInterface
     ];
 
     /**
-     * The binary UUID attributes that should be converted to text.
-     *
-     * @var array
-     */
-    protected $ids = [
-        'process_id',
-        'process_request_id',
-        'user_id',
-    ];
-
-    /**
      * The accessors to append to the model's array form.
      *
      * @var array
@@ -86,8 +75,6 @@ class ProcessRequestToken extends Model implements TokenInterface
 
     /**
      * Boot application as a process instance.
-     *
-     * @param array $argument
      */
     public function __construct(array $argument=[])
     {
@@ -169,7 +156,7 @@ class ProcessRequestToken extends Model implements TokenInterface
         }
 
         if ($this->status === 'CLOSED') {
-            $result = 'completed';
+            return 'completed';
         }
 
         return $result;

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ApiResource extends JsonResource
+final class ApiResource extends JsonResource
 {
     /**
      * Generic resource for outputting models
@@ -13,10 +13,5 @@ class ApiResource extends JsonResource
      * @param Request $request
      * @return array
      */
-    static $wrap = null;
-
-    public function toArray($request)
-    {
-        return parent::toArray($request);
-    }
+    static $wrap;
 }

@@ -19,7 +19,7 @@ use App\Model\Process;
  * @method static boolean|null remove(OutputDocument $outPutDocument)
  *
  */
-class OutputDocumentManager extends Facade
+final class OutputDocumentManager extends Facade
 {
     /**
      * Get the registered name of the component.

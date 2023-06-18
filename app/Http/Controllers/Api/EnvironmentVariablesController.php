@@ -9,46 +9,63 @@ use App\Http\Resources\EnvironmentVariables as EnvironmentVariableResource;
 
 use Illuminate\Http\Request;
 
-class EnvironmentVariablesController extends Controller
+final class EnvironmentVariablesController extends Controller
 {
   /**
    * Fetch a collection of variables based on paged request and filter if provided
    *
-   * @param Request $request
    *
    * @return ResponseFactory|Response A list of matched users and paging data
    *
    *      @OA\Get(
-    *     path="/environment_variables",
-    *     summary="Returns all environmentVariables that the user has access to",
-    *     operationId="getEnvironmentVariables",
-    *     tags={"Environment Variables"},
-    *     @OA\Parameter(ref="#/components/parameters/filter"),
-    *     @OA\Parameter(ref="#/components/parameters/order_by"),
-    *     @OA\Parameter(ref="#/components/parameters/order_direction"),
-    *     @OA\Parameter(ref="#/components/parameters/per_page"),
-    *     @OA\Parameter(ref="#/components/parameters/include"),
-    *
-    *     @OA\Response(
-    *         response=200,
-    *         description="list of environmentVariables",
-    *         @OA\JsonContent(
-    *             type="object",
-    *             @OA\Property(
-    *                 property="data",
-    *                 type="array",
-    *                 @OA\Items(ref="#/components/schemas/environment_variables"),
-    *             ),
-    *             @OA\Property(
-    *                 property="meta",
-    *                 type="object",
-    *                 allOf={@OA\Schema(ref="#/components/schemas/metadata")},
-    *             ),
-    *         ),
-    *     ),
-    * )
+   *     path="/environment_variables",
+   *     summary="Returns all environmentVariables that the user has access to",
+   *     operationId="getEnvironmentVariables",
+   *     tags={"Environment Variables"},
+   *     @OA\Parameter(ref="#/components/parameters/filter"),
+   *     @OA\Parameter(ref="#/components/parameters/order_by"),
+   *     @OA\Parameter(ref="#/components/parameters/order_direction"),
+   *     @OA\Parameter(ref="#/components/parameters/per_page"),
+   *     @OA\Parameter(ref="#/components/parameters/include"),
+   *
+   *     @OA\Response(
+   *         response=200,
+   *         description="list of environmentVariables",
+   *         @OA\JsonContent(
+   *             type="object",
+   *             @OA\Property(
+   *                 property="data",
+   *                 type="array",
+   *                 @OA\Items(ref="#/components/schemas/environment_variables"),
+   *             ),
+   *             @OA\Property(
+   *                 property="meta",
+   *                 type="object",
+   *                 allOf={@OA\Schema(ref="#/components/schemas/metadata")},
+   *             ),
+   *         ),
+   *     ),
+   * )
+   *     @OA\Response(
+   *         response=200,
+   *         description="list of environmentVariables",
+   *         @OA\JsonContent(
+   *             type="object",
+   *             @OA\Property(
+   *                 property="data",
+   *                 type="array",
+   *                 @OA\Items(ref="#/components/schemas/environment_variables"),
+   *             ),
+   *             @OA\Property(
+   *                 property="meta",
+   *                 type="object",
+   *                 allOf={@OA\Schema(ref="#/components/schemas/metadata")},
+   *             ),
+   *         ),
+   *     ),
+   * )
    */
-  public function index(Request $request)
+  public function index(Request $request): ApiCollection
   {
       // Grab pagination data
       $perPage = $request->input('per_page', 10);
@@ -94,7 +111,7 @@ class EnvironmentVariablesController extends Controller
     *     ),
     * )
    */
-  public function store(Request $request)
+  public function store(Request $request): EnvironmentVariableResource
   {
       $request->validate(EnvironmentVariable::rules());
       $environment_variable = EnvironmentVariable::create($request->all());
@@ -122,7 +139,7 @@ class EnvironmentVariablesController extends Controller
     *     ),
     * )
    */
-  public function show(EnvironmentVariable $environment_variable)
+  public function show(EnvironmentVariable $environment_variable): EnvironmentVariableResource
   {
       return new EnvironmentVariableResource($environment_variable);
   }
@@ -154,7 +171,7 @@ class EnvironmentVariablesController extends Controller
     *     ),
     * )
    */
-  public function update(EnvironmentVariable $environment_variable, Request $request)
+  public function update(EnvironmentVariable $environment_variable, Request $request): EnvironmentVariableResource
   {
       $fields = ['name', 'description'];
       if ($request->filled('value')) {

@@ -36,7 +36,7 @@ use App\Traits\SerializeToIso8601;
  * )
  *
  */
-class Script extends Model
+final class Script extends Model
 {
     use SerializeToIso8601;
     use ScriptDockerTrait;
@@ -47,7 +47,7 @@ class Script extends Model
         'updated_at',
     ];
 
-    private static $scriptFormats = [
+    private static array $scriptFormats = [
         'application/x-php' => 'php',
         'application/x-lua' => 'lua',
     ];
@@ -57,9 +57,9 @@ class Script extends Model
      *
      * @param $existing
      *
-     * @return array
+     * @return array{key: string, title: mixed[]|string, language: string}
      */
-    public static function rules($existing = null)
+    public static function rules($existing = null): array
     {
         $rules = [
             'key' => 'unique:scripts,key',
@@ -79,17 +79,14 @@ class Script extends Model
 
     /**
      * Executes a script given a configuration and data input.
-     *
-     * @param array $data
-     * @param array $config
      */
-    public function runScript(array $data, array $config)
+    public function runScript(array $data, array $config): array
     {
         $code = $this->code;
         $language = $this->language;
 
         $variablesParameter = [];
-        EnvironmentVariable::chunk(50, function ($variables) use (&$variablesParameter) {
+        EnvironmentVariable::chunk(50, function ($variables) use (&$variablesParameter): void {
             foreach ($variables as $variable) {
                 $variablesParameter[] = $variable['name'] . '=' . $variable['value'];
             }
@@ -98,44 +95,38 @@ class Script extends Model
         if ($variablesParameter) {
             $variablesParameter = "-e " . implode(" -e ", $variablesParameter);
         } else {
-            $variablesParameter = '';
+            $variablesParameter = [];
         }
 
-        // So we have the files, let's execute the docker container
-        switch (strtolower($language)) {
-            case 'php':
-                $config = [
-                    'image' => 'processmaker/executor:php',
-                    'command' => 'php /opt/executor/bootstrap.php',
-                    'parameters' => $variablesParameter,
-                    'inputs' => [
-                        '/opt/executor/data.json' => json_encode($data),
-                        '/opt/executor/config.json' => json_encode($config),
-                        '/opt/executor/script.php' => $code
-                    ],
-                    'outputs' => [
-                        'response' => '/opt/executor/output.json'
-                    ]
-                ];
-                break;
-            case 'lua':
-                $config = [
-                    'image' => 'processmaker/executor:php',
-                    'command' => 'lua5.3 /opt/executor/bootstrap.lua',
-                    'parameters' => $variablesParameter,
-                    'inputs' => [
-                        '/opt/executor/data.json' => json_encode($data),
-                        '/opt/executor/config.json' => json_encode($config),
-                        '/opt/executor/script.php' => $code
-                    ],
-                    'outputs' => [
-                        'response' => '/opt/executor/output.json'
-                    ]
-                ];
-                break;
-            default:
-                throw new ScriptLanguageNotSupported($language);
-        }
+        $config = match (strtolower((string) $language)) {
+            'php' => [
+                'image' => 'processmaker/executor:php',
+                'command' => 'php /opt/executor/bootstrap.php',
+                'parameters' => $variablesParameter,
+                'inputs' => [
+                    '/opt/executor/data.json' => json_encode($data, JSON_THROW_ON_ERROR),
+                    '/opt/executor/config.json' => json_encode($config, JSON_THROW_ON_ERROR),
+                    '/opt/executor/script.php' => $code
+                ],
+                'outputs' => [
+                    'response' => '/opt/executor/output.json'
+                ]
+            ],
+            'lua' => [
+                'image' => 'processmaker/executor:php',
+                'command' => 'lua5.3 /opt/executor/bootstrap.lua',
+                'parameters' => $variablesParameter,
+                'inputs' => [
+                    '/opt/executor/data.json' => json_encode($data, JSON_THROW_ON_ERROR),
+                    '/opt/executor/config.json' => json_encode($config, JSON_THROW_ON_ERROR),
+                    '/opt/executor/script.php' => $code
+                ],
+                'outputs' => [
+                    'response' => '/opt/executor/output.json'
+                ]
+            ],
+            default => throw new ScriptLanguageNotSupported($language),
+        };
 
         $response = $this->execute($config);
         $returnCode = $response['returnCode'];
@@ -147,13 +138,12 @@ class Script extends Model
             return [
                 'output' => implode($errorContent, "\n")
             ];
-        } else {
-            // Success
-            $response = json_decode($output, true);
-            return [
-                'output' => $response
-            ];
         }
+        // Success
+        $response = json_decode((string) $output, true, 512, JSON_THROW_ON_ERROR);
+        return [
+            'output' => $response
+        ];
     }
 
     /**

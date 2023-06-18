@@ -20,7 +20,7 @@ use App\Facades\WorkflowManager;
  * Description of BpmnSubscriber
  *
  */
-class BpmnSubscriber
+final class BpmnSubscriber
 {
 
     /**
@@ -28,10 +28,10 @@ class BpmnSubscriber
      *
      * @param ActivityActivatedEvent $event
      */
-    public function ActivityActivated(ActivityActivatedEvent $event)
+    public function ActivityActivated(ActivityActivatedEvent $event): void
     {
         $token = $event->token;
-        Log::info('Nofity activity activated: ' . json_encode($token->getProperties()));
+        Log::info('Nofity activity activated: ' . json_encode($token->getProperties(), JSON_THROW_ON_ERROR));
 
         //Send the notification to the assigned user
         $user = $event->token->user;
@@ -46,7 +46,7 @@ class BpmnSubscriber
      *
      * @param ProcessInstanceCreatedEvent $event
      */
-    public function ProcessCompleted(ProcessInstanceCompletedEvent $event)
+    public function ProcessCompleted(ProcessInstanceCompletedEvent $event): void
     {
         //client events
         $user = $event->instance->user;
@@ -61,7 +61,7 @@ class BpmnSubscriber
      *
      * @param ProcessInstanceCreatedEvent $event
      */
-    public function onProcessCreated(ProcessInstanceCreatedEvent $event)
+    public function onProcessCreated(ProcessInstanceCreatedEvent $event): void
     {
         // Log::info('ProcessCreated: ' . json_encode($event->instance->getProperties()));
     }
@@ -71,7 +71,7 @@ class BpmnSubscriber
      *
      * @param ActivityActivatedEvent $event
      */
-    public function onActivityActivated(ActivityActivatedEvent $event)
+    public function onActivityActivated(ActivityActivatedEvent $event): void
     {
         // Log::info('ActivityActivated: ' . json_encode($event->token->getProperties()));
         $this->ActivityActivated($event);
@@ -82,7 +82,7 @@ class BpmnSubscriber
      *
      * @param $event
      */
-    public function onActivityCompleted(ActivityCompletedEvent $event)
+    public function onActivityCompleted(ActivityCompletedEvent $event): void
     {
         // Log::info('ActivityCompleted: ' . json_encode($event->token->getProperties()));
     }
@@ -92,7 +92,7 @@ class BpmnSubscriber
      *
      * @param $event
      */
-    public function onActivityClosed(ActivityClosedEvent $event)
+    public function onActivityClosed(ActivityClosedEvent $event): void
     {
         // Log::info('ActivityClosed: ' . json_encode($event->token->getProperties()));
     }
@@ -103,7 +103,7 @@ class BpmnSubscriber
      * @param ScriptTaskInterface $scriptTask
      * @param TokenInterface $token
      */
-    public function onScriptTaskActivated(ScriptTaskInterface $scriptTask, TokenInterface $token)
+    public function onScriptTaskActivated(ScriptTaskInterface $scriptTask, TokenInterface $token): void
     {
         // Log::info('ScriptTaskActivated: ' . $scriptTask->getId());
         WorkflowManager::runScripTask($scriptTask, $token);
@@ -115,7 +115,7 @@ class BpmnSubscriber
      * @param ServiceTaskInterface $serviceTask
      * @param TokenInterface $token
      */
-    public function onServiceTaskActivated(ServiceTaskInterface $serviceTask, TokenInterface $token)
+    public function onServiceTaskActivated(ServiceTaskInterface $serviceTask, TokenInterface $token): void
     {
         WorkflowManager::runServiceTask($serviceTask, $token);
     }
@@ -125,16 +125,16 @@ class BpmnSubscriber
      *
      * @param type $events
      */
-    public function subscribe($events)
+    public function subscribe($events): void
     {
-        $events->listen(ProcessInterface::EVENT_PROCESS_INSTANCE_CREATED, static::class . '@onProcessCreated');
-        $events->listen(ProcessInterface::EVENT_PROCESS_INSTANCE_COMPLETED, static::class . '@ProcessCompleted');
+        $events->listen(ProcessInterface::EVENT_PROCESS_INSTANCE_CREATED, self::class . '@onProcessCreated');
+        $events->listen(ProcessInterface::EVENT_PROCESS_INSTANCE_COMPLETED, self::class . '@ProcessCompleted');
 
-        $events->listen(ActivityInterface::EVENT_ACTIVITY_COMPLETED, static::class . '@onActivityCompleted');
-        $events->listen(ActivityInterface::EVENT_ACTIVITY_CLOSED, static::class . '@onActivityClosed');
+        $events->listen(ActivityInterface::EVENT_ACTIVITY_COMPLETED, self::class . '@onActivityCompleted');
+        $events->listen(ActivityInterface::EVENT_ACTIVITY_CLOSED, self::class . '@onActivityClosed');
 
-        $events->listen(ActivityInterface::EVENT_ACTIVITY_ACTIVATED, static::class . '@onActivityActivated');
-        $events->listen(ScriptTaskInterface::EVENT_SCRIPT_TASK_ACTIVATED, static::class . '@onScriptTaskActivated');
-        $events->listen(ServiceTaskInterface::EVENT_SERVICE_TASK_ACTIVATED, static::class . '@onServiceTaskActivated');
+        $events->listen(ActivityInterface::EVENT_ACTIVITY_ACTIVATED, self::class . '@onActivityActivated');
+        $events->listen(ScriptTaskInterface::EVENT_SCRIPT_TASK_ACTIVATED, self::class . '@onScriptTaskActivated');
+        $events->listen(ServiceTaskInterface::EVENT_SERVICE_TASK_ACTIVATED, self::class . '@onServiceTaskActivated');
     }
 }

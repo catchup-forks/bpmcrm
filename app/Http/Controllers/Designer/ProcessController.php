@@ -7,7 +7,7 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Model\Process;
 
-class ProcessController extends Controller
+final class ProcessController extends Controller
 {
 
     /**
@@ -33,7 +33,7 @@ class ProcessController extends Controller
         $model = Process::where('uid', '=', $process)->first();
 
         if (!$model) {
-            request()->session()->flash('_alert', json_encode(['danger', __('The process was not found.')]));
+            request()->session()->flash('_alert', json_encode(['danger', __('The process was not found.')], JSON_THROW_ON_ERROR));
             return redirect('processes');
         }
         $title = $model->name;

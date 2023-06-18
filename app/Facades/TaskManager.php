@@ -19,7 +19,7 @@ use App\Model\Process;
  * @method static boolean|null remove(Task $task)
  *
  */
-class TaskManager extends Facade
+final class TaskManager extends Facade
 {
     /**
      * Get the registered name of the component.

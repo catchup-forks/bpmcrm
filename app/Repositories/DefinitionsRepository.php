@@ -12,24 +12,19 @@ use App\Models\DataStore;
  * Definitions Repository
  *
  */
-class DefinitionsRepository implements RepositoryInterface
+final class DefinitionsRepository implements RepositoryInterface
 {
 
     use RepositoryTrait;
     
-    private $tokenRepository = null;
+    private ?TokenRepository $tokenRepository = null;
 
-    public function createCallActivity()
-    {
-        
-    }
-
-    public function createExecutionInstanceRepository()
+    public function createExecutionInstanceRepository(): ExecutionInstanceRepository
     {
         return new ExecutionInstanceRepository();
     }
 
-    public function createFormalExpression()
+    public function createFormalExpression(): FormalExpression
     {
         return new FormalExpression();
     }
@@ -47,7 +42,7 @@ class DefinitionsRepository implements RepositoryInterface
         return $this->tokenRepository;
     }
     
-    public function createDataStore() {
+    public function createDataStore(): DataStore {
         return new DataStore();
     }
 }

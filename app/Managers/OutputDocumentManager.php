@@ -10,15 +10,13 @@ use App\Exception\ValidationException;
 use App\Model\OutputDocument;
 use App\Model\Process;
 
-class OutputDocumentManager
+final class OutputDocumentManager
 {
     /**
      * Get a list of All Output Documents in a process.
      *
      * @param Process $process
-     * @param array $options
      *
-     * @return LengthAwarePaginator
      */
     public function index(Process $process, array $options): LengthAwarePaginator
     {
@@ -26,7 +24,7 @@ class OutputDocumentManager
         $filter = $options['filter'];
         if (!empty($filter)) {
             $filter = '%' . $filter . '%';
-            $query->where(function ($query) use ($filter) {
+            $query->where(function ($query) use ($filter): void {
                 $query->Where('title', 'like', $filter)
                     ->orWhere('description', 'like', $filter)
                     ->orWhere('filename', 'like', $filter)
@@ -93,7 +91,6 @@ class OutputDocumentManager
      *
      * @param OutputDocument $outputDocument
      *
-     * @return bool|null
      * @throws Exception
      */
     public function remove(OutputDocument $outputDocument): ?bool
@@ -140,23 +137,21 @@ class OutputDocumentManager
      * Parameter by default in Output Document properties
      *
      * @param array $properties
-     *
-     * @return array
      */
     private function dataProperties($properties): array
     {
-        $properties['landscape'] = isset($properties['landscape']) ? $properties['landscape'] : 0;
-        $properties['media'] = isset($properties['media']) ? $properties['media'] : 'letter';
-        $properties['left_margin'] = isset($properties['left_margin']) ? $properties['left_margin'] : 30;
-        $properties['right_margin'] = isset($properties['right_margin']) ? $properties['right_margin'] : 15;
-        $properties['top_margin'] = isset($properties['top_margin']) ? $properties['top_margin'] : 15;
-        $properties['bottom_margin'] = isset($properties['bottom_margin']) ? $properties['bottom_margin'] : 15;
-        $properties['field_mapping'] = isset($properties['field_mapping']) ? $properties['field_mapping'] : null;
-        $properties['destination_path'] = isset($properties['destination_path']) ? $properties['destination_path'] : null;
-        $properties['pdf_security_enabled'] = isset($properties['pdf_security_enabled']) ? $properties['pdf_security_enabled'] : 0;
-        $properties['pdf_security_open_password'] = isset($properties['pdf_security_open_password']) ? $properties['pdf_security_open_password'] : '';
-        $properties['pdf_security_owner_password'] = isset($properties['pdf_security_owner_password']) ? $properties['pdf_security_owner_password'] : '';
-        $properties['pdf_security_permissions'] = isset($properties['pdf_security_permissions']) ? $properties['pdf_security_permissions'] : null;
+        $properties['landscape'] ??= 0;
+        $properties['media'] ??= 'letter';
+        $properties['left_margin'] ??= 30;
+        $properties['right_margin'] ??= 15;
+        $properties['top_margin'] ??= 15;
+        $properties['bottom_margin'] ??= 15;
+        $properties['field_mapping'] ??= null;
+        $properties['destination_path'] ??= null;
+        $properties['pdf_security_enabled'] ??= 0;
+        $properties['pdf_security_open_password'] ??= '';
+        $properties['pdf_security_owner_password'] ??= '';
+        $properties['pdf_security_permissions'] ??= null;
 
         return $properties;
     }

@@ -22,7 +22,7 @@ use App\Model\TaskUser;
  * @method static Paginator getInformationAllAssignee(Task $activity, array $options)
  *
  */
-class TaskAssigneeManager extends Facade
+final class TaskAssigneeManager extends Facade
 {
     /**
      * Get the registered name of the component.

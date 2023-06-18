@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Validation\Rules\Unique;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Validation\Rule;
 use App\Traits\SerializeToIso8601;
@@ -35,7 +36,7 @@ use App\Traits\SerializeToIso8601;
  * )
  *
  */
-class Screen extends Model
+final class Screen extends Model
 {
     use SerializeToIso8601;
 
@@ -59,9 +60,9 @@ class Screen extends Model
      *
      * @param $existing
      *
-     * @return array
+     * @return array{title: string, description: string, type: string}|array{title: Unique[]|string[]}
      */
-    public static function rules($existing = null)
+    public static function rules($existing = null): array
     {
         $rules = [];
         if ($existing) {

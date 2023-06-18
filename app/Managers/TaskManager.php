@@ -8,16 +8,14 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use App\Model\Task;
 use App\Model\Process;
 
-class TaskManager
+final class TaskManager
 {
 
     /**
      * Get a list of All Task in a process.
      *
      * @param Process $process
-     * @param array $options
      *
-     * @return LengthAwarePaginator
      */
     public function index(Process $process, array $options): LengthAwarePaginator
     {
@@ -25,7 +23,7 @@ class TaskManager
         $filter = $options['filter'];
         if (!empty($filter)) {
             $filter = '%' . $filter . '%';
-            $query->where(function ($query) use ($filter) {
+            $query->where(function ($query) use ($filter): void {
                 $query->Where('title', 'like', $filter)
                     ->orWhere('description', 'like', $filter);
             });
@@ -79,7 +77,6 @@ class TaskManager
      *
      * @param Task $task
      *
-     * @return bool|null
      * @throws Exception
      */
     public function remove(Task $task): ?bool

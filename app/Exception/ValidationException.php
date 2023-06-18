@@ -9,14 +9,14 @@ use Illuminate\Validation\Validator;
  * Description of ValidationException
  *
  */
-class ValidationException extends ValidationExceptionBase
+final class ValidationException extends ValidationExceptionBase
 {
-    const ERROR_CODE = 422;
+    public const ERROR_CODE = 422;
 
     public function __construct(Validator $validator)
     {
         $errors = $validator->errors()->getMessages();
-        foreach ($errors as $key => $messages) {
+        foreach ($errors as $messages) {
             $message = $messages[0];
             break;
         }

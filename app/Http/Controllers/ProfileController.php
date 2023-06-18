@@ -7,7 +7,7 @@ use Auth;
 use App\Models\User;
 use App\Models\JsonData;
 
-class ProfileController extends Controller
+final class ProfileController extends Controller
 {
 
     /**

@@ -2,12 +2,12 @@
 
 namespace App\Http\Resources;
 
-class ProcessRequests extends ApiResource
+final class ProcessRequests extends ApiResource
 {
     public function toArray($request)
     {
         $array = parent::toArray($request);
-        $include = explode(',', $request->input('include', ''));
+        $include = explode(',', (string) $request->input('include', ''));
 
         if (in_array('summary', $include)) {
             $array['summary'] = $this->summary();

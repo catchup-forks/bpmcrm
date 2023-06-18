@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Process;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 
-class DocumentController extends Controller
+final class DocumentController extends Controller
 {
     /**
      * Get the list of environment variables

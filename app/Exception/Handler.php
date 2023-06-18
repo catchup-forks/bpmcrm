@@ -19,7 +19,7 @@ use Symfony\Component\HttpKernel\Throwable\NotFoundHttpException;
  * Our general exception handler
  * @package app\Throwable
  */
-class Handler extends ExceptionHandler
+final class Handler extends ExceptionHandler
 {
     /**
      * A list of the exception types that should not be reported.
@@ -37,10 +37,9 @@ class Handler extends ExceptionHandler
 
     /**
      * Report our exception. If in testing with verbosity, it will also dump exception information to the console
-     * @param Throwable $exception
      * @throws Throwable
      */
-    public function report(Throwable $exception)
+    public function report(Throwable $exception): void
     {
         if (App::environment() == 'testing' && env('TESTING_VERBOSE')) {
             // If we're verbose, we should print ALL Exceptions to the screen
@@ -52,22 +51,9 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * Render an exception into an HTTP response.
-     *
-     * @param Request $request
-     * @param  \Throwable  $exception
-     * @return Response
-     */
-    public function render($request, Throwable $exception)
-    {
-       return parent::render($request, $exception);
-    }
-
-    /**
      * Convert an authentication exception into an unauthenticated response.
      *
      * @param Request $request
-     * @param AuthenticationException $exception
      * @return Response
      */
     protected function unauthenticated($request, AuthenticationException $exception)
@@ -81,20 +67,15 @@ class Handler extends ExceptionHandler
     /**
      * Convert the given exception to an array.
      * @note This is overriding Laravel's default exception handler in order to handle binary data in message
-     *
-     * @param  \Throwable  $e
-     * @return array
      */
     protected function convertExceptionToArray(Throwable $e): array
     {
         return config('app.debug') ? [
             'message' => utf8_encode($e->getMessage()),
-            'exception' => get_class($e),
+            'exception' => $e::class,
             'file' => $e->getFile(),
             'line' => $e->getLine(),
-            'trace' => collect($e->getTrace())->map(function ($trace) {
-                return Arr::except($trace, ['args']);
-            })->all(),
+            'trace' => collect($e->getTrace())->map(fn($trace): array => Arr::except($trace, ['args']))->all(),
         ] : [
             'message' => $this->isHttpException($e) ? $e->getMessage() : 'Server Error',
         ];

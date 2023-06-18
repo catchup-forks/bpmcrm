@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class PermissionAssignment extends Model
+final class PermissionAssignment extends Model
 {
     
     protected $fillable = [

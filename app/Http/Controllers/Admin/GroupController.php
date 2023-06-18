@@ -6,7 +6,7 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Group;
 
-class GroupController extends Controller
+final class GroupController extends Controller
 {
   /**
    * Get the list of groups.

@@ -3,7 +3,7 @@ namespace App\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class SchemaManager extends Facade
+final class SchemaManager extends Facade
 {
     /**
      * Get the registered name of the component.

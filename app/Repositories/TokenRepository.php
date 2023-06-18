@@ -1,16 +1,11 @@
 <?php
 namespace App\Repositories;
 
-use this;
 use Carbon\Carbon;
-use App\Models\ProcessRequest as Instance;
 use App\Models\ProcessRequestToken as Token;
-use App\Nayra\Bpmn\Collection;
 use App\Nayra\Contracts\Bpmn\ActivityInterface;
 use App\Nayra\Contracts\Bpmn\CatchEventInterface;
-use App\Nayra\Contracts\Bpmn\GatewayInterface;
 use App\Nayra\Contracts\Bpmn\ScriptTaskInterface;
-use App\Nayra\Contracts\Bpmn\ThrowEventInterface;
 use App\Nayra\Contracts\Bpmn\TokenInterface;
 use App\Nayra\Contracts\Repositories\TokenRepositoryInterface;
 use App\Repositories\ExecutionInstanceRepository;
@@ -20,14 +15,12 @@ use App\Repositories\ExecutionInstanceRepository;
  *
  * @package app\Models
  */
-class TokenRepository implements TokenRepositoryInterface
+final class TokenRepository implements TokenRepositoryInterface
 {
     /**
      * Initialize the Token Repository.
-     *
-     * @param ExecutionInstanceRepository $instanceRepository
      */
-    public function __construct(private ExecutionInstanceRepository $instanceRepository)
+    public function __construct(private readonly ExecutionInstanceRepository $instanceRepository)
     {
     }
 
@@ -43,11 +36,6 @@ class TokenRepository implements TokenRepositoryInterface
         return $token;
     }
 
-    public function loadTokenByUid($uid): TokenInterface
-    {
-        
-    }
-
     /**
      * Persists instance and token data when a token arrives to an activity
      *
@@ -56,7 +44,7 @@ class TokenRepository implements TokenRepositoryInterface
      *
      * @return mixed
      */
-    public function persistActivityActivated(ActivityInterface $activity, TokenInterface $token)
+    public function persistActivityActivated(ActivityInterface $activity, TokenInterface $token): void
     {
         $this->instanceRepository->persistInstanceUpdated($token->getInstance());
         $user = $token->getInstance()->process->getNextUser($activity, $token);
@@ -75,25 +63,6 @@ class TokenRepository implements TokenRepositoryInterface
         $token->saveOrFail();
         $token->setId($token->getKey());
     }
-    
-    private function assignTaskUser(ActivityInterface $activity, TokenInterface $token, Instance $instance)
-    {
-        
-        
-    }
-
-    /**
-     * Persists instance and token data when a token within an activity change to error state
-     *
-     * @param ActivityInterface $activity
-     * @param TokenInterface $token
-     *
-     * @return mixed
-     */
-    public function persistActivityException(ActivityInterface $activity, TokenInterface $token)
-    {
-        
-    }
 
     /**
      * Persists instance and token data when a token is completed within an activity
@@ -103,7 +72,7 @@ class TokenRepository implements TokenRepositoryInterface
      *
      * @return mixed
      */
-    public function persistActivityCompleted(ActivityInterface $activity, TokenInterface $token)
+    public function persistActivityCompleted(ActivityInterface $activity, TokenInterface $token): void
     {
         $this->instanceRepository->persistInstanceUpdated($token->getInstance());
         $token->status = $token->getStatus();
@@ -122,7 +91,7 @@ class TokenRepository implements TokenRepositoryInterface
      *
      * @return mixed
      */
-    public function persistActivityClosed(ActivityInterface $activity, TokenInterface $token)
+    public function persistActivityClosed(ActivityInterface $activity, TokenInterface $token): void
     {
         $this->instanceRepository->persistInstanceUpdated($token->getInstance());
         $token->status = $token->getStatus();
@@ -132,7 +101,7 @@ class TokenRepository implements TokenRepositoryInterface
         $token->setId($token->getKey());
     }
 
-    public function persistCatchEventTokenArrives(CatchEventInterface $intermediateCatchEvent, TokenInterface $token)
+    public function persistCatchEventTokenArrives(CatchEventInterface $intermediateCatchEvent, TokenInterface $token): void
     {
         $this->instanceRepository->persistInstanceUpdated($token->getInstance());
         $token->status = $token->getStatus();
@@ -149,7 +118,7 @@ class TokenRepository implements TokenRepositoryInterface
         $token->setId($token->getKey());
     }
 
-    public function persistCatchEventTokenConsumed(CatchEventInterface $intermediateCatchEvent, TokenInterface $token)
+    public function persistCatchEventTokenConsumed(CatchEventInterface $intermediateCatchEvent, TokenInterface $token): void
     {
         $this->instanceRepository->persistInstanceUpdated($token->getInstance());
         $token->status = 'CLOSED';
@@ -160,7 +129,7 @@ class TokenRepository implements TokenRepositoryInterface
         $token->setId($token->getKey());
     }
 
-    public function persistCatchEventMessageArrives(CatchEventInterface $intermediateCatchEvent, TokenInterface $token)
+    public function persistCatchEventMessageArrives(CatchEventInterface $intermediateCatchEvent, TokenInterface $token): void
     {
         $this->instanceRepository->persistInstanceUpdated($token->getInstance());
         $token->status = $token->getStatus();
@@ -177,7 +146,7 @@ class TokenRepository implements TokenRepositoryInterface
         $token->setId($token->getKey());
     }
 
-    public function persistCatchEventMessageConsumed(CatchEventInterface $intermediateCatchEvent, TokenInterface $token)
+    public function persistCatchEventMessageConsumed(CatchEventInterface $intermediateCatchEvent, TokenInterface $token): void
     {
         $this->instanceRepository->persistInstanceUpdated($token->getInstance());
         $token->status = 'CLOSED';
@@ -186,45 +155,5 @@ class TokenRepository implements TokenRepositoryInterface
         $token->completed_at = Carbon::now();
         $token->save();
         $token->setId($token->getKey());
-    }
-
-    public function persistCatchEventTokenPassed(CatchEventInterface $intermediateCatchEvent, Collection $consumedTokens)
-    {
-        
-    }
-
-    public function persistGatewayTokenArrives(GatewayInterface $exclusiveGateway, TokenInterface $token)
-    {
-        
-    }
-
-    public function persistGatewayTokenConsumed(GatewayInterface $exclusiveGateway, TokenInterface $token)
-    {
-        
-    }
-
-    public function persistGatewayTokenPassed(GatewayInterface $exclusiveGateway, TokenInterface $token)
-    {
-        
-    }
-
-    public function persistThrowEventTokenArrives(ThrowEventInterface $event, TokenInterface $token)
-    {
-        
-    }
-
-    public function persistThrowEventTokenConsumed(ThrowEventInterface $endEvent, TokenInterface $token)
-    {
-        
-    }
-
-    public function persistThrowEventTokenPassed(ThrowEventInterface $endEvent, TokenInterface $token)
-    {
-        
-    }
-
-    public function store(TokenInterface $token, $saveChildElements = false): this
-    {
-        
     }
 }

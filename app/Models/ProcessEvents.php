@@ -8,33 +8,22 @@ use Illuminate\Database\Eloquent\Collection;
  * Process events relationship
  *
  */
-class ProcessEvents extends Relation
+final class ProcessEvents extends Relation
 {
 
     /**
-     * @var Process[] $processModels
-     */
-    private $processModels = [];
-
-    /**
      * Set the base constraints on the relation query.
-     *
-     * @return void
      */
-    public function addConstraints()
+    public function addConstraints(): void
     {
         //No Constraints
     }
 
     /**
      * Set the constraints for an eager load of the relation.
-     *
-     * @param  array  $models
-     * @return void
      */
-    public function addEagerConstraints(array $models)
+    public function addEagerConstraints(array $models): void
     {
-        $this->processModels = $models;
     }
 
     /**
@@ -50,7 +39,6 @@ class ProcessEvents extends Relation
     /**
      * Initialize the relation on a set of models.
      *
-     * @param  array   $models
      * @param  string  $relation
      * @return array
      */
@@ -62,8 +50,6 @@ class ProcessEvents extends Relation
     /**
      * Match the eagerly loaded results to their parents.
      *
-     * @param  array   $models
-     * @param Collection $results
      * @param  string  $relation
      * @return array
      */

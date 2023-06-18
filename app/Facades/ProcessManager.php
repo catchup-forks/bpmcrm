@@ -15,7 +15,7 @@ use App\Model\Process;
  * @method static Process store(array $data)
  *
  */
-class ProcessManager extends Facade
+final class ProcessManager extends Facade
 {
 
     /**

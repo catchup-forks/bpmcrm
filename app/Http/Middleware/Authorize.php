@@ -5,7 +5,7 @@ use Closure;
 use Illuminate\Http\Request;
 use \Illuminate\Auth\Access\AuthorizationException;
 
-class Authorize
+final class Authorize
 {
     public function handle(Request $request, Closure $next)
     {
@@ -20,15 +20,17 @@ class Authorize
 
         // Remove the api route prefix since they will have the
         // same permissions as the web routes.
-        $permission = preg_replace('/^api\./', '', $permission);
-
+        $permission = preg_replace('/^api\./', '', (string) $permission);
         // At this point we should have already checked if the
         // user is logged in so we can assume $request->user()
         if ($request->user()->hasPermission($permission)) {
             return $next($request);
-        } elseif ($this->allowIndexForShow($permission, $request)) {
+        }
+
+        if ($this->allowIndexForShow($permission, $request)) {
             return $next($request);
-        } else {
+        }
+        else {
             throw new AuthorizationException("Not authorized: " . $permission);
         }
     }
@@ -37,7 +39,7 @@ class Authorize
      * If the user has show permission, assume they
      * have index/list permission as well.
      */
-    private function allowIndexForShow($permission, $request)
+    private function allowIndexForShow(string|array|null $permission, Request $request)
     {
         if(preg_match('/^(.*)\.index$/', $permission, $match)) {
             return $request->user()->hasPermission($match[1] . '.show');

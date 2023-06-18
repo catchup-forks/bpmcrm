@@ -9,23 +9,19 @@ use App\Model\Delegation;
 use App\Model\Task;
 use App\Model\User;
 
-class TasksDelegationManager
+final class TasksDelegationManager
 {
     /**
      * Get a list of All Output Documents in a process.
      *
-     * @param array $options
      *
-     * @return LengthAwarePaginator
      */
     public function index(array $options): LengthAwarePaginator
     {
         $start = $options['current_page'];
-        Paginator::currentPageResolver(function () use ($start) {
-            return $start;
-        });
-        $include = $options['include'] ? explode(',', $options['include']): [];
-        $include = array_unique(array_merge(['user', 'application'], $include));
+        Paginator::currentPageResolver(fn() => $start);
+        $include = $options['include'] ? explode(',', (string) $options['include']): [];
+        $include = array_unique(['user', 'application', ...$include]);
         $query = Delegation::with($include);
         if (!empty($options['status'])) {
             $query = $query->where('thread_status', '=', $options['status']);
@@ -36,20 +32,20 @@ class TasksDelegationManager
             $user = new User();
             $task = new Task();
             $application = new Application();
-            $query = Delegation::where(function ($q) use ($filter, $user) {
-                    $q->whereHas('user', function ($query) use ($filter, $user) {
+            $query = Delegation::where(function ($q) use ($filter, $user): void {
+                    $q->whereHas('user', function ($query) use ($filter, $user): void {
                         $query->where($user->getTable() . '.firstname', 'like', $filter)
                             ->orWhere($user->getTable() . '.lastname', 'like', $filter);
                     });
                 })
-                ->orWhere(function ($q) use ($filter, $task) {
-                    $q->whereHas('task', function ($query) use ($filter, $task) {
+                ->orWhere(function ($q) use ($filter, $task): void {
+                    $q->whereHas('task', function ($query) use ($filter, $task): void {
                         $query->where($task->getTable() . '.title', 'like', $filter)
                             ->orWhere($task->getTable() . '.description', 'like', $filter);
                     });
                 })
-                ->orWhere(function ($q) use ($filter, $application) {
-                    $q->whereHas('application', function ($query) use ($filter, $application) {
+                ->orWhere(function ($q) use ($filter, $application): void {
+                    $q->whereHas('application', function ($query) use ($filter, $application): void {
                         $query->where($application->getTable() . '.APP_TITLE', 'like', $filter)
                             ->orWhere($application->getTable() . '.APP_DESCRIPTION', 'like', $filter);
                     });

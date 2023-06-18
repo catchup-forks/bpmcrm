@@ -3,7 +3,7 @@ namespace App\Http\Resources;
 
 use App\Http\Resources\Users;
 
-class Task extends ApiResource
+final class Task extends ApiResource
 {
 
     /**
@@ -15,7 +15,7 @@ class Task extends ApiResource
     public function toArray($request)
     {
         $array = parent::toArray($request);
-        $include = explode(',', $request->input('include', ''));
+        $include = explode(',', (string) $request->input('include', ''));
         if (in_array('user', $include)) {
             $array['user'] = new Users($this->user);
         }

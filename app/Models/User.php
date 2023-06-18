@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Validation\Rules\Unique;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Laravel\Passport\HasApiTokens;
@@ -13,7 +14,7 @@ use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 use App\Traits\HasAuthorization;
 
-class User extends Authenticatable implements HasMedia
+final class User extends Authenticatable implements HasMedia
 {
     use HasApiTokens;
     use Notifiable;
@@ -109,9 +110,9 @@ class User extends Authenticatable implements HasMedia
      *
      * @param $existing
      *
-     * @return array
+     * @return array{username: string, email: string}|array{username: Unique[]|string[], email: Unique[]|string[]}
      */
-    public static function rules($existing = null)
+    public static function rules($existing = null): array
     {
         $rules = [
             'username' => 'required|unique:users,username',
@@ -147,10 +148,8 @@ class User extends Authenticatable implements HasMedia
     /**
      * Return the full name for this user which is the first name and last
      * name separated with a space.
-     *
-     * @return string
      */
-    public function getFullName()
+    public function getFullName(): string
     {
         return implode(" ", [
             $this->firstname,
@@ -182,7 +181,7 @@ class User extends Authenticatable implements HasMedia
      *
      * @param $pass
      */
-    public function setPasswordAttribute($pass){
+    public function setPasswordAttribute($pass): void{
 
         $this->attributes['password'] = Hash::make($pass);
 

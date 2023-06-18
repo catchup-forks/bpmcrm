@@ -45,7 +45,7 @@ use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
  *   @OA\Property(property="updated_at", type="string", format="date-time"),
  * )
  */
-class Process extends Model implements HasMedia
+final class Process extends Model implements HasMedia
 {
     use HasMediaTrait;
     use SerializeToIso8601;
@@ -100,9 +100,9 @@ class Process extends Model implements HasMedia
      *
      * @param null $existing
      *
-     * @return array
+     * @return array{name: string, description: string, status: string, process_category_id: string, bpmn: string}
      */
-    public static function rules($existing = null)
+    public static function rules($existing = null): array
     {
         $rules = [
             'name' => 'required|unique:processes,name',
@@ -209,21 +209,12 @@ class Process extends Model implements HasMedia
         $default = $activity instanceof ScriptTaskInterface
             || $activity instanceof ServiceTaskInterface ? 'script' : 'requestor';
         $assignmentType = $activity->getProperty('assignment', $default);
-        switch ($assignmentType) {
-            case 'cyclical':
-                $user = $this->getNextUserCyclicalAssignment($activity->getId());
-                break;
-            case 'requestor':
-                $user = $token->getInstance()->user_id;
-                break;
-            case 'manual':
-            case 'self_service':
-                $user = null;
-                break;
-            case 'script':
-            default:
-                $user = null;
-        }
+        $user = match ($assignmentType) {
+            'cyclical' => $this->getNextUserCyclicalAssignment($activity->getId()),
+            'requestor' => $token->getInstance()->user_id,
+            'manual', 'self_service' => null,
+            default => null,
+        };
         return $user ? User::where('id', $user)->first() : null;
     }
 
@@ -260,10 +251,8 @@ class Process extends Model implements HasMedia
      * Get an array of all assignable users to a task.
      *
      * @param string $processTaskUuid
-     *
-     * @return array
      */
-    public function getAssignableUsers($processTaskUuid)
+    public function getAssignableUsers($processTaskUuid): array
     {
         $assignments = ProcessTaskAssignment::select(['assignment_id', 'assignment_type'])
                 ->where('process_id', $this->id)
@@ -284,7 +273,6 @@ class Process extends Model implements HasMedia
      * Get a consolidated list of users within groups.
      *
      * @param binary $group_id
-     * @param array $users
      *
      * @return array
      */
@@ -304,9 +292,9 @@ class Process extends Model implements HasMedia
     /**
      * Get a list of the process start events.
      *
-     * @return array
+     * @return mixed[]
      */
-    public function getStartEvents()
+    public function getStartEvents(): array
     {
         $definitions = $this->getDefinitions();
         $response = [];
@@ -322,7 +310,7 @@ class Process extends Model implements HasMedia
      *
      * @return \app\Models\ProcessEvents
      */
-    public function events()
+    public function events(): ProcessEvents
     {
         $query = $this->newQuery();
         $query->where('id', $this->id);

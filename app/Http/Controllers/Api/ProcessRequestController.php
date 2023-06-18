@@ -14,14 +14,12 @@ use App\Http\Resources\ProcessRequests;
 use App\Models\ProcessRequest;
 use App\Http\Resources\ProcessRequests as ProcessRequestResource;
 
-class ProcessRequestController extends Controller
+final class ProcessRequestController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      *
-     * @return ApiCollection
      *
      * /**
      * @OA\Get(
@@ -60,13 +58,31 @@ class ProcessRequestController extends Controller
      *         ),
      *     ),
      * )
+     *     @OA\Response(
+     *         response=200,
+     *         description="list of processes",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/requests"),
+     *             ),
+     *             @OA\Property(
+     *                 property="meta",
+     *                 type="object",
+     *                 allOf={@OA\Schema(ref="#/components/schemas/metadata")},
+     *             ),
+     *         ),
+     *     ),
+     * )
      */
-    public function index(Request $request)
+    public function index(Request $request): ApiCollection
     {   
         $query = ProcessRequest::query();
 
         $includes = $request->input('include', '');
-        foreach (array_filter(explode(',', $includes)) as $include) {
+        foreach (array_filter(explode(',', (string) $includes)) as $include) {
             if (in_array($include, ProcessRequest::$allowedIncludes)) {
                 $query->with($include);
             }
@@ -88,7 +104,7 @@ class ProcessRequestController extends Controller
         $filter = $request->input('filter', '');
         if (!empty($filter)) {
             $filter = '%' . $filter . '%';
-            $query->where(function ($query) use ($filter) {
+            $query->where(function ($query) use ($filter): void {
                 $query->Where('name', 'like', $filter)
                     ->orWhere('status', 'like', $filter);
             });
@@ -107,7 +123,6 @@ class ProcessRequestController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ProcessRequest $request
      *
      * @return Response
      *
@@ -132,7 +147,7 @@ class ProcessRequestController extends Controller
      *     ),
      * )
      */
-    public function show(ProcessRequest $request)
+    public function show(ProcessRequest $request): ProcessRequestResource
     {
         return new ProcessRequestResource($request);
     }
@@ -140,11 +155,9 @@ class ProcessRequestController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $httpRequest
      *
      * @return JsonResponse
      * @throws ValidationException
-     *
      * @OA\Post(
      *     path="/requests",
      *     summary="Save a new process request",
@@ -161,7 +174,7 @@ class ProcessRequestController extends Controller
      *     ),
      * )
      */
-    public function store(Request $httpRequest)
+    public function store(Request $httpRequest): ProcessRequestResource
     {
         $httpRequest->validate(ProcessRequest::rules());
         $processRequest = new ProcessRequest();
@@ -173,11 +186,9 @@ class ProcessRequestController extends Controller
     /**
      * Update a request
      *
-     * @param ProcessRequest $request
      * @param Request|ProcessRequest $httpRequest
      *
      * @return ResponseFactory|Response
-     *
      * @OA\Put(
      *     path="/requests/process_request_id",
      *     summary="Update a process request",
@@ -214,10 +225,8 @@ class ProcessRequestController extends Controller
     /**
      * Delete a request
      *
-     * @param ProcessRequest $request
      *
      * @return ResponseFactory|Response
-     *
      * @OA\Delete(
      *     path="/requests/process_request_id",
      *     summary="Delete a process request",

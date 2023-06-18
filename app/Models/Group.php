@@ -30,7 +30,7 @@ use App\Traits\SerializeToIso8601;
  * )
  *
  */
-class Group extends Model
+final class Group extends Model
 {
     use SerializeToIso8601;
 
@@ -40,7 +40,10 @@ class Group extends Model
         'status',
     ];
 
-    public static function rules($existing = null)
+    /**
+     * @return array{name: mixed[]|string, status: string}
+     */
+    public static function rules($existing = null): array
     {
         $rules = [
             'name' => 'required|string|unique:groups,name',

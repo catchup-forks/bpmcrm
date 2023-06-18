@@ -7,7 +7,7 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\ProcessCategory;
 
-class ProcessCategoryController extends Controller
+final class ProcessCategoryController extends Controller
 {
     /**
      * Get list of Process Categories
@@ -22,7 +22,6 @@ class ProcessCategoryController extends Controller
     /**
      * Get a specific process category
      *
-     * @param ProcessCategory $processCategory
      *
      * @return Factory|View
      */

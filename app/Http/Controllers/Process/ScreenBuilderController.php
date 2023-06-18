@@ -9,12 +9,11 @@ use App\Models\Screen;
 use App\Events\ScreenBuilderStarting;
 use App\Managers\ScreenBuilderManager;
 
-class ScreenBuilderController extends Controller
+final class ScreenBuilderController extends Controller
 {
     /**
      * Get the screen in the constructor to edit it.
      *
-     * @param Screen $screen
      *
      * @return Factory|View
      */

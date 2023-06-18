@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Facade;
  * @method array format(\app\Model\ProcessFile $processFile, $includeContent = false, $editableAsString = false)
  * @method mixed putUploadedFileIntoProcessFile(UploadedFile $file, ProcessFile $processFile)
  */
-class ProcessFileManager extends Facade
+final class ProcessFileManager extends Facade
 {
 
     /**

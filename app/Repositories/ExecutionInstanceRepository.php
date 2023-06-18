@@ -16,7 +16,7 @@ use App\Nayra\RepositoryTrait;
  *
  * @package app\Models
  */
-class ExecutionInstanceRepository implements ExecutionInstanceRepositoryInterface
+final class ExecutionInstanceRepository implements ExecutionInstanceRepositoryInterface
 {
 
     use RepositoryTrait;
@@ -76,7 +76,7 @@ class ExecutionInstanceRepository implements ExecutionInstanceRepositoryInterfac
      *
      * @return $this
      */
-    public function storeExecutionInstance(ExecutionInstanceInterface $instance)
+    public function storeExecutionInstance(ExecutionInstanceInterface $instance): void
     {
         // TODO: Implement store() method. or Remove from Interface
     }
@@ -88,7 +88,7 @@ class ExecutionInstanceRepository implements ExecutionInstanceRepositoryInterfac
      *
      * @return mixed
      */
-    public function persistInstanceCreated(ExecutionInstanceInterface $instance)
+    public function persistInstanceCreated(ExecutionInstanceInterface $instance): void
     {
         //Get instance data
         $data = $instance->getDataStore()->getData();
@@ -116,7 +116,7 @@ class ExecutionInstanceRepository implements ExecutionInstanceRepositoryInterfac
      *
      * @return mixed
      */
-    public function persistInstanceUpdated(ExecutionInstanceInterface $instance)
+    public function persistInstanceUpdated(ExecutionInstanceInterface $instance): void
     {
         //Get instance data
         $data = $instance->getDataStore()->getData();
@@ -133,7 +133,7 @@ class ExecutionInstanceRepository implements ExecutionInstanceRepositoryInterfac
      *
      * @return mixed
      */
-    public function persistInstanceCompleted(ExecutionInstanceInterface $instance)
+    public function persistInstanceCompleted(ExecutionInstanceInterface $instance): void
     {
         //Get instance data
         $data = $instance->getDataStore()->getData();
@@ -152,7 +152,7 @@ class ExecutionInstanceRepository implements ExecutionInstanceRepositoryInterfac
      * @param ExecutionInstanceInterface $source Source instance
      * @param ParticipantInterface $sourceParticipant
      */
-    public function persistInstanceCollaboration(ExecutionInstanceInterface $instance, ParticipantInterface $participant, ExecutionInstanceInterface $source, ParticipantInterface $sourceParticipant)
+    public function persistInstanceCollaboration(ExecutionInstanceInterface $instance, ParticipantInterface $participant, ExecutionInstanceInterface $source, ParticipantInterface $sourceParticipant): void
     {
         if ($source->process_collaboration_id === null) {
             $collaboration = new ProcessCollaboration();

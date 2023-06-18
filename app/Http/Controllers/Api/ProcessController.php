@@ -15,15 +15,13 @@ use App\Http\Resources\Process as Resource;
 use App\Http\Resources\ProcessRequests;
 use App\Models\Process;
 
-class ProcessController extends Controller
+final class ProcessController extends Controller
 {
 
     /**
      * Get list Process
      *
-     * @param Request $request
      *
-     * @return ApiCollection
      *
      * * @OA\Get(
      *     path="/processes",
@@ -55,7 +53,7 @@ class ProcessController extends Controller
      *     ),
      * )
      */
-    public function index(Request $request)
+    public function index(Request $request): ApiCollection
     {
         $where = $this->getRequestFilterBy($request, ['processes.name', 'processes.description','processes.status', 'category.name', 'user.firstname', 'user.lastname']);
         $orderBy = $this->getRequestSortBy($request, 'name');
@@ -99,7 +97,7 @@ class ProcessController extends Controller
      *     ),
      * )
      */
-    public function show(Request $request, Process $process)
+    public function show(Request $request, Process $process): Resource
     {
         return new Resource($process);
     }
@@ -107,11 +105,9 @@ class ProcessController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
      *
      * @return JsonResponse
      * @throws ValidationException
-     *
      * @OA\Post(
      *     path="/processes",
      *     summary="Save a new process",
@@ -128,7 +124,7 @@ class ProcessController extends Controller
      *     ),
      * )
      */
-    public function store(Request $request)
+    public function store(Request $request): Resource
     {
         $request->validate(Process::rules());
         $data = $request->mediumText()->all();
@@ -152,8 +148,6 @@ class ProcessController extends Controller
     /**
      * Updates the current element
      *
-     * @param Request $request
-     * @param Process $process
      * @return ResponseFactory|Response
      * @throws Throwable
      *
@@ -206,11 +200,9 @@ class ProcessController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Process $process
      *
      * @return ResponseFactory|Response
      * @throws ValidationException
-     *
      * @OA\Delete(
      *     path="/processes/processId",
      *     summary="Delete a process",
@@ -255,8 +247,6 @@ class ProcessController extends Controller
     /**
      * Trigger an start event within a process.
      *
-     * @param Process $process
-     * @param Request $request
      *
      * @return \app\Http\Resources\ProcessRequests
      */
@@ -283,12 +273,10 @@ class ProcessController extends Controller
     /**
      * Get the where array to filter the resources.
      *
-     * @param Request $request
-     * @param array $searchableColumns
      *
-     * @return array
+     * @return array<int, mixed[]>
      */
-    protected function getRequestFilterBy(Request $request, array $searchableColumns)
+    private function getRequestFilterBy(Request $request, array $searchableColumns): array
     {
         $where = [];
         $filter = $request->input('filter');
@@ -296,7 +284,7 @@ class ProcessController extends Controller
             foreach ($searchableColumns as $column) {
                 // for other columns, it can match a substring
                 $sub_search = '%';
-                if (array_search('status', explode('.', $column), true) !== false ) {
+                if (array_search('status', explode('.', (string) $column), true) !== false ) {
                     // filtering by status must match the entire string
                     $sub_search = '';
                 }
@@ -309,11 +297,9 @@ class ProcessController extends Controller
     /**
      * Get included relationships.
      *
-     * @param Request $request
      *
-     * @return array
      */
-    protected function getRequestSortBy(Request $request, $default)
+    private function getRequestSortBy(Request $request, string $default): array
     {
         $column = $request->input('order_by', $default);
         $direction = $request->input('order_direction', 'asc');
@@ -323,14 +309,13 @@ class ProcessController extends Controller
     /**
      * Get included relationships.
      *
-     * @param Request $request
      *
      * @return array
      */
-    protected function getRequestInclude(Request $request)
+    private function getRequestInclude(Request $request)
     {
         $include = $request->input('include');
-        return $include ? explode(',', $include) : [];
+        return $include ? explode(',', (string) $include) : [];
     }
 
 
@@ -338,10 +323,9 @@ class ProcessController extends Controller
      * Get the size of the page.
      * per_page=# (integer, the page requested) (Default: 10)
      *
-     * @param Request $request
      * @return type
      */
-    protected function getPerPage(Request $request)
+    private function getPerPage(Request $request)
     {
         return $request->input('per_page', 10);
     }

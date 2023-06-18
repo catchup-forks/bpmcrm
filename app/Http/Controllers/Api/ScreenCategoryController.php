@@ -11,7 +11,7 @@ use App\Models\ScreenCategory;
 use App\Http\Resources\ApiCollection;
 use App\Http\Resources\ApiResource;
 
-class ScreenCategoryController extends Controller
+final class ScreenCategoryController extends Controller
 {
     /**
      * Display a listing of the Screen Categories.
@@ -66,12 +66,12 @@ class ScreenCategoryController extends Controller
      *     ),
      * )
      */
-    public function index(Request $request)
+    public function index(Request $request): ApiCollection
     {
         $query = ScreenCategory::query();
         $filter = $request->input('filter', '');
         if (!empty($filter)) {
-            $query->where(function ($query) use ($filter) {
+            $query->where(function ($query) use ($filter): void {
                 $query->Where('name', 'like', $filter)
                     ->orWhere('status', 'like', $filter);
             });
@@ -83,7 +83,7 @@ class ScreenCategoryController extends Controller
             $request->input('order_by', 'name'),
             $request->input('order_direction', 'asc')
         );
-        $include  = $request->input('include') ? explode(',',$request->input('include')) : [];
+        $include  = $request->input('include') ? explode(',',(string) $request->input('include')) : [];
         $query->with($include);
         $response = $query->paginate($request->input('per_page', 10));
         return new ApiCollection($response);
@@ -92,7 +92,6 @@ class ScreenCategoryController extends Controller
     /**
      * Display the specified screen category.
      *
-     * @param ScreenCategory $screenCategory
      *
      * @return JsonResponse
      *     * @OA\Get(
@@ -116,7 +115,7 @@ class ScreenCategoryController extends Controller
      *     ),
      * )
      */
-    public function show(ScreenCategory $screenCategory)
+    public function show(ScreenCategory $screenCategory): ApiResource
     {
         return new ApiResource($screenCategory);
     }
@@ -124,7 +123,6 @@ class ScreenCategoryController extends Controller
     /**
      * Store a newly created Screen Category in storage
      *
-     * @param Request $request
      *
      * @return JsonResponse
      *
@@ -144,7 +142,7 @@ class ScreenCategoryController extends Controller
      *     ),
      * )
      */
-    public function store(Request $request)
+    public function store(Request $request): ApiResource
     {
         $request->validate(ScreenCategory::rules());
         $category = new ScreenCategory();
@@ -156,8 +154,6 @@ class ScreenCategoryController extends Controller
     /**
      * Updates the current element
      *
-     * @param Request $request
-     * @param ScreenCategory $screenCategory
      *
      * @return ResponseFactory|Response
      *      * @OA\Put(
@@ -185,9 +181,9 @@ class ScreenCategoryController extends Controller
      *     ),
      * )
      */
-    public function update(Request $request, ScreenCategory $screenCategory)
+    public function update(Request $request, ScreenCategory $screenCategory): ApiResource
     {
-        $request->validate(ScreenCategory::rules($screenCategory));
+        $request->validate(ScreenCategory::rules());
         $screenCategory->fill($request->mediumText()->all());
         $screenCategory->saveOrFail();
         return new ApiResource($screenCategory);
@@ -196,7 +192,6 @@ class ScreenCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ScreenCategory $screenCategory
      *
      * @return ResponseFactory|Response
      *

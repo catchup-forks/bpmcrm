@@ -1,6 +1,7 @@
 <?php
 namespace App\Models;
 
+use Illuminate\Database\Query\Builder;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -56,7 +57,7 @@ use App\Traits\SerializeToIso8601;
  *   @OA\Property(property="updated_at", type="string", format="date-time"),
  * )
  */
-class ProcessRequest extends Model implements ExecutionInstanceInterface
+final class ProcessRequest extends Model implements ExecutionInstanceInterface
 {
 
     use ExecutionInstanceTrait;
@@ -85,17 +86,6 @@ class ProcessRequest extends Model implements ExecutionInstanceInterface
     ];
 
     /**
-     * The binary UUID attributes that should be converted to text.
-     *
-     * @var array
-     */
-    protected $ids = [
-        'process_id',
-        'process_collaboration_id',
-        'user_id',
-    ];
-
-    /**
      * The attributes that should be cast to native types.
      *
      * @var array
@@ -119,8 +109,6 @@ class ProcessRequest extends Model implements ExecutionInstanceInterface
 
     /**
      * Boot the model as a process instance.
-     *
-     * @param array $argument
      */
     public function __construct(array $argument=[])
     {
@@ -133,9 +121,9 @@ class ProcessRequest extends Model implements ExecutionInstanceInterface
      *
      * @param null $existing
      *
-     * @return array
+     * @return array{name: string, data: string, status: string, process_id: string, process_collaboration_id: string, user_id: string}
      */
-    public static function rules($existing = null)
+    public static function rules($existing = null): array
     {
         $rules = [
             'name' => 'required|unique:process_requests,name',
@@ -214,7 +202,7 @@ class ProcessRequest extends Model implements ExecutionInstanceInterface
      * Get users of the request.
      *
      */
-    public function assigned()
+    public function assigned(): Builder
     {
         return $this->hasMany(ProcessRequestToken::class)
             ->with('user')
@@ -228,7 +216,7 @@ class ProcessRequest extends Model implements ExecutionInstanceInterface
      *
      * @param $id User id
      */
-    public function scopeStartedMe($query, $id)
+    public function scopeStartedMe($query, $id): void
     {
         $query->where('user_id', '=', $id);
     }
@@ -238,7 +226,7 @@ class ProcessRequest extends Model implements ExecutionInstanceInterface
      *
      * @param $query
      */
-    public function scopeInProgress($query)
+    public function scopeInProgress($query): void
     {
         $query->where('status' , '=', 'ACTIVE');
     }
@@ -248,7 +236,7 @@ class ProcessRequest extends Model implements ExecutionInstanceInterface
      *
      * @param $query
      */
-    public function scopeCompleted($query)
+    public function scopeCompleted($query): void
     {
         $query->where('status' , '=', 'COMPLETED');
     }
@@ -258,7 +246,7 @@ class ProcessRequest extends Model implements ExecutionInstanceInterface
      *
      * @return HasManyThrough
      */
-    public function participants()
+    public function participants(): Builder
     {
         return $this->hasManyThrough(User::class, ProcessRequestToken::class, 'process_request_id', 'id', $this->getKeyName(), 'user_id')
             ->distinct();
@@ -267,7 +255,7 @@ class ProcessRequest extends Model implements ExecutionInstanceInterface
     /**
      * Returns the summary data in an array key/value
      */
-    public function summary()
+    public function summary(): array
     {
         $result = [];
         if (is_array($this->data)) {

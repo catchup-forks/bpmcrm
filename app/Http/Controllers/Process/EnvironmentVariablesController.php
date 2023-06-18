@@ -7,7 +7,7 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\EnvironmentVariable;
 
-class EnvironmentVariablesController extends Controller
+final class EnvironmentVariablesController extends Controller
 {
     /**
      * Get the list of environment variables
@@ -22,7 +22,6 @@ class EnvironmentVariablesController extends Controller
     /**
      * Get a specific Environment Variable
      *
-     * @param EnvironmentVariable $environmentVariable
      *
      * @return Factory|View
      */

@@ -10,15 +10,13 @@ use App\Models\Process;
 use App\Models\ProcessRequestToken as Token;
 use App\Nayra\Contracts\Bpmn\TokenInterface;
 
-class ActivityActivatedNotification extends Notification
+final class ActivityActivatedNotification extends Notification
 {
     use Queueable;
 
     private $processUid;
-    private $instanceUid;
     private $tokenUid;
     private $tokenElement;
-    private $tokenStatus;
 
     /**
      * Create a new notification instance.
@@ -28,19 +26,14 @@ class ActivityActivatedNotification extends Notification
     public function __construct(TokenInterface $token)
     {
         $this->processUid = $token->processRequest->process->getKey();
-        $this->instanceUid = $token->processRequest->getKey();
         $this->tokenUid = $token->getKey();
         $this->tokenElement = $token->element_id;
-        $this->tokenStatus = $token->status;
     }
 
     /**
      * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
      */
-    public function via($notifiable)
+    public function via(mixed $notifiable): array
     {
         return ['broadcast', 'database'];
     }
@@ -48,10 +41,9 @@ class ActivityActivatedNotification extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
      * @return MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail(mixed $notifiable)
     {
         return (new MailMessage)
             ->line('The introduction to the notification.')
@@ -62,10 +54,9 @@ class ActivityActivatedNotification extends Notification
     /**
      * Get the database representation of the notification.
      *
-     * @param  mixed  $notifiable
      * @return array
      */
-    public function toDatabase($notifiable)
+    public function toDatabase(mixed $notifiable)
     {
         return $this->toArray($notifiable);
     }
@@ -76,7 +67,7 @@ class ActivityActivatedNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toArray($notifiable): array
     {
         $process = Process::find($this->processUid);
         $definitions = $process->getDefinitions();
@@ -104,7 +95,7 @@ class ActivityActivatedNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toBroadcast($notifiable)
+    public function toBroadcast($notifiable): BroadcastMessage
     {
         return new BroadcastMessage($this->toArray($notifiable));
     }

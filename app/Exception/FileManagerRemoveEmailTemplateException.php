@@ -8,7 +8,7 @@ use Exception;
  * Description of FileManagerRemoveEmailTemplateException
  *
  */
-class FileManagerRemoveEmailTemplateException extends Exception
+final class FileManagerRemoveEmailTemplateException extends Exception
 {
     
 }

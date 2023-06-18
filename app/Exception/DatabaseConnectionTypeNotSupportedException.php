@@ -9,7 +9,7 @@ use Exception;
  *
  * @package app\Exceptions
  */
-class DatabaseConnectionTypeNotSupportedException extends Exception
+final class DatabaseConnectionTypeNotSupportedException extends Exception
 {
 
 }

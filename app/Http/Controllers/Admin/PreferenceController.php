@@ -6,7 +6,7 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\JsonData;
 
-class PreferenceController extends Controller
+final class PreferenceController extends Controller
 {
   /**
    * Get the preferences form

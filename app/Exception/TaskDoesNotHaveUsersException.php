@@ -7,7 +7,7 @@ use Exception;
  * The task does not have users to assign
  *
  */
-class TaskDoesNotHaveUsersException extends Exception
+final class TaskDoesNotHaveUsersException extends Exception
 {
 
     /**

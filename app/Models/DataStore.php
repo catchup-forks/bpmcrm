@@ -11,12 +11,12 @@ use App\Nayra\Contracts\Bpmn\ProcessInterface;
  *
  * @package app\Models
  */
-class DataStore implements DataStoreInterface
+final class DataStore implements DataStoreInterface
 {
 
     use DataStoreTrait;
 
-    private $data = [];
+    private array $data = [];
 
     /**
      *
@@ -56,13 +56,12 @@ class DataStore implements DataStoreInterface
     /**
      * Get data from store.
      *
-     * @param mixed $name
      *
      * @return mixed
      */
-    public function getData($name = null, $default = null)
+    public function getData(mixed $name = null, $default = null)
     {
-        return $name === null ? $this->data : (isset($this->data[$name]) ? $this->data[$name] : $default);
+        return $name === null ? $this->data : ($this->data[$name] ?? $default);
     }
 
     /**
@@ -82,11 +81,10 @@ class DataStore implements DataStoreInterface
      * Put data to store.
      *
      * @param string $name
-     * @param mixed $data
      *
      * @return $this
      */
-    public function putData($name, $data)
+    public function putData($name, mixed $data)
     {
         $this->data[$name] = $data;
         return $this;

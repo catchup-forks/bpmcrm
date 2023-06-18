@@ -9,15 +9,13 @@ use App\Http\Resources\ApiCollection;
 use App\Models\Group;
 use App\Http\Resources\Groups as GroupResource;
 
-class GroupController extends Controller
+final class GroupController extends Controller
 {
 
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      *
-     * @return ApiCollection
      *
      * @OA\Get(
      *     path="/groups",
@@ -48,13 +46,31 @@ class GroupController extends Controller
      *         ),
      *     ),
      * )
+     *     @OA\Response(
+     *         response=200,
+     *         description="list of groups",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/groups"),
+     *             ),
+     *             @OA\Property(
+     *                 property="meta",
+     *                 type="object",
+     *                 allOf={@OA\Schema(ref="#/components/schemas/metadata")},
+     *             ),
+     *         ),
+     *     ),
+     * )
      */
-    public function index(Request $request)
+    public function index(Request $request): ApiCollection
     {
         $include = $request->input('include', '');
         $query = Group::query();
         if ($include) {
-            $include = explode(',', $include);
+            $include = explode(',', (string) $include);
             $count = array_search('membersCount', $include);
             if ($count !== false) {
                 unset($include[$count]);
@@ -67,7 +83,7 @@ class GroupController extends Controller
         $filter = $request->input('filter', '');
         if (!empty($filter)) {
             $filter = '%' . $filter . '%';
-            $query->where(function ($query) use ($filter) {
+            $query->where(function ($query) use ($filter): void {
                 $query->Where('name', 'like', $filter)
                     ->orWhere('description', 'like', $filter)
                     ->orWhere('status', 'like', $filter);
@@ -85,9 +101,7 @@ class GroupController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
      *
-     * @return GroupResource
      * @throws Throwable
      *
      * @OA\Post(
@@ -106,7 +120,7 @@ class GroupController extends Controller
      *     ),
      * )
      */
-    public function store(Request $request)
+    public function store(Request $request): GroupResource
     {
         $request->validate(Group::rules());
         $group = new Group();
@@ -142,7 +156,7 @@ class GroupController extends Controller
      *     ),
      * )
      */
-    public function show(Group $group)
+    public function show(Group $group): GroupResource
     {
         return new GroupResource($group);
     }
@@ -150,8 +164,6 @@ class GroupController extends Controller
     /**
      * Update a user
      *
-     * @param Group $group
-     * @param Request $request
      *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      * @throws Throwable

@@ -9,7 +9,7 @@ use App\Http\Resources\ApiCollection;
 use App\Models\User;
 use App\Http\Resources\Users as UserResource;
 
-class UserController extends Controller
+final class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -46,14 +46,14 @@ class UserController extends Controller
      *     ),
      * )
      */
-    public function index(Request $request)
+    public function index(Request $request): ApiCollection
     {
         $query = User::query();
 
         $filter = $request->input('filter', '');
         if (!empty($filter)) {
             $filter = '%' . $filter . '%';
-            $query->where(function ($query) use ($filter) {
+            $query->where(function ($query) use ($filter): void {
                 $query->Where('username', 'like', $filter)
                     ->orWhere('firstname', 'like', $filter)
                     ->orWhere('lastname', 'like', $filter);
@@ -84,9 +84,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
      * @return \Illuminate\Http\Response
-     *
      *     @OA\Get(
      *     path="/users/userId",
      *     summary="Get single user by ID",
@@ -108,7 +106,7 @@ class UserController extends Controller
      *     ),
      * )
      */
-    public function store(Request $request)
+    public function store(Request $request): UserResource
     {
         $request->validate(User::rules());
         $user = new User();
@@ -139,7 +137,7 @@ class UserController extends Controller
      *     ),
      * )
      */
-    public function show(User $user)
+    public function show(User $user): UserResource
     {
         return new UserResource($user);
     }
@@ -147,8 +145,6 @@ class UserController extends Controller
     /**
      * Update a user
      *
-     * @param User $user
-     * @param Request $request
      *
      * @return ResponseFactory|Response
      *
@@ -191,10 +187,8 @@ class UserController extends Controller
     /**
      * Delete a user
      *
-     * @param User $user
      *
      * @return ResponseFactory|Response
-     *
      *     @OA\Delete(
      *     path="/users/userId",
      *     summary="Delete a user",
@@ -227,8 +221,6 @@ class UserController extends Controller
     /**
      * Upload file avatar
      *
-     * @param User $user
-     * @param Request $request
      *
      * @throws Exception
      */
@@ -242,8 +234,8 @@ class UserController extends Controller
             return;
         }
 
-        if (preg_match('/^data:image\/(\w+);base64,/', $data['avatar'] , $type)) {
-            $data = substr($data['avatar'], strpos($data['avatar'], ',') + 1);
+        if (preg_match('/^data:image\/(\w+);base64,/', (string) $data['avatar'] , $type)) {
+            $data = substr((string) $data['avatar'], strpos((string) $data['avatar'], ',') + 1);
             $type = strtolower($type[1]); // jpg, png, gif
 
             if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' , 'svg'])) {

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Task;
 
 use App\Http\Controllers\Controller;
 
-class TaskController extends Controller
+final class TaskController extends Controller
 {
     //
 }

@@ -13,7 +13,6 @@ use App\Managers\DatabaseManager;
 use App\Managers\InputDocumentManager;
 use App\Managers\ModelerManager;
 use App\Managers\OutputDocumentManager;
-use App\Managers\ProcessCategoryManager;
 use App\Managers\ProcessFileManager;
 use App\Managers\ProcessManager;
 use App\Managers\ReportTableManager;
@@ -43,6 +42,7 @@ class ProcessMakerServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        parent::register();
         $this->app->bind('path.public', function () {
             return base_path() . '/public_html';
         });
@@ -55,9 +55,9 @@ class ProcessMakerServiceProvider extends ServiceProvider
             return new ProcessFileManager();
         });
 
-        $this->app->singleton('process_category.manager', function ($app) {
+        /*$this->app->singleton('process_category.manager', function ($app) {
             return new ProcessCategoryManager();
-        });
+        });*/
 
         $this->app->singleton('database.manager', function ($app) {
             return new DatabaseManager();

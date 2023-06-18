@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Facade;
  * @method mixed runScripTask(\app\Nayra\Contracts\Bpmn\ScriptTaskInterface $scriptTask, Token $token)
  * @method mixed runServiceTask(\app\Nayra\Contracts\Bpmn\ServiceTaskInterface $serviceTask, Token $token)
  */
-class WorkflowManager extends Facade
+final class WorkflowManager extends Facade
 {
     /**
      * Get the registered name of the component.

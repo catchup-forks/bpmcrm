@@ -19,7 +19,7 @@ use App\Model\User;
  * @method static string getUrlAvatar(User $user)
  *
  */
-class UserManager extends Facade
+final class UserManager extends Facade
 {
     /**
      * Get the registered name of the component.

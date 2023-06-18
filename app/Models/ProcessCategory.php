@@ -31,7 +31,7 @@ use App\Traits\SerializeToIso8601;
  *   @OA\Property(property="updated_at", type="string", format="date-time"),
  * )
  */
-class ProcessCategory extends Model
+final class ProcessCategory extends Model
 {
     use SerializeToIso8601;
 
@@ -40,7 +40,10 @@ class ProcessCategory extends Model
         'status'
     ];
 
-    public static function rules($existing=null)
+    /**
+     * @return array{name: mixed[]|string, status: string}
+     */
+    public static function rules($existing=null): array
     {
         $rules = [
             'name' => 'required|string|max:100|unique:process_categories,name',

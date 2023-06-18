@@ -15,7 +15,7 @@ use Symfony\Component\Console\Helper\Table;
  * If a .env file is found in the base_path(), then we will refuse to install.
  * Note: This is destructive to your database if you point to an existing database with tables.
  */
-class Install extends Command
+final class Install extends Command
 {
     /**
      * The name and signature of the console command.
@@ -36,19 +36,19 @@ class Install extends Command
      *
      * $var array
      */
-    private $env;
+    private ?array $env = null;
 
     /**
      * The encryption key we will use for for fresh install and any encryption during install
      */
-    private $key;
+    private ?string $key = null;
 
     /**
      * Installs a fresh copy of app BPM
      *
      * @return mixed If the command succeeds, true
      */
-    public function handle()
+    public function handle(): int|bool
     {
         // Setup our initial encryption key and set our running laravel app key to it
         $this->key = 'base64:'.base64_encode(Encrypter::generateKey($this->laravel['config']['app.cipher']));
@@ -101,7 +101,7 @@ class Install extends Command
                                         FILTER_VALIDATE_URL,
                                         FILTER_FLAG_SCHEME_REQUIRED |
                                         FILTER_FLAG_HOST_REQUIRED)
-                    || ($this->env['APP_URL'][strlen($this->env['APP_URL']) - 1] == '/'))
+                    || ($this->env['APP_URL'][strlen((string) $this->env['APP_URL']) - 1] == '/'))
         );
         // Set broadcaster url
         $this->env['BROADCASTER_HOST'] = $this->env['APP_URL'] . ':6001';
@@ -143,7 +143,7 @@ class Install extends Command
     /**
      * The following checks for required extensions needed by app
      */
-    private function checkDependencies()
+    private function checkDependencies(): bool
     {
         $this->info(__("Dependencies Check"));
         $table = new Table($this->output);
@@ -164,7 +164,7 @@ class Install extends Command
         return true;
     }
 
-    private function fetchDatabaseCredentials()
+    private function fetchDatabaseCredentials(): void
     {
         $this->info(__("app requires a MySQL database created with appropriate credentials configured."));
         $this->info(__("Refer to the Installation Guide for more information on database best practices."));
@@ -175,7 +175,7 @@ class Install extends Command
         $this->env['DB_PASSWORD'] = $this->secret(__("Enter your MySQL Password (Input hidden)"));
     }
 
-    private function testDatabaseConnection()
+    private function testDatabaseConnection(): bool
     {
         // Setup Laravel Database Configuration
         config(['database.connections.install' => [

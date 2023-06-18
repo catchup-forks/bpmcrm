@@ -17,7 +17,7 @@ use App\Model\Task;
  * @method static Paginator index(array $options)
  *
  */
-class TasksDelegationManager extends Facade
+final class TasksDelegationManager extends Facade
 {
     /**
      * Get the registered name of the component.

@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $created_at
  *
  */
-class ProcessCollaboration extends Model
+final class ProcessCollaboration extends Model
 {
 
     /**
@@ -35,15 +35,6 @@ class ProcessCollaboration extends Model
      * @var array
      */
     protected $hidden = [
-    ];
-
-    /**
-     * The binary UUID attributes that should be converted to text.
-     *
-     * @var array
-     */
-    protected $ids = [
-        'process_id',
     ];
 
     /**

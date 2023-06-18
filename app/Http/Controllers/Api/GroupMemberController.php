@@ -11,7 +11,7 @@ use App\Models\GroupMember;
 use App\Http\Resources\ApiCollection;
 use App\Http\Resources\GroupMembers as GroupMemberResource;
 
-class GroupMemberController extends Controller
+final class GroupMemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -48,14 +48,14 @@ class GroupMemberController extends Controller
      *     ),
      * )
      */
-    public function index(Request $request)
+    public function index(Request $request): ApiCollection
     {
         $query = GroupMember::query();
 
         $filter = $request->input('filter', '');
         if (!empty($filter)) {
             $filter = '%' . $filter . '%';
-            $query->where(function ($query) use ($filter) {
+            $query->where(function ($query) use ($filter): void {
                 $query->Where('member_id', '=', $filter);
             });
         }
@@ -74,9 +74,7 @@ class GroupMemberController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
      * @return \Illuminate\Http\Response
-     *
      *     @OA\Post(
      *     path="/group_members",
      *     summary="Save a new group_members",
@@ -136,7 +134,7 @@ class GroupMemberController extends Controller
      *     ),
      * )
      */
-    public function show(GroupMember $group_member)
+    public function show(GroupMember $group_member): GroupMemberResource
     {
         return new GroupMemberResource($group_member);
     }

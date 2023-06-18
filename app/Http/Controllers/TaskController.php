@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\ProcessRequestToken;
 
-class TaskController extends Controller
+final class TaskController extends Controller
 {
-    private static $dueLabels = [
+    private static array $dueLabels = [
         'open' => 'Due ',
         'completed' => 'Completed ',
         'overdue' => 'Due ',

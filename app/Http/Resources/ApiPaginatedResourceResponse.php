@@ -5,12 +5,12 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\PaginatedResourceResponse;
 
-class ApiPaginatedResourceResponse extends PaginatedResourceResponse {
+final class ApiPaginatedResourceResponse extends PaginatedResourceResponse {
     /**
      * Add the pagination information to the response.
      *
      * @param Request $request
-     * @return array
+     * @return array{meta: mixed[]}
      */
     protected function paginationInformation($request)
     {

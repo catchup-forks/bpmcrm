@@ -9,40 +9,36 @@ use App\Nayra\Contracts\Bpmn\ScriptTaskInterface;
 use App\Nayra\Contracts\Bpmn\TokenInterface;
 use App\Nayra\Contracts\Engine\ExecutionInstanceInterface;
 
-class RunScriptTask extends BpmnAction implements ShouldQueue
+final class RunScriptTask extends BpmnAction implements ShouldQueue
 {
 
     public $definitionsId;
     public $instanceId;
     public $tokenId;
-    public $data;
 
     /**
      * Create a new job instance.
-     * 
+     *
      * @param \app\Models\Process $definitions
      * @param \app\Nayra\Contracts\Engine\ExecutionInstanceInterface $instance
      * @param \app\Nayra\Contracts\Bpmn\TokenInterface $token
-     * @param array $data
+     * @param mixed[] $data
      */
-    public function __construct(Definitions $definitions, ExecutionInstanceInterface $instance, TokenInterface $token, array $data)
+    public function __construct(Definitions $definitions, ExecutionInstanceInterface $instance, TokenInterface $token, public array $data)
     {
         $this->definitionsId = $definitions->getKey();
         $this->instanceId = $instance->getKey();
         $this->tokenId = $token->getKey();
-        $this->data = $data;
     }
 
     /**
      * Execute the script task.
-     *
-     * @return void
      */
-    public function action(TokenInterface $token, ScriptTaskInterface $element)
+    public function action(TokenInterface $token, ScriptTaskInterface $element): void
     {
         $scriptRef = $element->getProperty('scriptRef');
         Log::info('Script started: ' . $scriptRef);
-        $configuration = json_decode($element->getProperty('config'), true);
+        $configuration = json_decode((string) $element->getProperty('config'), true, 512, JSON_THROW_ON_ERROR);
 
         // Check to see if we've failed parsing.  If so, let's convert to empty array.
         if ($configuration === null) {

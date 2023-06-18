@@ -12,7 +12,7 @@ use App\Models\Process;
  *
  * @package app
  */
-class BpmnEngine implements EngineInterface
+final class BpmnEngine implements EngineInterface
 {
     use EngineTrait;
 

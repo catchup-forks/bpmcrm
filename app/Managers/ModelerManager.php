@@ -1,9 +1,9 @@
 <?php
 namespace App\Managers;
 
-class ModelerManager
+final class ModelerManager
 {
-    private $javascriptRegistry;
+    private array $javascriptRegistry;
 
     /**
      * Start our modeler manager, registering our initial javascript 
@@ -19,11 +19,10 @@ class ModelerManager
     /**
      * Add a new script to the modeler load.  These scripts can then interact with the modeler 
      * during it's startup lifecycle to do this such as register new node types.
-     * 
+     *
      * @param string $script Path to the javascript to load
-     * @return void
      */
-    public function addScript($script)
+    public function addScript($script): void
     {
         $this->javascriptRegistry[] = $script;
     }

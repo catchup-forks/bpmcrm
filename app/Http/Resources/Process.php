@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Resources;
 
-class Process extends ApiResource
+final class Process extends ApiResource
 {
 
     /**
@@ -13,7 +13,7 @@ class Process extends ApiResource
     public function toArray($request)
     {
         $array = parent::toArray($request);
-        $include = explode(',', $request->input('include', ''));
+        $include = explode(',', (string) $request->input('include', ''));
         if (in_array('user', $include)) {
             $array['user'] = new Users($this->user);
         }

@@ -10,7 +10,7 @@ use Laravel\Passport\Passport;
  * @package app\Providers
  * @todo Add gates to provide authorization functionality. See branch release/3.3 for sample implementations
  */
-class AuthServiceProvider extends ServiceProvider
+final class AuthServiceProvider extends ServiceProvider
 {
     /**
      * The policy mappings for the application.
@@ -22,10 +22,8 @@ class AuthServiceProvider extends ServiceProvider
 
     /**
      * Register any authentication / authorization services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerPolicies();
         Passport::routes();

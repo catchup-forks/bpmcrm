@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use Illuminate\Support\Collection;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\ResourceCollection;
@@ -25,17 +26,17 @@ use Illuminate\Pagination\AbstractPaginator;
  *    @OA\Property(property="total", type="integer"),
  *  )
  */
-class ApiCollection extends ResourceCollection
+final class ApiCollection extends ResourceCollection
 {
     /**
      * Generic collection to add sorting and filtering metadata.
      *
      * @param Request $request
-     * @return array
+     * @return array{data: Collection, meta: array{filter: mixed, sort_by: mixed, sort_order: mixed, count: mixed, total_pages: float}}
      */
     public function toArray($request)
     {
-        $payload = [
+        return [
             'data' => $this->collection,
             'meta' => [
                 'filter' => $request->input('filter', ''),
@@ -51,8 +52,6 @@ class ApiCollection extends ResourceCollection
                 'total_pages' => ceil($this->resource->total() / $this->resource->perPage())
             ]
         ];
-
-        return $payload;
     }
 
     /**

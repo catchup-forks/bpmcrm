@@ -10,28 +10,27 @@ use App\Http\Resources\ApiCollection;
 use App\Http\Resources\Task as Resource;
 use App\Models\ProcessRequestToken;
 
-class TaskController extends Controller
+final class TaskController extends Controller
 {
 
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request): ApiCollection
     {
         $query = ProcessRequestToken
             ::join('process_requests as request', 'request.id', '=', 'process_request_tokens.process_request_id')
             ->join('users as user', 'user.id', '=', 'process_request_tokens.user_id')
             ->select('process_request_tokens.*');
-        $include  = $request->input('include') ? explode(',',$request->input('include')) : [];
+        $include  = $request->input('include') ? explode(',',(string) $request->input('include')) : [];
         $query->with($include);
         $filter = $request->input('filter', '');
         if (!empty($filter)) {
             $filter = '%' . $filter . '%';
-            $query->where(function ($query) use ($filter) {
+            $query->where(function ($query) use ($filter): void {
                 $query->Where('element_name', 'like', $filter)
                     ->orWhere('process_request_tokens.status', 'like', $filter)
                     ->orWhere('request.name', 'like', $filter)
@@ -59,11 +58,10 @@ class TaskController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param ProcessRequestToken $task
      *
      * @return Resource
      */
-    public function show(ProcessRequestToken $task)
+    public function show(ProcessRequestToken $task): Resource
     {
         return new Resource($task);
     }
@@ -71,8 +69,6 @@ class TaskController extends Controller
     /**
      * Updates the current element
      *
-     * @param Request $request
-     * @param ProcessRequestToken $task
      *
      * @return Resource
      * @throws Throwable
@@ -89,8 +85,7 @@ class TaskController extends Controller
             $instance = $task->processRequest;
             WorkflowManager::completeTask($process, $instance, $task, $data);
             return new Resource($task->refresh());
-        } else {
-            return abort(422);
         }
+        return abort(422);
     }
 }

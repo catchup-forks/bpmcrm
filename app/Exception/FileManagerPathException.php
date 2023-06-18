@@ -9,7 +9,7 @@ use Throwable;
  * Invalid File Manager path exception.
  *
  */
-class FileManagerPathException extends Exception
+final class FileManagerPathException extends Exception
 {
 
     public function __construct($code = 0, Throwable $previous = null)

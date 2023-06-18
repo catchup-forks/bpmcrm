@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-class EnvironmentVariables extends ApiResource
+final class EnvironmentVariables extends ApiResource
 {
 
 }

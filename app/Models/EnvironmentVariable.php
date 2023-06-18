@@ -20,7 +20,7 @@ use Illuminate\Validation\Rule;
  * )
  *
  */
-class EnvironmentVariable extends Model
+final class EnvironmentVariable extends Model
 {
 
     protected $fillable = [
@@ -36,7 +36,7 @@ class EnvironmentVariable extends Model
     /**
      * Store the encrypted version of the variable value here
      */
-    public function setValueAttribute($value)
+    public function setValueAttribute($value): void
     {
         $this->attributes['value'] = encrypt($value);
     }
@@ -49,7 +49,10 @@ class EnvironmentVariable extends Model
         return decrypt($this->attributes['value']);
     }
 
-    public static function rules($existing = null)
+    /**
+     * @return array{description: string, value: string, name: mixed[]|string}
+     */
+    public static function rules($existing = null): array
     {
         $rules = [
         'description' => 'required',

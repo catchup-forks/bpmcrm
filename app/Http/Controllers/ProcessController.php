@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\ProcessCategory;
 use App\Models\Screen;
 
-class ProcessController extends Controller
+final class ProcessController extends Controller
 {
     public function index()
     {

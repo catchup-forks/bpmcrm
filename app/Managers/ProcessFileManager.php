@@ -13,33 +13,21 @@ use App\Model\ProcessFile;
 use App\Model\User;
 use Ramsey\Uuid\Uuid;
 
-class ProcessFileManager
+final class ProcessFileManager
 {
     /**
      * Disk of the request.
-     *
-     * @var Filesystem $disk
      */
-    private $disk;
+    private ?Filesystem $disk = null;
 
     /**
      * drive of the request.
-     *
-     * @var string $drive
      */
-    private $drive;
+    private ?string $drive = null;
 
-    /**
-     *
-     * @var string $pathForClient
-     */
-    private $pathForClient;
+    private ?string $pathForClient = null;
 
-    /**
-     *
-     * @var string $relativePath
-     */
-    private $relativePath;
+    private ?string $relativePath = null;
 
     /**
      * Read the contents of a path.
@@ -61,15 +49,13 @@ class ProcessFileManager
             ]
         );
         if ($path != '') {
-            $arrayData = $this->listContentsOfPath(
+            return $this->listContentsOfPath(
                 $process,
                 $path,
                 $getContents
             );
-        } else {
-            $arrayData = $this->getRootFolders();
         }
-        return $arrayData;
+        return $this->getRootFolders();
     }
 
     /**
@@ -77,9 +63,7 @@ class ProcessFileManager
      *
      * @param Process $process
      * @param User $user
-     * @param array $data
      * @param bool $isImport
-     *
      * @return array
      */
     public function store(Process $process, User $user, array $data, $isImport = false)
@@ -119,7 +103,7 @@ class ProcessFileManager
         }
         $filename = $this->relativePath . '/' . $data['filename'];
         $processFile = ProcessFile::create([
-            'uid' => str_replace('-', '', Uuid::uuid4()),
+            'uid' => str_replace('-', '', (string) Uuid::uuid4()),
             'process_id' => $process->id,
             'user_id' => $userId,
             'update_user_id' => null,
@@ -135,11 +119,9 @@ class ProcessFileManager
     /**
      * Update an existing process file
      *
-     * @param array $data
      * @param Process $process
      * @param ProcessFile $processFile
      * @param User $user
-     *
      * @return array
      */
     public function update(array $data, Process $process, ProcessFile $processFile, User $user)
@@ -191,13 +173,13 @@ class ProcessFileManager
      * @param string $path
      * @param Process $process
      */
-    public function removeFolder($path, Process $process)
+    public function removeFolder($path, Process $process): void
     {
         $processUid = $process->uid;
         $pathParts = explode('/', trim($path, '/'), 2);
-        $drivePath = $processUid . '/' . (isset($pathParts[1]) ? $pathParts[1] : '');
+        $drivePath = $processUid . '/' . ($pathParts[1] ?? '');
         ProcessFile::withPath($drivePath . DIRECTORY_SEPARATOR)->each(
-            function (ProcessFile $processFile) {
+            function (ProcessFile $processFile): void {
                 if ($processFile->type !== 'folder') {
                     $processFile->delete();
                 }
@@ -208,17 +190,14 @@ class ProcessFileManager
     /**
      * Put the content of an uploaded file into a process file.
      *
-     * @param UploadedFile $file
      * @param ProcessFile $processFile
-     *
      * @return string|false
      */
     public function putUploadedFileIntoProcessFile(UploadedFile $file, ProcessFile $processFile)
     {
-        $path = dirname($processFile->getPathInDisk());
-        $name = basename($processFile->path_for_client);
-        $res = $processFile->disk()->putFileAs($path, $file, $name);
-        return $res;
+        $path = dirname((string) $processFile->getPathInDisk());
+        $name = basename((string) $processFile->path_for_client);
+        return $processFile->disk()->putFileAs($path, $file, $name);
     }
 
     /**
@@ -228,21 +207,19 @@ class ProcessFileManager
      * @param string $publicPath Ex. templates/folder/file.html
      * @param string $processUid uid of the owner process.
      */
-    private function initializeFromPath($publicPath, $processUid)
+    private function initializeFromPath($publicPath, $processUid): void
     {
         $pathParts = explode('/', ltrim($publicPath, '/'), 2);
         $this->drive = $pathParts[0];
         $this->disk = Storage::disk(ProcessFile::DISKS[$pathParts[0]]);
-        $this->pathForClient = isset($pathParts[1]) ? $pathParts[1] : '';
+        $this->pathForClient = $pathParts[1] ?? '';
         $this->relativePath = $processUid . '/' . $this->pathForClient;
     }
 
     /**
      * Get the list of root folders.
-     *
-     * @return array
      */
-    private function getRootFolders()
+    private function getRootFolders(): array
     {
         return [
             [
@@ -267,16 +244,16 @@ class ProcessFileManager
      * @param string $path
      * @param bool $includeFileContent
      *
-     * @return array
+     * @return array<int, mixed[]>
      */
-    private function listContentsOfPath($process, $path, $includeFileContent = true)
+    private function listContentsOfPath($process, $path, $includeFileContent = true): array
     {
         $this->initializeFromPath($path, $process->uid);
         $list = [];
         $directories = $this->disk->directories($this->relativePath);
         foreach ($directories as $dir) {
             $list[] = [
-                'name' => basename($dir),
+                'name' => basename((string) $dir),
                 'type' => 'folder',
                 'path' => $this->drive,
             ];
@@ -293,7 +270,7 @@ class ProcessFileManager
                     'path' => $this->disk->path($filepath),
                     'type' => 'file',
                     'drive' => $this->drive,
-                    'path_for_client' => $this->pathForClient . '/' . basename($filepath),
+                    'path_for_client' => $this->pathForClient . '/' . basename((string) $filepath),
                 ]
             );
             $list[] = $this->format($processFile, $includeFileContent, true);
@@ -308,18 +285,18 @@ class ProcessFileManager
      * @param bool $includeContent
      * @param bool $editableAsString
      *
-     * @return array
+     * @return array{uid: mixed, filename: string, user_id: mixed, update_user_id: mixed, path: string, type: mixed, editable: mixed, content: mixed}
      */
-    public function format(ProcessFile $processFile, $includeContent = false, $editableAsString = false)
+    public function format(ProcessFile $processFile, $includeContent = false, $editableAsString = false): array
     {
         return [
             'uid' => $processFile->uid,
-            'filename' => basename($processFile->path),
+            'filename' => basename((string) $processFile->path),
             'user_id' => $processFile->user_id,
             'update_user_id' => $processFile->update_user_id,
             'path' => dirname($processFile->drive . '/' . $processFile->path_for_client) . '/',
             'type' => $processFile->type,
-            'editable' => $editableAsString ? json_encode($processFile->editable) : $processFile->editable,
+            'editable' => $editableAsString ? json_encode($processFile->editable, JSON_THROW_ON_ERROR) : $processFile->editable,
             'content' => $includeContent ? $processFile->getContent() : '',
         ];
     }
@@ -327,10 +304,6 @@ class ProcessFileManager
     /**
      * Validate the given data with the given rules.
      *
-     * @param array $data
-     * @param array $rules
-     * @param array $messages
-     * @param array $customAttributes
      *
      * @throws ValidationException
      */
@@ -349,7 +322,7 @@ class ProcessFileManager
          */
         $validator->addExtension(
             'filemanager.drive_from_path',
-            function ($attribute, $path, $parameters, $validator) {
+            function ($attribute, $path, $parameters, $validator): bool {
                 $pathParts = explode('/', ltrim($path, '/'), 2);
                 return empty($path)
                     || array_key_exists($pathParts[0], ProcessFile::DISKS);
@@ -360,45 +333,37 @@ class ProcessFileManager
          */
         $validator->addExtension(
             'filemanager.file_is_editable',
-            function ($attribute, ProcessFile $processFile) {
-                return $processFile->editable;
-            }
+            fn($attribute, ProcessFile $processFile) => $processFile->editable
         );
         /**
          * Validate if the file is not used.
          */
         $validator->addExtension(
             'filemanager.file_is_not_used_at_email_events',
-            function ($attribute, ProcessFile $processFile) {
-                return $processFile->emailEvents->count() === 0;
-            }
+            fn($attribute, ProcessFile $processFile): bool => $processFile->emailEvents->count() === 0
         );
         /**
          * Validate if the file is not used.
          */
         $validator->addExtension(
             'filemanager.file_is_not_used_as_routing_screen',
-            function ($attribute, ProcessFile $processFile) {
-                return !$processFile->IS_USED_AS_ROUTING_SCREEN;
-            }
+            fn($attribute, ProcessFile $processFile): bool => !$processFile->IS_USED_AS_ROUTING_SCREEN
         );
         /**
          * Validate if the filename does not include a path.
          */
         $validator->addExtension(
             'filemanager.filename_is_valid',
-            function ($attribute, $filename) {
-                return dirname($filename) === '.';
-            }
+            fn($attribute, $filename): bool => dirname($filename) === '.'
         );
         /**
          * Validate to only store html files into templates.
          */
         $validator->addExtension(
             'filemanager.store_only_html_to_templates',
-            function ($attribute, $filename, $parameters, \Illuminate\Validation\Validator $validator) {
+            function ($attribute, $filename, $parameters, \Illuminate\Validation\Validator $validator): bool {
                 $data = $validator->getData();
-                $pathParts = explode('/', ltrim($data['path'], '/'), 2);
+                $pathParts = explode('/', ltrim((string) $data['path'], '/'), 2);
                 $drive = $pathParts[0];
                 return !($drive === 'templates' && File::extension($filename) !== 'html');
             }
@@ -408,13 +373,13 @@ class ProcessFileManager
          */
         $validator->addExtension(
             'filemanager.do_not_store_exe_in_public',
-            function ($attribute, $filename, $parameters, \Illuminate\Validation\Validator $validator) {
+            function ($attribute, $filename, $parameters, \Illuminate\Validation\Validator $validator): bool {
                 //check if the file is an exe file
                 $isExe = in_array(File::extension($filename), ['exe', 'bat', 'app']);
 
                 //Check if the file is being uploaded to the public_html drive.
                 $data = $validator->getData();
-                $pathParts = explode('/', ltrim($data['path'], '/'), 2);
+                $pathParts = explode('/', ltrim((string) $data['path'], '/'), 2);
                 $isPublic = $pathParts[0] === 'public_html';
 
                 return !($isPublic && $isExe);
@@ -425,7 +390,7 @@ class ProcessFileManager
          */
         $validator->addExtension(
             'filemanager.do_not_store_php_in_public',
-            function ($attribute, $filename, $parameters, \Illuminate\Validation\Validator $validator) {
+            function ($attribute, $filename, $parameters, \Illuminate\Validation\Validator $validator): bool {
                 //check if the file is a php file
                 $isPhp = File::extension($filename) === 'php';
 
@@ -434,7 +399,7 @@ class ProcessFileManager
 
                 //Check if the file is being uploaded to the public_html drive.
                 $data = $validator->getData();
-                $pathParts = explode('/', ltrim($data['path'], '/'), 2);
+                $pathParts = explode('/', ltrim((string) $data['path'], '/'), 2);
                 $isPublic = $pathParts[0] === 'public_html';
 
                 //Check if the file is uploaded from an import process.
@@ -445,14 +410,14 @@ class ProcessFileManager
         );
         $validator->addReplacer(
             'filemanager.file_is_not_used_at_email_events',
-            function ($message, $attribute, $rule, $parameters, $validator) {
+            function ($message, $attribute, $rule, $parameters, $validator): array|string {
                 $data = $validator->getData();
                 return str_replace([':path'], [$data['processFile']->getPath()], $message);
             }
         );
         $validator->addReplacer(
             'filemanager.file_is_not_used_as_routing_screen',
-            function ($message, $attribute, $rule, $parameters, $validator) {
+            function ($message, $attribute, $rule, $parameters, $validator): array|string {
                 $data = $validator->getData();
                 return str_replace([':path'], [$data['processFile']->getPath()], $message);
             }

@@ -10,23 +10,22 @@ use App\Http\Resources\ApiCollection;
 use App\Models\Media;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class FileController extends Controller
+final class FileController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      *
      * @return Response
      */
-    public function index(Request $request)
+    public function index(Request $request): ApiCollection
     {
         $query = Media::query();
         $filter = $request->input('filter', '');
 
         if (!empty($filter)) {
             $filter = '%' . $filter . '%';
-            $query->where(function ($query) use ($filter) {
+            $query->where(function ($query) use ($filter): void {
                 $query->Where('file_name', 'like', $filter)
                     ->orWhere('mime_type', 'like', $filter);
             });
@@ -44,13 +43,12 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
      * @return Response
      */
     public function store(Request $request)
     {
         // We get the model instance with the data that the user sent
-        $modelClass = 'app\\Models\\' . ucwords($request->query('model', null));
+        $modelClass = 'app\\Models\\' . ucwords((string) $request->query('model', null));
         $modelId = $request->query('model_id', null);
 
         // If no model info was sent in the request
@@ -78,7 +76,6 @@ class FileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Media $file
      * @return Response
      */
     public function show(Media $file)
@@ -92,8 +89,6 @@ class FileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param Media $file
      *
      * @return Response
      */
@@ -108,9 +103,7 @@ class FileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param Media $file
      * @return Response
-     *
      * @internal param int $id
      */
     public function destroy(Media $file)

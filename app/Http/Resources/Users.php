@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-class Users extends ApiResource
+final class Users extends ApiResource
 {
 
 }

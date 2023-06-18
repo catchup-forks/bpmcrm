@@ -12,7 +12,7 @@ use App\Model\Process;
  *
  * @package app\Managers
  */
-class ProcessManager
+final class ProcessManager
 {
 
     /**
@@ -68,7 +68,6 @@ class ProcessManager
      *
      * @param Process $process
      *
-     * @return bool|null
      * @throws ValidationException
      */
     public function remove(Process $process): ?bool
@@ -86,10 +85,6 @@ class ProcessManager
     /**
      * Validate the given data with the given rules.
      *
-     * @param array $data
-     * @param array $rules
-     * @param array $messages
-     * @param array $customAttributes
      *
      * @throws ValidationException
      */

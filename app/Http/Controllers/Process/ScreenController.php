@@ -7,7 +7,7 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Screen;
 
-class ScreenController extends Controller
+final class ScreenController extends Controller
 {
     /**
      * Get the list of screens
@@ -22,7 +22,6 @@ class ScreenController extends Controller
     /**
      * Get page edit
      *
-     * @param Screen $screen
      *
      * @return Factory|View
      */

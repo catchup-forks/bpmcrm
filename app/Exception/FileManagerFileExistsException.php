@@ -8,7 +8,7 @@ use Exception;
  * Description of FileManagerFileExistsException
  *
  */
-class FileManagerFileExistsException extends Exception
+final class FileManagerFileExistsException extends Exception
 {
     //put your code here
 }

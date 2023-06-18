@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class Permission extends Model
+final class Permission extends Model
 {
 
     protected $fillable = [
@@ -18,7 +18,7 @@ class Permission extends Model
     {
         try {
             return self::where('guard_name', $name)->firstOrFail();
-        } catch(ModelNotFoundException $e) {
+        } catch(ModelNotFoundException) {
             throw new ModelNotFoundException($name . " permission does not exist");
         }
     }

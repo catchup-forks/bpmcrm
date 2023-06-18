@@ -6,7 +6,7 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Models\Script;
 
-class ScriptController extends Controller
+final class ScriptController extends Controller
 {
      /**
      * Get the list of environment variables

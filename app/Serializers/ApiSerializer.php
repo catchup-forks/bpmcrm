@@ -22,7 +22,7 @@ class ApiSerializer extends SerializerAbstract
      *
      * @return array
      */
-    public function collection($resourceKey, array $data)
+    public function collection($resourceKey, array $data): array
     {
         if ($resourceKey === false) {
             return $data;
@@ -48,7 +48,7 @@ class ApiSerializer extends SerializerAbstract
      *
      * @return array
      */
-    public function null()
+    public function null(): ?array
     {
         return null;
     }
@@ -127,5 +127,4 @@ class ApiSerializer extends SerializerAbstract
 
         return ['pagination' => $position];
     }
-
 }

@@ -6,7 +6,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 
-class ProcessCategoryController extends Controller
+final class ProcessCategoryController extends Controller
 {
 
     /**

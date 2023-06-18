@@ -8,7 +8,7 @@ use App\Models\PermissionAssignment;
 
 trait HasAuthorization
 {
-    public function loadPermissions()
+    public function loadPermissions(): array
     {
         $permissions = [];
         foreach ($this->groupMembersFromMemberable as $gm) {
@@ -19,14 +19,13 @@ trait HasAuthorization
         foreach ($this->permissionAssignments as $pa) {
             $permissions[] = $pa->permission;
         }
-        $permissionStrings = array_map(
-            function($p) { return $p->guard_name; },
+        return array_map(
+            fn($p) => $p->guard_name,
             $permissions
         );
-        return $permissionStrings;
     }
 
-    public function hasPermission($permissionString)
+    public function hasPermission($permissionString): bool
     {
         if (Auth::user() == $this) {
             if (session('permissions')) {
@@ -42,7 +41,7 @@ trait HasAuthorization
         return in_array($permissionString, $permissionStrings);
     }
 
-    public function giveDirectPermission($permission_names)
+    public function giveDirectPermission($permission_names): void
     {
         foreach ((array) $permission_names as $permission_name) {
             $perm_id = Permission::byGuardName($permission_name)->id;

@@ -9,12 +9,12 @@ use App\Nayra\Contracts\Storage\BpmnDocumentInterface;
 use App\Nayra\Storage\BpmnDocument;
 use App\Repositories\DefinitionsRepository;
 
-class WorkflowServiceProvider extends ServiceProvider
+final class WorkflowServiceProvider extends ServiceProvider
 {
     /**
      * app BPMN extension definitions.
      */
-    const PROCESS_MAKER_NS = 'http://processmaker.com/BPMN/2.0/Schema.xsd';
+    public const PROCESS_MAKER_NS = 'http://processmaker.com/BPMN/2.0/Schema.xsd';
 
     /**
      * The subscriber classes to register.
@@ -27,21 +27,18 @@ class WorkflowServiceProvider extends ServiceProvider
 
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
+        parent::register();
         /**
          * BPMN Workflow Manager
          */
-        $this->app->singleton('workflow.manager', function ($app) {
-            return new WorkflowManager();
-        });
+        $this->app->singleton('workflow.manager', fn($app): WorkflowManager => new WorkflowManager());
         /** 
          * BpmnDocument Process Context
          */
-        $this->app->bind(BpmnDocumentInterface::class, function ($app, $params) {
+        $this->app->bind(BpmnDocumentInterface::class, function ($app, $params): BpmnDocument {
             $repository = new DefinitionsRepository();
             $eventBus = app('events');
 

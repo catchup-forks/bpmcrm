@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Facade;
  * @method array format(\app\Model\ProcessCategory $processCategory)
  * @method array formatList(Collection $processCategories)
  */
-class ProcessCategoryManager extends Facade
+final class ProcessCategoryManager extends Facade
 {
 
     /**

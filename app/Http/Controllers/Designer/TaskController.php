@@ -7,7 +7,7 @@ use Illuminate\View\View;
 use App\Http\Controllers\Controller;
 use App\Model\Process;
 
-class TaskController extends Controller
+final class TaskController extends Controller
 {
 
     /**

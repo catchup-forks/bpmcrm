@@ -6,13 +6,11 @@ use Closure;
 use Illuminate\Http\Request;
 use Lavary\Menu\Facade as Menu;
 
-class GenerateMenus
+final class GenerateMenus
 {
     /**
      * Generate the core menus that are used in web requests for our application.
      *
-     * @param Request $request
-     * @param Closure $next
      *
      * @return mixed
      */
@@ -21,25 +19,25 @@ class GenerateMenus
         //set’s application’s locale
         app()->setLocale('en');
 
-        Menu::make('topnav', function ($menu) {
-            $menu->group(['prefix' => 'requests'], function ($request_items) {
+        Menu::make('topnav', function ($menu): void {
+            $menu->group(['prefix' => 'requests'], function ($request_items): void {
                 $request_items->add(__('menus.topnav.requests'), ['route' => 'requests.index']);
             });
             //@TODO change the index to the correct blade
-            $menu->group(['prefix' => 'tasks'], function ($request_items) {
+            $menu->group(['prefix' => 'tasks'], function ($request_items): void {
                 $request_items->add(__('menus.topnav.tasks'), ['route' => 'tasks.index']);
             });
             //@TODO change the index to the correct blade
-            $menu->group(['prefix' => 'processes'], function ($request_items) {
+            $menu->group(['prefix' => 'processes'], function ($request_items): void {
                 $request_items->add(__('menus.topnav.processes'), ['route' => 'processes.index']);
             });
-            $menu->group(['prefix' => 'admin'], function ($admin_items) {
+            $menu->group(['prefix' => 'admin'], function ($admin_items): void {
                 $admin_items->add(__('menus.topnav.admin'), ['route' => 'users.index']);
             });
         });
 
         // Build the menus
-        Menu::make('sidebar_admin', function ($menu) {
+        Menu::make('sidebar_admin', function ($menu): void {
             $submenu = $menu->add(__('menus.sidebar_admin.organization'));
             $submenu->add(__('menus.sidebar_admin.users'), [
               'route' => 'users.index',
@@ -69,7 +67,7 @@ class GenerateMenus
                 'icon'  => 'fa-infinity',
           ]);
         });
-        Menu::make('sidebar_task', function ($menu) {
+        Menu::make('sidebar_task', function ($menu): void {
             $submenu = $menu->add(__('Tasks'));
             $submenu->add(__('To Do'), [
                 'route' => 'tasks.index',
@@ -83,7 +81,7 @@ class GenerateMenus
           ]);
         });
 
-        Menu::make('inner-sidebar_request', function ($menu) {
+        Menu::make('inner-sidebar_request', function ($menu): void {
             $submenu = $menu->add(__('menus.sidebar_request.request'));
             $submenu->add(__('menus.sidebar_request.started_me'), [
                 'route' => ['requests_by_type', ''],
@@ -103,7 +101,7 @@ class GenerateMenus
             ]);
         });
 
-        Menu::make('sidebar_request', function ($menu) {
+        Menu::make('sidebar_request', function ($menu): void {
             $submenu = $menu->add(__('menus.sidebar_request.request'));
             $submenu->add(__('menus.sidebar_request.started_me'), [
               'route' => ['requests_by_type', ''],
@@ -123,7 +121,7 @@ class GenerateMenus
           ]);
         });
 
-        Menu::make('sidebar_processes', function ($menu) {
+        Menu::make('sidebar_processes', function ($menu): void {
             $submenu = $menu->add(__('menus.sidebar_processes.processes'));
             $submenu->add(__('menus.sidebar_processes.processes'), [
               'route' => 'processes.index',
@@ -152,10 +150,10 @@ class GenerateMenus
           ]);
         });
 
-        Menu::make('sidebar_designer', function ($menu) {
+        Menu::make('sidebar_designer', function ($menu): void {
         });
 
-        Menu::make('dropdown_nav', function ($menu) {
+        Menu::make('dropdown_nav', function ($menu): void {
             $task_items = [
           [
             'label'  => __('Profile'),

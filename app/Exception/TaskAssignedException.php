@@ -11,10 +11,10 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
  * @package app\Exceptions
  */
 
-class TaskAssignedException extends HttpException
+final class TaskAssignedException extends HttpException
 {
 
-    public function __construct(string $message = null, Exception $previous = null, array $headers = array(), ?int $code = 0, $statusCode = 404)
+    public function __construct(string $message = null, Exception $previous = null, array $headers = [], ?int $code = 0, int $statusCode = 404)
     {
         parent::__construct($statusCode, $message, $previous, $headers, $code);
     }

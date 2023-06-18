@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Group;
 use App\Models\User;
 
-class UserController extends Controller
+final class UserController extends Controller
 {
     /**
      * Get the list of users.
@@ -23,8 +23,6 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
-     *
      * @return Factory|View
      */
     public function edit(User $user)

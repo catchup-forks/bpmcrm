@@ -8,12 +8,11 @@ use App\Models\Screen;
 use App\Http\Resources\ApiResource;
 use App\Http\Resources\ApiCollection;
 
-class ScreenController extends Controller
+final class ScreenController extends Controller
 {
     /**
      * Get a list of Screens.
      *
-     * @param Request $request
      *
      * @return ResponseFactory|Response
      *
@@ -46,15 +45,33 @@ class ScreenController extends Controller
      *         ),
      *     ),
      * )
+     *     @OA\Response(
+     *         response=200,
+     *         description="list of screens",
+     *         @OA\JsonContent(
+     *             type="object",
+     *             @OA\Property(
+     *                 property="data",
+     *                 type="array",
+     *                 @OA\Items(ref="#/components/schemas/screens"),
+     *             ),
+     *             @OA\Property(
+     *                 property="meta",
+     *                 type="object",
+     *                 allOf={@OA\Schema(ref="#/components/schemas/metadata")},
+     *             ),
+     *         ),
+     *     ),
+     * )
      */
-    public function index(Request $request)
+    public function index(Request $request): ApiCollection
     {
         $query = Screen::query();
 
         $filter = $request->input('filter', '');
         if (!empty($filter)) {
             $filter = '%' . $filter . '%';
-            $query->where(function ($query) use ($filter) {
+            $query->where(function ($query) use ($filter): void {
                 $query->where('title', 'like', $filter)
                     ->orWhere('description', 'like', $filter)
                     ->orWhere('type', 'like', $filter)
@@ -73,10 +90,8 @@ class ScreenController extends Controller
     /**
      * Get a single Screen.
      *
-     * @param Screen $screen
      *
      * @return ResponseFactory|Response
-     *
      *     @OA\Get(
      *     path="/screens/screensId",
      *     summary="Get single screens by ID",
@@ -98,7 +113,7 @@ class ScreenController extends Controller
      *     ),
      * )
      */
-    public function show(Screen $screen)
+    public function show(Screen $screen): ApiResource
     {
         return new ApiResource($screen);
     }
@@ -106,10 +121,8 @@ class ScreenController extends Controller
     /**
      * Create a new Screen.
      *
-     * @param Request $request
      *
      * @return ResponseFactory|Response
-     *
      *     @OA\Post(
      *     path="/screens",
      *     summary="Save a new screens",
@@ -126,7 +139,7 @@ class ScreenController extends Controller
      *     ),
      * )
      */
-    public function store(Request $request)
+    public function store(Request $request): ApiResource
     {
         $request->validate(Screen::rules());
         $screen = new Screen();
@@ -138,8 +151,6 @@ class ScreenController extends Controller
     /**
      * Update a Screen.
      *
-     * @param Screen $screen
-     * @param Request $request
      *
      * @return ResponseFactory|Response
      *
@@ -180,7 +191,6 @@ class ScreenController extends Controller
     /**
      * Delete a Screen.
      *
-     * @param Screen $screen
      *
      * @return ResponseFactory|Response
      *     @OA\Delete(

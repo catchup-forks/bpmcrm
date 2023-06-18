@@ -24,7 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $updated_at
  * @property Carbon $created_at
  */
-class Media extends Model
+final class Media extends Model
 {
 
     /**
@@ -52,11 +52,11 @@ class Media extends Model
      *
      * @param $existing
      *
-     * @return array
+     * @return array{model_id: string, model_type: string, collection_name: string, name: string, file_name: string, mime_type: string, disk: string, size: string, manipulations: string, custom_properties: string, responsive_images: string, order_column: string}
      */
-    public static function rules($existing = null)
+    public static function rules($existing = null): array
     {
-        $rules = [
+        return [
             'model_id' => 'required',
             'model_type' => 'required',
             'collection_name' => 'required',
@@ -70,18 +70,6 @@ class Media extends Model
             'responsive_images' => 'required',
             'order_column' => 'required'
         ];
-
-        return $rules;
     }
-
-
-    /**
-     * The binary UUID attributes that should be converted to text.
-     *
-     * @var array
-     */
-    protected $ids = [
-        'model_id',
-    ];
 
 }

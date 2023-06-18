@@ -11,12 +11,11 @@ use App\Model\User;
  * Our User Provider which assists in finding users in our database
  * @package app\Providers
  */
-class UserProvider extends EloquentUserProvider
+final class UserProvider extends EloquentUserProvider
 {
 
     /**
      * Create our user provider, with the hashing implementation needed
-     * @param HasherContract $hasher
      */
     public function __construct(HasherContract $hasher)
     {
@@ -37,7 +36,6 @@ class UserProvider extends EloquentUserProvider
 
     /**
      * Update a remember token, which we currently do not support
-     * @param UserContract $user
      * @param string $token
      * @return null|void
      */
@@ -50,14 +48,14 @@ class UserProvider extends EloquentUserProvider
     /**
      * Retrieve a user by passed in credentials
      * If it's by email address, let's try to first get by email
-     * @param array $credentials
      * @return UserContract|Model|null|static
      */
     public function retrieveByCredentials(array $credentials)
     {
         if(isset($credentials['email'])) {
             return User::where('email', $credentials['email'])->first();
-        } else if(isset($credentials['username'])) {
+        }
+        if(isset($credentials['username'])) {
             return User::where('username', $credentials['username'])->first();
         }
         // No valid credential to find, let's return nothing

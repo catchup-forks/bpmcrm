@@ -13,7 +13,7 @@ use App\Model\Task;
 use App\Model\TaskUser;
 use App\Model\User;
 
-class TaskAssigneeManager
+final class TaskAssigneeManager
 {
 
     /**
@@ -52,11 +52,10 @@ class TaskAssigneeManager
      * List the users and groups available to a task.
      *
      * @param Task $activity
-     * @param array $options
      *
      * @return Paginator | LengthAwarePaginator
      */
-    public function loadAvailable(Task $activity, array $options)
+    public function loadAvailable(Task $activity, array $options): LengthAwarePaginator
     {
         $query = TaskUser::where('task_id', $activity->id)
             ->with('user')
@@ -102,16 +101,14 @@ class TaskAssigneeManager
         $currentPage = LengthAwarePaginator::resolveCurrentPage();
         $collection = new Collection($information);
         $currentPageResults = $collection->slice(($currentPage - 1) * $limit, $limit)->all();
-        return new LengthAwarePaginator($currentPageResults, count($collection), $limit);
+        return new LengthAwarePaginator($currentPageResults, is_countable($collection) ? count($collection) : 0, $limit);
     }
 
     /**
      * Save the assignment of the user or group in a task.
      *
      * @param Task $activity
-     * @param array $options
      *
-     * @return array
      *
      * @throws TaskAssignedException
      * @throws Throwable
@@ -120,7 +117,7 @@ class TaskAssigneeManager
     {
         $query = TaskUser::where('task_id', $activity->id)->type(TaskUser::ASSIGNEE_NORMAL);
         $type = User::TYPE;
-        switch (strtoupper($options['type'])) {
+        switch (strtoupper((string) $options['type'])) {
             case 'USER':
                 $check = User::where('uid', $options['uid'])->first();
                 $query->onlyUsers();
@@ -165,13 +162,13 @@ class TaskAssigneeManager
         $user = new User();
         $group = new Group();
         $response = TaskUser::where('task_id', $activity->id)
-            ->where(function ($q) use ($assignee, $user) {
-                $q->whereHas('user', function ($query) use ($assignee, $user) {
+            ->where(function ($q) use ($assignee, $user): void {
+                $q->whereHas('user', function ($query) use ($assignee, $user): void {
                     $query->where($user->getTable() . '.uid', '=', $assignee);
                 });
             })
-            ->orWhere(function ($q) use ($assignee, $group) {
-                $q->whereHas('group', function ($query) use ($assignee, $group) {
+            ->orWhere(function ($q) use ($assignee, $group): void {
+                $q->whereHas('group', function ($query) use ($assignee, $group): void {
                     $query->where($group->getTable() . '.uid', '=', $assignee);
                 });
             })
@@ -197,13 +194,13 @@ class TaskAssigneeManager
         $user = new User();
         $group = new Group();
         $assigned = TaskUser::where('task_id', $activity->id)
-            ->where(function ($q) use ($assignee, $user) {
-                $q->whereHas('user', function ($query) use ($assignee, $user) {
+            ->where(function ($q) use ($assignee, $user): void {
+                $q->whereHas('user', function ($query) use ($assignee, $user): void {
                     $query->where($user->getTable() . '.uid', '=', $assignee);
                 });
             })
-            ->orWhere(function ($q) use ($assignee, $group) {
-                $q->whereHas('group', function ($query) use ($assignee, $group) {
+            ->orWhere(function ($q) use ($assignee, $group): void {
+                $q->whereHas('group', function ($query) use ($assignee, $group): void {
                     $query->where($group->getTable() . '.uid', '=', $assignee);
                 });
             })
@@ -221,8 +218,6 @@ class TaskAssigneeManager
      *
      * @param Task $activity
      * @param array $options
-     *
-     * @return LengthAwarePaginator
      */
     public function getInformationAllAssignee(Task $activity, $options): LengthAwarePaginator
     {
@@ -233,14 +228,14 @@ class TaskAssigneeManager
         if (!empty($filter)) {
             $user = New User();
             $query = TaskUser::where('task_id', $activity->id)
-                ->where(function ($q) use ($filter, $user) {
-                    $q->whereHas('user', function ($query) use ($filter, $user) {
+                ->where(function ($q) use ($filter, $user): void {
+                    $q->whereHas('user', function ($query) use ($filter, $user): void {
                         $query->where($user->getTable() . '.firstname', 'like', '%' . $filter . '%')
                             ->orWhere($user->getTable() . '.lastname', 'like', '%' . $filter . '%');
                     });
                 })
-                ->orWhere(function ($q) use ($filter, $user) {
-                    $q->whereHas('group.users', function ($query) use ($filter, $user) {
+                ->orWhere(function ($q) use ($filter, $user): void {
+                    $q->whereHas('group.users', function ($query) use ($filter, $user): void {
                         $query->where($user->getTable() . '.firstname', 'like', '%' . $filter . '%')
                             ->orWhere($user->getTable() . '.lastname', 'like', '%' . $filter . '%');
                     });
@@ -278,23 +273,20 @@ class TaskAssigneeManager
         $collection = new Collection($information);
         $currentPageResults = $collection->slice(($currentPage - 1) * $limit, $limit)->all();
 
-        return new LengthAwarePaginator($currentPageResults, count($collection), $limit);
+        return new LengthAwarePaginator($currentPageResults, is_countable($collection) ? count($collection) : 0, $limit);
     }
 
     /**
      * Add to label group count of users in the group
      *
      * @param Group $group
-     *
-     * @return string
      */
     private function labelGroup(Group $group): string
     {
-        $name = $group->title . ' ' . $group::STATUS_INACTIVE;
         if ($group->status !== $group::STATUS_INACTIVE) {
-            $name = $group->title . ' (' . $group->users()->count() . ') ';
+            return $group->title . ' (' . $group->users()->count() . ') ';
         }
-        return $name;
+        return $group->title . ' ' . $group::STATUS_INACTIVE;
     }
 
     /**
@@ -317,13 +309,13 @@ class TaskAssigneeManager
             $assigned->assign_name = $assigned->user->firstname;
             $assigned->assign_lastname = $assigned->user->lastname;
             $assigned->assign_username = $assigned->user->username;
-            $assigned->assign_type = strtolower(User::TYPE);
+            $assigned->assign_type = strtolower((string) User::TYPE);
         }
         if (!empty($assigned->group)) {
             $assigned->assign_uid = $assigned->group->uid;
             $assigned->assign_name = $assigned->group->title;
             $assigned->assign_username = $assigned->group->title;
-            $assigned->assign_type = strtolower(Group::TYPE);
+            $assigned->assign_type = strtolower((string) Group::TYPE);
         }
 
         return $assigned;
@@ -333,22 +325,20 @@ class TaskAssigneeManager
      * Generate eloquent query adding filter in users and groups
      *
      * @param Builder $query
-     * @param string $filter
      *
-     * @return Builder
      */
     private function generateFilterUserGroup($query, string $filter): Builder
     {
         $user = new User();
         $group = new Group();
-        return $query->where(function ($q) use ($filter, $user) {
-            $q->whereHas('user', function ($query) use ($filter, $user) {
+        return $query->where(function ($q) use ($filter, $user): void {
+            $q->whereHas('user', function ($query) use ($filter, $user): void {
                 $query->where($user->getTable() . '.firstname', 'like', '%' . $filter . '%')
                     ->orWhere($user->getTable() . '.lastname', 'like', '%' . $filter . '%');
             });
         })
-            ->orWhere(function ($q) use ($filter, $group) {
-                $q->whereHas('group', function ($query) use ($filter, $group) {
+            ->orWhere(function ($q) use ($filter, $group): void {
+                $q->whereHas('group', function ($query) use ($filter, $group): void {
                     $query->where($group->getTable() . '.title', 'like', '%' . $filter . '%');
                 });
             });

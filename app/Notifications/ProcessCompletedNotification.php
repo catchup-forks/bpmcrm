@@ -9,11 +9,9 @@ use Illuminate\Notifications\Notification;
 use App\Models\ProcessRequest as Instance;
 use App\Nayra\Contracts\Engine\ExecutionInstanceInterface;
 
-class ProcessCompletedNotification extends Notification
+final class ProcessCompletedNotification extends Notification
 {
     use Queueable;
-
-    private $processUid;
     private $processName;
     private $instanceUid;
 
@@ -24,18 +22,14 @@ class ProcessCompletedNotification extends Notification
      */
     public function __construct(ExecutionInstanceInterface $instance)
     {
-        $this->processUid = $instance->process->getKey();
         $this->processName = $instance->process->name;
         $this->instanceUid = $instance->getKey();
     }
 
     /**
      * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
      */
-    public function via($notifiable)
+    public function via(mixed $notifiable): array
     {
         return ['broadcast', 'database'];
     }
@@ -43,10 +37,9 @@ class ProcessCompletedNotification extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
      * @return MailMessage
      */
-    public function toMail($notifiable)
+    public function toMail(mixed $notifiable)
     {
         return (new MailMessage)
             ->line('The introduction to the notification.')
@@ -61,11 +54,8 @@ class ProcessCompletedNotification extends Notification
 
     /**
      * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
      */
-    public function toArray($notifiable)
+    public function toArray(mixed $notifiable): array
     {
         $instance = Instance::find($this->instanceUid);
         return [
@@ -77,7 +67,7 @@ class ProcessCompletedNotification extends Notification
         ];
     }
 
-    public function toBroadcast($notifiable)
+    public function toBroadcast($notifiable): BroadcastMessage
     {
         return new BroadcastMessage($this->toArray($notifiable));
     }

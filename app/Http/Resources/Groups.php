@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-class Groups extends ApiResource
+final class Groups extends ApiResource
 {
 
 }

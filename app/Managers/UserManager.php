@@ -10,16 +10,14 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Model\User;
 
-class UserManager
+final class UserManager
 {
 
 
     /**
      * Get a list of All Users.
      *
-     * @param array $options
      *
-     * @return LengthAwarePaginator
      */
     public function index(array $options): LengthAwarePaginator
     {
@@ -81,7 +79,6 @@ class UserManager
      * Update information User
      *
      * @param User $user
-     * @param Request $request
      *
      * @return User
      * @throws Throwable
@@ -105,7 +102,6 @@ class UserManager
      * Upload file avatar
      *
      * @param User $user
-     * @param Request $request
      *
      * @throws Exception
      */
@@ -113,8 +109,8 @@ class UserManager
     {
         //verify data
         $data = $request->all();
-        if (preg_match('/^data:image\/(\w+);base64,/', $data['avatar'] , $type)) {
-            $data = substr($data['avatar'], strpos($data['avatar'], ',') + 1);
+        if (preg_match('/^data:image\/(\w+);base64,/', (string) $data['avatar'] , $type)) {
+            $data = substr((string) $data['avatar'], strpos((string) $data['avatar'], ',') + 1);
             $type = strtolower($type[1]); // jpg, png, gif
 
             if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' , 'svg'])) {

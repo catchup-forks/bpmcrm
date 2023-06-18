@@ -61,7 +61,7 @@ abstract class BpmnAction implements ShouldQueue
         }
 
         //Load data
-        $data = isset($this->data) ? $this->data : null;
+        $data = $this->data ?? null;
 
         //Do the action
         $response = App::call([$this, 'action'], compact('definitions', 'instance', 'token', 'process', 'element', 'data'));

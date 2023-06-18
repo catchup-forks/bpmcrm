@@ -30,7 +30,7 @@ use App\Traits\SerializeToIso8601;
  *   @OA\Property(property="updated_at", type="string", format="date-time"),
  * )
  */
-class ScreenCategory extends Model
+final class ScreenCategory extends Model
 {
     use SerializeToIso8601;
 
@@ -39,14 +39,15 @@ class ScreenCategory extends Model
         'status'
     ];
 
-    public static function rules()
+    /**
+     * @return array{name: string, status: string}
+     */
+    public static function rules(): array
     {
-        $rules = [
+        return [
             'name' => 'required|string|max:100|unique:screen_categories,name',
             'status' => 'required|string|in:ACTIVE,INACTIVE'
         ];
-
-        return $rules;
     }
 
     /**

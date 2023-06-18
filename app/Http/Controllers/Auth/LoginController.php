@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use App\Http\Controllers\Controller;
 
-class LoginController extends Controller
+final class LoginController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -22,11 +22,8 @@ class LoginController extends Controller
 
     /**
      * Where to redirect users after login.
-     *
-     * @var string
      */
-
-    protected $redirectTo = '/';
+    private string $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -40,15 +37,13 @@ class LoginController extends Controller
 
     /**
      * Get the login username to be used by the controller.
-     *
-     * @return string
      */
-    public function username()
+    public function username(): string
     {
         return 'username';
     }
 
-     protected function credentials(Request $request)
+     protected function credentials(Request $request): array
     {
         return array_merge($request->only($this->username(), 'password'), ['status' => 'ACTIVE']);
     }

@@ -6,15 +6,14 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Spatie\MediaLibrary\Models\Media as BaseMedia;
 
-class Media extends BaseMedia
+final class Media extends BaseMedia
 {
     /**
      * Updates the Media with a new file
      *
-     * @param UploadedFile $newFile
      * @param Models\Media $file
      */
-    public function updateFile(UploadedFile $newFile, \app\Models\Media $file)
+    public function updateFile(UploadedFile $newFile, \app\Models\Media $file): void
     {
         $originalFilePath = $file->id . '/' . $file->file_name;
         $newFileName = $this->sanitizeFileName($newFile->getClientOriginalName());
@@ -33,11 +32,9 @@ class Media extends BaseMedia
     /**
      * Removes from file name non accepted characters
      *
-     * @param string $fileName
      *
-     * @return string
      */
-    protected function sanitizeFileName(string $fileName)
+    private function sanitizeFileName(string $fileName): string
     {
         return str_replace(['#', '/', '\\'], '-', $fileName);
     }

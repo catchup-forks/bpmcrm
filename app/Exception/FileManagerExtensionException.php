@@ -8,7 +8,7 @@ use Exception;
  * Description of InvalidFileManagerExtension
  *
  */
-class FileManagerExtensionException extends Exception
+final class FileManagerExtensionException extends Exception
 {
     
 }

@@ -8,19 +8,15 @@ use App\Managers\ModelerManager;
  * Any listeners can interact with the modeler manager to perform things such as 
  * script inclusion.
  */
-class ModelerStarting
+final class ModelerStarting
 {
-    public $manager;
-
     /**
      * Create a new event instance.
-     * @param ModelerManager $manager
      *
      * @return void
      */
-    public function __construct(ModelerManager $manager)
+    public function __construct(public ModelerManager $manager)
     {
-        $this->manager = $manager;
     }
 
 }

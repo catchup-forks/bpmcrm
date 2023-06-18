@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
  * @package app\Facades
  * @see \app\Managers\DatabaseManager
  */
-class DatabaseManager extends Facade
+final class DatabaseManager extends Facade
 {
     /**
      * Get the registered name of the component.

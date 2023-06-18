@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\ProcessRequest;
 
-class RequestController extends Controller
+final class RequestController extends Controller
 {
     /**
      * Get the list of requests.
@@ -39,7 +39,6 @@ class RequestController extends Controller
     /**
      * Request Show
      *
-     * @param ProcessRequest $request
      *
      * @return Factory|View
      */

@@ -8,7 +8,7 @@ use Exception;
  * Description of FileManagerUnableToEditException
  *
  */
-class FileManagerUnableToEditException extends Exception
+final class FileManagerUnableToEditException extends Exception
 {
     
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class QueueMonitorController extends Controller
+final class QueueMonitorController extends Controller
 {
     //
 }

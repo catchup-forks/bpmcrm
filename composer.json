@@ -52,7 +52,7 @@
     "mockery/mockery": "*",
     "nunomaduro/collision": "*",
     "phpunit/phpunit": "*",
-    "rector/rector": "^0.17.1",
+    "rector/rector": "0.17.0",
     "squizlabs/php_codesniffer": "*"
   },
   "autoload": {

@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $updated_at
  * @property Carbon $created_at
  */
-class ProcessTaskAssignment extends Model
+final class ProcessTaskAssignment extends Model
 {    
 
     protected $fillable = [
@@ -26,21 +26,11 @@ class ProcessTaskAssignment extends Model
     ];
 
     /**
-     * The binary UUID attributes that should be converted to text.
-     *
-     * @var array
-     */
-    protected $ids = [
-        'process_id',
-        'assignment_id',
-    ];
-
-    /**
      * Validation rules
      *
-     * @return array
+     * @return array{process_task_id: string, assignment_id: string, assignment_type: string}
      */
-    public static function rules()
+    public static function rules(): array
     {
         return [
             'process_task_id' => 'required|exists:processes,id',

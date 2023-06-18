@@ -8,7 +8,7 @@ use App\Http\Resources\ApiCollection;
 use App\Http\Resources\Script as ScriptResource;
 use App\Models\Script;
 
-class ScriptController extends Controller
+final class ScriptController extends Controller
 {
     /**
      * Get a list of scripts in a process.
@@ -48,7 +48,7 @@ class ScriptController extends Controller
      *     ),
      * )
      */
-    public function index(Request $request)
+    public function index(Request $request): ApiCollection
     {
         // Do not return results when a key is set. Those are for connectors.
         $query = Script::where('key', null);
@@ -56,7 +56,7 @@ class ScriptController extends Controller
         $filter = $request->input('filter', '');
         if (!empty($filter)) {
             $filter = '%' . $filter . '%';
-            $query->where(function ($query) use ($filter) {
+            $query->where(function ($query) use ($filter): void {
                 $query->Where('title', 'like', $filter)
                     ->orWhere('description', 'like', $filter)
                     ->orWhere('language', 'like', $filter);
@@ -112,8 +112,8 @@ class ScriptController extends Controller
      */
     public function preview(Request $request)
     {
-        $data = json_decode($request->get('data'), true) ?: [];
-        $config = json_decode($request->get('config'), true) ?: [];
+        $data = json_decode((string) $request->get('data'), true, 512, JSON_THROW_ON_ERROR) ?: [];
+        $config = json_decode((string) $request->get('config'), true, 512, JSON_THROW_ON_ERROR) ?: [];
         $code = $request->get('code');
         $language = $request->get('language');
         $script = new Script([
@@ -126,10 +126,8 @@ class ScriptController extends Controller
     /**
      * Get a single script in a process.
      *
-     * @param Script $script
      *
      * @return ResponseFactory|Response
-     * 
      *     @OA\Get(
      *     path="/scripts/scriptsId",
      *     summary="Get single script by ID",
@@ -151,7 +149,7 @@ class ScriptController extends Controller
      *     ),
      * )
      */
-    public function show(Script $script)
+    public function show(Script $script): ScriptResource
     {
         return new ScriptResource($script);
     }
@@ -159,10 +157,8 @@ class ScriptController extends Controller
     /**
      * Create a new script in a process.
      *
-     * @param Request $request
      *
      * @return ResponseFactory|Response
-     * 
      *     @OA\Post(
      *     path="/scripts",
      *     summary="Save a new script",
@@ -179,7 +175,7 @@ class ScriptController extends Controller
      *     ),
      * )
      */
-    public function store(Request $request)
+    public function store(Request $request): ScriptResource
     {
         $request->validate(Script::rules());
         $script = new Script();
@@ -192,11 +188,9 @@ class ScriptController extends Controller
      * Update a script in a process.
      *
      * @param Process $process
-     * @param Script $script
-     * @param Request $request
      *
      * @return ResponseFactory|Response
-     * 
+     *
      *     @OA\Put(
      *     path="/scripts/scriptsId",
      *     summary="Update a script",
@@ -235,10 +229,8 @@ class ScriptController extends Controller
     /**
      * Delete a script in a process.
      *
-     * @param Script $script
      *
      * @return ResponseFactory|Response
-     * 
      *     @OA\Delete(
      *     path="/scripts/scriptsId",
      *     summary="Delete a script",

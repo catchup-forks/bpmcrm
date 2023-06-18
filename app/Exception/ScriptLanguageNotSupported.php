@@ -7,7 +7,7 @@ use Exception;
  * The required script language is not supported.
  *
  */
-class ScriptLanguageNotSupported extends Exception
+final class ScriptLanguageNotSupported extends Exception
 {
 
     /**

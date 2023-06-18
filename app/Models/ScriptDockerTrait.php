@@ -14,7 +14,6 @@ trait ScriptDockerTrait
     /**
      * Run a command in a docker container.
      *
-     * @param array $options
      *
      * @return array
      * @throws \RuntimeException
@@ -50,7 +49,7 @@ trait ScriptDockerTrait
         $cidfile = tempnam(config('app.bpm_scripts_home'), 'cid');
         unlink($cidfile);
         $cmd = config('app.bpm_scripts_docker') . sprintf(' create %s --cidfile %s %s %s &', $parameters, $cidfile, $image, $command);
-        $line = exec($cmd, $output, $returnCode);
+        exec($cmd, $output, $returnCode);
         if ($returnCode) {
             throw new RuntimeException('Unable to create a docker container: ' . implode("\n", $output));
         }
@@ -74,7 +73,7 @@ trait ScriptDockerTrait
         file_put_contents($source, $content);
         $cmd = config('app.bpm_scripts_docker')
             . sprintf(' cp %s %s:%s 2>&1', $source, $container, $path);
-        $line = exec($cmd, $output, $returnCode);
+        exec($cmd, $output, $returnCode);
         unlink($source);
         if ($returnCode) {
             throw new RuntimeException('Unable to send data to container: ' . implode("\n", $output));
@@ -105,9 +104,9 @@ trait ScriptDockerTrait
      *
      * @param string $container
      *
-     * @return array
+     * @return array{line: string|false, output: string[], returnCode: int}
      */
-    private function startContainer($container)
+    private function startContainer($container): array
     {
         $cmd = config('app.bpm_scripts_docker') . sprintf(' start %s -a 2>&1', $container);
         $line = exec($cmd, $output, $returnCode);

@@ -4,23 +4,22 @@ namespace App\Jobs;
 use App\Model\Process as Definitions;
 use App\Nayra\Contracts\Bpmn\ProcessInterface;
 
-class CallProcess extends BpmnAction
+final class CallProcess extends BpmnAction
 {
 
     public $definitionsId;
     public $processId;
-    public $data;
 
     /**
      * Create a new job instance.
      *
      * @return void
+     * @param mixed[] $data
      */
-    public function __construct(Definitions $definitions, ProcessInterface $process, array $data)
+    public function __construct(Definitions $definitions, ProcessInterface $process, public array $data)
     {
         $this->definitionsId = $definitions->id;
         $this->processId = $process->getId();
-        $this->data = $data;
     }
 
     /**

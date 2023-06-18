@@ -10,7 +10,7 @@ use Exception;
  * @package app\Exceptions
  */
 
-class ScriptException extends Exception
+final class ScriptException extends Exception
 {
 
 }

@@ -7,7 +7,7 @@ use App\Models\Process;
 use App\Managers\ModelerManager;
 use App\Events\ModelerStarting;
 
-class ModelerController extends Controller
+final class ModelerController extends Controller
 {
 
     /**

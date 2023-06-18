@@ -10,7 +10,7 @@ use App\Model\PmTable;
 use App\Model\ProcessVariable;
 use stdClass;
 
-class SchemaManager
+final class SchemaManager
 {
     /**
      * Returns the Doctrine/Eloquent type that corresponds to a MySql type
@@ -44,10 +44,9 @@ class SchemaManager
      * Updates a column or creates it if it does not exist
      *
      * @param PmTable $pmTable
-     * @param array $field
      *
      */
-    public function updateOrCreateColumn(PmTable $pmTable, array $field)
+    public function updateOrCreateColumn(PmTable $pmTable, array $field): void
     {
         $tableName = $pmTable->physicalTableName();
         $columnType = $this->schemaType($field['type']);
@@ -71,13 +70,13 @@ class SchemaManager
         $canBeNull = isset($field['null']) && $field['null'] === 1;
 
         if (empty($field['size']) || !$this->typeHasSizeAsParameter($field['type'])) {
-            Schema::table($tableName, function ($table) use ($columnType, $field, $canBeNull) {
+            Schema::table($tableName, function ($table) use ($columnType, $field, $canBeNull): void {
                 $table->{$columnType}($field['name'])
                     ->nullable($canBeNull)
                     ->change();
             });
         } else {
-            Schema::table($tableName, function ($table) use ($columnType, $field, $canBeNull) {
+            Schema::table($tableName, function ($table) use ($columnType, $field, $canBeNull): void {
                 $table->{$columnType}($field['name'], $field['size'])
                     ->nullable($canBeNull)
                     ->change();
@@ -86,7 +85,7 @@ class SchemaManager
 
         // we set the field as primary key
         if (isset($field['key']) && $field['key'] === 1) {
-            Schema::table($tableName, function ($table) use ($tableName, $field) {
+            Schema::table($tableName, function ($table) use ($tableName, $field): void {
                 if ($this->existsPrimaryKey($tableName)) {
                     $table->dropPrimary();
                 }
@@ -96,17 +95,17 @@ class SchemaManager
 
         // we add the autoincrement property
         if (isset($field['auto_increment']) && $field['auto_increment'] === 1) {
-            Schema::table($tableName, function ($table) use ($tableName, $field) {
+            Schema::table($tableName, function ($table) use ($tableName, $field): void {
                 if ($this->existsPrimaryKey($tableName)) {
                     $table->dropPrimary();
                 }
             });
 
-            Schema::table($tableName, function ($table) use ($field) {
+            Schema::table($tableName, function ($table) use ($field): void {
                 $table->dropColumn($field['name']);
             });
 
-            Schema::table($tableName, function ($table) use ($field) {
+            Schema::table($tableName, function ($table) use ($field): void {
                 $table->increments($field['name']);
             });
         }
@@ -118,9 +117,9 @@ class SchemaManager
      * @param PmTable $pmTable
      * @param string $columnName
      */
-    public function dropColumn(PmTable $pmTable, $columnName)
+    public function dropColumn(PmTable $pmTable, $columnName): void
     {
-        Schema::table($pmTable->physicalTableName(), function ($table) use ($columnName) {
+        Schema::table($pmTable->physicalTableName(), function ($table) use ($columnName): void {
             $table->dropColumn($columnName);
         });
     }
@@ -130,7 +129,7 @@ class SchemaManager
      *
      * @param string $tableName
      */
-    public function dropPhysicalTable($tableName)
+    public function dropPhysicalTable($tableName): void
     {
         Schema::dropIfExists($tableName);
     }
@@ -138,7 +137,6 @@ class SchemaManager
     /**
      * Sets the default values for fields of a report table
      *
-     * @param array $field
      * @param ProcessVariable $variable
      * @return array
      */
@@ -170,23 +168,13 @@ class SchemaManager
      */
     private function variableType2Mysql($varType)
     {
-        switch ($varType) {
-            case 'integer':
-                $result = 'INTEGER';
-                break;
-            case 'float':
-                $result = 'FLOAT';
-                break;
-            case 'boolean':
-                $result = 'INTEGER';
-                break;
-            case 'datetime':
-                $result = 'DATETIME';
-                break;
-            default:
-                $result = 'VARCHAR';
-        }
-        return $result;
+        return match ($varType) {
+            'integer' => 'INTEGER',
+            'float' => 'FLOAT',
+            'boolean' => 'INTEGER',
+            'datetime' => 'DATETIME',
+            default => 'VARCHAR',
+        };
     }
 
     /**
@@ -206,18 +194,17 @@ class SchemaManager
      * Changes a column with the metadata specified in the $field array to the PmTable
      *
      * @param PmTable $pmTable
-     * @param array $field
      */
-    private function changePhysicalColumn(PmTable $pmTable, array $field)
+    private function changePhysicalColumn(PmTable $pmTable, array $field): void
     {
         $tableName = $pmTable->physicalTableName();
         $columnType = $this->schemaType($field['type']);
         if (empty($field['size']) || !$this->typeHasSizeAsParameter($field['type'])) {
-            Schema::table($tableName, function ($table) use ($columnType, $field) {
+            Schema::table($tableName, function ($table) use ($columnType, $field): void {
                 $table->{$columnType}($field['name'])->change();
             });
         } else {
-            Schema::table($tableName, function ($table) use ($columnType, $field) {
+            Schema::table($tableName, function ($table) use ($columnType, $field): void {
                 $table->{$columnType}($field['name'], $field['size'])->change();
             });
         }
@@ -227,18 +214,17 @@ class SchemaManager
      * Adds a column with the metadata specified in the $field array to the PmTable
      *
      * @param PmTable $pmTable
-     * @param array $field
      */
-    private function createPhysicalColumn(PmTable $pmTable, array $field)
+    private function createPhysicalColumn(PmTable $pmTable, array $field): void
     {
         $tableName = $pmTable->physicalTableName();
         $columnType = $this->schemaType($field['type']);
         if (empty($field['size']) || !$this->typeHasSizeAsParameter($field['type'])) {
-            Schema::table($tableName, function ($table) use ($columnType, $field) {
+            Schema::table($tableName, function ($table) use ($columnType, $field): void {
                 $table->{$columnType}($field['name']);
             });
         } else {
-            Schema::table($tableName, function ($table) use ($columnType, $field) {
+            Schema::table($tableName, function ($table) use ($columnType, $field): void {
                 $table->{$columnType}($field['name'], $field['size']);
             });
         }
@@ -248,14 +234,13 @@ class SchemaManager
      * Creates the physical table with a column specified in the $field array
      *
      * @param PmTable $pmTable
-     * @param array $field
      */
-    private function createPhysicalTableAndColumn(PmTable $pmTable, array $field)
+    private function createPhysicalTableAndColumn(PmTable $pmTable, array $field): void
     {
         $tableName = $pmTable->physicalTableName();
         $columnType = $this->schemaType($field['type']);
 
-        Schema::create($tableName, function ($table) use ($tableName, $columnType, $field) {
+        Schema::create($tableName, function ($table) use ($tableName, $columnType, $field): void {
             if (empty($field['size']) || !$this->typeHasSizeAsParameter($field['type'])) {
                 $table->{$columnType}($field['name']);
             } else {
@@ -268,10 +253,8 @@ class SchemaManager
      *  Returns an array with the metadata of the columns of the physical table of a PmTable
      *
      * @param PmTable $pmTable
-     *
-     * @return stdClass
      */
-    public function getMetadataFromSchema(PmTable $pmTable)
+    public function getMetadataFromSchema(PmTable $pmTable): stdClass
     {
         $tableMetadata = new stdClass();
         $tableMetadata->columns = [];
@@ -311,10 +294,8 @@ class SchemaManager
      * Determines if the table has a primary key
      *
      * @param string $tableName
-     *
-     * @return bool
      */
-    private function existsPrimaryKey($tableName)
+    private function existsPrimaryKey($tableName): bool
     {
         $sm = Schema::getConnection()->getDoctrineSchemaManager();
         $indexesFound = $sm->listTableIndexes($tableName);
@@ -325,11 +306,9 @@ class SchemaManager
      * Determines if the column has an index in the $indexes array
      *
      * @param string $columnName
-     * @param array $indexes
      *
-     * @return bool
      */
-    private function columnHasIndex($columnName, array $indexes)
+    private function columnHasIndex($columnName, array $indexes): bool
     {
         foreach ($indexes as $index) {
             if (in_array($columnName, $index->getColumns())) {

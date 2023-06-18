@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Carbon $updated_at
  * @property Carbon $created_at
  */
-class ProcessVersion extends Model
+final class ProcessVersion extends Model
 {
     /**
      * Attributes that are not mass assignable.
@@ -43,21 +43,11 @@ class ProcessVersion extends Model
     ];
 
     /**
-     * The binary UUID attributes that should be converted to text.
-     *
-     * @var array
-     */
-    protected $ids = [
-        'process_category_id',
-        'process_id',
-    ];
-
-    /**
      * Validation rules.
      *
-     * @return array
+     * @return array{name: string, status: string, process_category_id: string, process_id: string}
      */
-    public static function rules()
+    public static function rules(): array
     {
         return [
             'name' => 'required',

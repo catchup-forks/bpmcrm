@@ -11,7 +11,7 @@ use App\Models\ProcessCategory;
 use App\Http\Resources\ApiCollection;
 use App\Http\Resources\ProcessCategory as Resource;
 
-class ProcessCategoryController extends Controller
+final class ProcessCategoryController extends Controller
 {
     /**
      * Display a listing of the Process Categories.
@@ -66,13 +66,13 @@ class ProcessCategoryController extends Controller
      *     ),
      * )
      */
-    public function index(Request $request)
+    public function index(Request $request): ApiCollection
     {
         $query = ProcessCategory::query();
         $include = $request->input('include', '');
 
         if ($include) {
-            $include = explode(',', $include);
+            $include = explode(',', (string) $include);
             $count = array_search('processesCount', $include);
             if ($count !== false) {
                 unset($include[$count]);
@@ -85,7 +85,7 @@ class ProcessCategoryController extends Controller
 
         $filter = $request->input('filter', '');
         if (!empty($filter)) {
-            $query->where(function ($query) use ($filter) {
+            $query->where(function ($query) use ($filter): void {
                 $query->Where('name', 'like', $filter)
                     ->orWhere('status', 'like', $filter);
             });
@@ -104,7 +104,6 @@ class ProcessCategoryController extends Controller
     /**
      * Display the specified Process category.
      *
-     * @param ProcessCategory $processCategory
      *
      * @return JsonResponse
      *     * @OA\Get(
@@ -128,7 +127,7 @@ class ProcessCategoryController extends Controller
      *     ),
      * )
      */
-    public function show(ProcessCategory $processCategory)
+    public function show(ProcessCategory $processCategory): Resource
     {
         return new Resource($processCategory);
     }
@@ -136,7 +135,6 @@ class ProcessCategoryController extends Controller
     /**
      * Store a newly created Process Category in storage
      *
-     * @param Request $request
      *
      * @return JsonResponse
      *
@@ -156,7 +154,7 @@ class ProcessCategoryController extends Controller
      *     ),
      * )
      */
-    public function store(Request $request)
+    public function store(Request $request): Resource
     {
         $request->validate(ProcessCategory::rules());
         $category = new ProcessCategory();
@@ -168,8 +166,6 @@ class ProcessCategoryController extends Controller
     /**
      * Updates the current element
      *
-     * @param Request $request
-     * @param ProcessCategory $processCategory
      *
      * @return ResponseFactory|Response
      *      * @OA\Put(
@@ -197,7 +193,7 @@ class ProcessCategoryController extends Controller
      *     ),
      * )
      */
-    public function update(Request $request, ProcessCategory $processCategory)
+    public function update(Request $request, ProcessCategory $processCategory): Resource
     {
         $request->validate(ProcessCategory::rules($processCategory));
         $processCategory->fill($request->mediumText()->all());
@@ -208,7 +204,6 @@ class ProcessCategoryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param ProcessCategory $processCategory
      *
      * @return ResponseFactory|Response
      *

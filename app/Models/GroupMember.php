@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * )
  *
  */
-class GroupMember extends Model
+final class GroupMember extends Model
 {
 
 
@@ -30,7 +30,10 @@ class GroupMember extends Model
         'group_id', 'member_id', 'member_type',
     ];
 
-    public static function rules()
+    /**
+     * @return array{group_id: string, member_id: string, member_type: string}
+     */
+    public static function rules(): array
     {
         return [
             'group_id' => 'required',

@@ -24,7 +24,7 @@ use App\Http\Middleware\SetLanguage;
 use App\Http\Middleware\SetSkin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
-class Kernel extends HttpKernel
+final class Kernel extends HttpKernel
 {
     /**
      * The application's global HTTP middleware stack.
