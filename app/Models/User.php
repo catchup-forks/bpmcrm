@@ -2,23 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Validation\Rules\Unique;
+use App\Traits\HasAuthorization;
+use App\Traits\SerializeToIso8601;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\Rules\Unique;
 use Laravel\Passport\HasApiTokens;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-use App\Traits\SerializeToIso8601;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
-use App\Traits\HasAuthorization;
-
-final class User extends Authenticatable implements HasMedia
+final class User extends Authenticatable
 {
     use HasApiTokens;
     use Notifiable;
-    use HasMediaTrait;
     use HasAuthorization;
     use SerializeToIso8601;
 
@@ -32,7 +28,7 @@ final class User extends Authenticatable implements HasMedia
      *
      * @var array
      *
-     *   @OA\Schema(
+     * @OA\Schema(
      *   schema="usersEditable",
      *   @OA\Property(property="email", type="string", format="email"),
      *   @OA\Property(property="password", type="string"),
@@ -105,7 +101,7 @@ final class User extends Authenticatable implements HasMedia
         'is_administrator' => 'bool'
     ];
 
-/**
+    /**
      * Validation rules
      *
      * @param $existing
@@ -172,7 +168,8 @@ final class User extends Authenticatable implements HasMedia
      *
      * @return string
      */
-    public function getFullnameAttribute() {
+    public function getFullnameAttribute(): string
+    {
         return $this->getFullName();
     }
 
@@ -181,7 +178,8 @@ final class User extends Authenticatable implements HasMedia
      *
      * @param $pass
      */
-    public function setPasswordAttribute($pass): void{
+    public function setPasswordAttribute($pass): void
+    {
 
         $this->attributes['password'] = Hash::make($pass);
 
@@ -192,7 +190,8 @@ final class User extends Authenticatable implements HasMedia
      *
      * @return string
      */
-    public function getAvatarAttribute() {
+    public function getAvatarAttribute()
+    {
         return $this->getAvatar();
     }
 

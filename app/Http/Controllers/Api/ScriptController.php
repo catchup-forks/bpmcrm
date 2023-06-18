@@ -110,7 +110,7 @@ final class ScriptController extends Controller
      *     ),
      * )
      */
-    public function preview(Request $request)
+    public function preview(Request $request): array
     {
         $data = json_decode((string) $request->get('data'), true, 512, JSON_THROW_ON_ERROR) ?: [];
         $config = json_decode((string) $request->get('config'), true, 512, JSON_THROW_ON_ERROR) ?: [];

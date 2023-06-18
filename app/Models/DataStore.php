@@ -71,7 +71,7 @@ final class DataStore implements DataStoreInterface
      *
      * @return $this
      */
-    public function setData($data)
+    public function setData(array $data)
     {
         $this->data = $data;
         return $this;

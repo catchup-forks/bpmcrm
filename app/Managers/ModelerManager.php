@@ -33,7 +33,7 @@ final class ModelerManager
      * 
      * @return array Collection of paths to scripts to load
      */
-    public function getScripts()
+    public function getScripts(): array
     {
         return $this->javascriptRegistry;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
@@ -31,7 +32,7 @@ class ProcessMakerServiceProvider extends ServiceProvider
     /**
      * Bootstrap app services.
      */
-    public function boot()
+    public function boot(): void
     {
         Schema::defaultStringLength(191);
         parent::boot();
@@ -40,18 +41,18 @@ class ProcessMakerServiceProvider extends ServiceProvider
     /**
      * Register our bindings in the service container.
      */
-    public function register()
+    public function register(): void
     {
         parent::register();
-        $this->app->bind('path.public', function () {
+        $this->app->bind('path.public', function (): string {
             return base_path() . '/public_html';
         });
 
-        $this->app->singleton('user.manager', function ($app) {
+        $this->app->singleton('user.manager', function ($app): UserManager {
             return new UserManager();
         });
 
-        $this->app->singleton('process_file.manager', function ($app) {
+        $this->app->singleton('process_file.manager', function ($app): ProcessFileManager {
             return new ProcessFileManager();
         });
 
@@ -59,39 +60,39 @@ class ProcessMakerServiceProvider extends ServiceProvider
             return new ProcessCategoryManager();
         });*/
 
-        $this->app->singleton('database.manager', function ($app) {
+        $this->app->singleton('database.manager', function ($app): DatabaseManager {
             return new DatabaseManager();
         });
 
-        $this->app->singleton('schema.manager', function ($app) {
+        $this->app->singleton('schema.manager', function ($app): SchemaManager {
             return new SchemaManager();
         });
 
-        $this->app->singleton('process.manager', function ($app) {
+        $this->app->singleton('process.manager', function ($app): ProcessManager {
             return new ProcessManager();
         });
 
-        $this->app->singleton('report_table.manager', function ($app) {
+        $this->app->singleton('report_table.manager', function ($app): ReportTableManager {
             return new ReportTableManager();
         });
 
-        $this->app->singleton('task.manager', function ($app) {
+        $this->app->singleton('task.manager', function ($app): TaskManager {
             return new TaskManager();
         });
 
-        $this->app->singleton('task_assignee.manager', function ($app) {
+        $this->app->singleton('task_assignee.manager', function ($app): TaskAssigneeManager {
             return new TaskAssigneeManager();
         });
 
-        $this->app->singleton('input_document.manager', function ($app) {
+        $this->app->singleton('input_document.manager', function ($app): InputDocumentManager {
             return new InputDocumentManager();
         });
 
-        $this->app->singleton('output_document.manager', function ($app) {
+        $this->app->singleton('output_document.manager', function ($app): OutputDocumentManager {
             return new OutputDocumentManager();
         });
 
-        $this->app->singleton('task_delegation.manager', function ($app) {
+        $this->app->singleton('task_delegation.manager', function ($app): TasksDelegationManager {
             return new TasksDelegationManager();
         });
 
@@ -99,7 +100,7 @@ class ProcessMakerServiceProvider extends ServiceProvider
          * Maps our Modeler Manager as a singleton. The Modeler Manager is used
          * to manage customizations to the Process Modeler.
          */
-        $this->app->singleton(ModelerManager::class, function ($app) {
+        $this->app->singleton(ModelerManager::class, function ($app): ModelerManager {
             return new ModelerManager();
         });
 
@@ -107,11 +108,11 @@ class ProcessMakerServiceProvider extends ServiceProvider
          * Maps our Screen Builder Manager as a singleton. The Screen Builder Manager is used
          * to manage customizations to the Screen Builder.
          */
-        $this->app->singleton(ScreenBuilderManager::class, function ($app) {
+        $this->app->singleton(ScreenBuilderManager::class, function ($app): ScreenBuilderManager {
             return new ScreenBuilderManager();
         });
         // Listen to the events for our core screen types and add our javascript
-        Event::listen(ScreenBuilderStarting::class, function ($event) {
+        Event::listen(ScreenBuilderStarting::class, function ($event): void {
             switch ($event->type) {
                 case 'FORM':
                     $event->manager->addScript(mix('js/processes/screen-builder/typeForm.js'));
@@ -123,8 +124,8 @@ class ProcessMakerServiceProvider extends ServiceProvider
         });
 
         //Enable
-        Horizon::auth(function ($request) {
-            return !empty(Auth::user());
+        Horizon::auth(function ($request): bool {
+            return Auth::user() instanceof Authenticatable;
         });
 
         // we are using custom passport migrations

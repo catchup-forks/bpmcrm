@@ -32,9 +32,9 @@ final class DefinitionsRepository implements RepositoryInterface
     /**
      * Creates a TokenRepository
      *
-     * @return \app\Nayra\Contracts\Repositories\TokenRepositoryInterface
+     * @return app\Nayra\Contracts\Repositories\TokenRepositoryInterface|null
      */
-    public function getTokenRepository()
+    public function getTokenRepository(): ?TokenRepository
     {
         if ($this->tokenRepository === null) {
             $this->tokenRepository = new TokenRepository($this->createExecutionInstanceRepository());

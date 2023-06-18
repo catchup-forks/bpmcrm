@@ -47,7 +47,7 @@ final class ProcessCompletedNotification extends Notification
             ->line('Thank you for using our application!');
     }
 
-    public function toDatabase($notifiable)
+    public function toDatabase(mixed $notifiable): array
     {
         return $this->toArray($notifiable);
     }
@@ -67,7 +67,7 @@ final class ProcessCompletedNotification extends Notification
         ];
     }
 
-    public function toBroadcast($notifiable): BroadcastMessage
+    public function toBroadcast(mixed $notifiable): BroadcastMessage
     {
         return new BroadcastMessage($this->toArray($notifiable));
     }

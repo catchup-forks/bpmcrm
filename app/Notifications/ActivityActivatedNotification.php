@@ -56,7 +56,7 @@ final class ActivityActivatedNotification extends Notification
      *
      * @return array
      */
-    public function toDatabase(mixed $notifiable)
+    public function toDatabase(mixed $notifiable): array
     {
         return $this->toArray($notifiable);
     }

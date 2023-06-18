@@ -12,7 +12,7 @@ use League\Fractal\Serializer\SerializerAbstract;
  * Serializer for app API.
  *
  */
-class ApiSerializer extends SerializerAbstract
+class XXXXXApiSerializer extends SerializerAbstract
 {
     /**
      * Serialize a collection.

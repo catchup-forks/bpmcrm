@@ -110,7 +110,7 @@ class PermissionSeeder extends Seeder
             'member_id' => User::first()->id,
         ]);
 
-        foreach($this->permissions as $permissionString) {
+        foreach ($this->permissions as $permissionString) {
             $permission = factory(Permission::class)->create([
                 'name' => $permissionString,
                 'guard_name' => $permissionString,

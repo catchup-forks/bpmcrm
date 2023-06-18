@@ -38,7 +38,7 @@ final class ProcessFileManager
      *
      * @return array
      */
-    public function read($path, Process $process, $getContents = false)
+    public function read($path, Process $process, $getContents = false): array
     {
         $this->validate(
             [
@@ -64,9 +64,9 @@ final class ProcessFileManager
      * @param Process $process
      * @param User $user
      * @param bool $isImport
-     * @return array
+     * @return array{uid: mixed, filename: string, user_id: mixed, update_user_id: mixed, path: string, type: mixed, editable: mixed, content: mixed}
      */
-    public function store(Process $process, User $user, array $data, $isImport = false)
+    public function store(Process $process, User $user, array $data, $isImport = false): array
     {
         $this->validate(
             $data,
@@ -122,9 +122,9 @@ final class ProcessFileManager
      * @param Process $process
      * @param ProcessFile $processFile
      * @param User $user
-     * @return array
+     * @return array{uid: mixed, filename: string, user_id: mixed, update_user_id: mixed, path: string, type: mixed, editable: mixed, content: mixed}
      */
-    public function update(array $data, Process $process, ProcessFile $processFile, User $user)
+    public function update(array $data, Process $process, ProcessFile $processFile, User $user): array
     {
         $this->validate(
             [
