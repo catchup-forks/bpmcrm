@@ -2,16 +2,21 @@
 
 namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Group;
 
-/**
- * Model factory for a Group
- */
-$factory->define(Group::class, function (Faker $faker) {
-    return [
-        'name' => $faker->sentence(3),
-        'description' => $faker->sentence,
-        'status' => $faker->randomElement(['ACTIVE', 'INACTIVE']),
-    ];
-});
+class GroupFactory extends Factory
+{
+    protected $model = Group::class;
+    /**
+     * @return array{name: string, description: string, status: mixed}
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->sentence(3),
+            'description' => $this->faker->sentence,
+            'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
+        ];
+    }
+}

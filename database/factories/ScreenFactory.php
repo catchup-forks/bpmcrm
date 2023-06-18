@@ -2,19 +2,24 @@
 
 namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Screen;
 use App\Models\ScreenCategory;
 
-/**
- * Model factory for a screen.
- */
-$factory->define(Screen::class, function (Faker $faker) {
-    return [
-        'title' => $faker->sentence(3),
-        'description' => $faker->sentence(5),
-        'screen_category_id' => function () {
-            return factory(ScreenCategory::class)->create()->getKey();
-        }
-    ];
-});
+class ScreenFactory extends Factory
+{
+    protected $model = Screen::class;
+    /**
+     * @return array{title: string, description: string, screen_category_id: Closure}
+     */
+    public function definition(): array
+    {
+        return [
+            'title' => $this->faker->sentence(3),
+            'description' => $this->faker->sentence(5),
+            'screen_category_id' => function () {
+                return ScreenCategory::factory()->create()->getKey();
+            }
+        ];
+    }
+}

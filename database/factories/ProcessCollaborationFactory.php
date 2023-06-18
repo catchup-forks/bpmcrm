@@ -2,17 +2,22 @@
 
 namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\Process;
 use App\Models\ProcessCollaboration;
 
-/**
- * Model factory for a process collaboration
- */
-$factory->define(ProcessCollaboration::class, function (Faker $faker) {
-    return [
-        'process_id' => function () {
-            return factory(Process::class)->create()->getKey();
-        },
-    ];
-});
+class ProcessCollaborationFactory extends Factory
+{
+    protected $model = ProcessCollaboration::class;
+    /**
+     * @return array{process_id: Closure}
+     */
+    public function definition(): array
+    {
+        return [
+            'process_id' => function () {
+                return Process::factory()->create()->getKey();
+            },
+        ];
+    }
+}

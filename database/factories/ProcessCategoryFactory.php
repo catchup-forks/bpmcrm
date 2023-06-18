@@ -2,17 +2,22 @@
 
 namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ProcessCategory;
 
-/**
- * Model factory for a process category.
- */
-$factory->define(ProcessCategory::class, function (Faker $faker) {
-    return [
-        'name' => $faker->unique()->sentence(),
-        'status' => $faker->randomElement(
-            ['ACTIVE', 'INACTIVE']
-        )
-    ];
-});
+class ProcessCategoryFactory extends Factory
+{
+    protected $model = ProcessCategory::class;
+    /**
+     * @return array{name: string, status: mixed}
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->unique()->sentence(),
+            'status' => $this->faker->randomElement(
+                ['ACTIVE', 'INACTIVE']
+            )
+        ];
+    }
+}

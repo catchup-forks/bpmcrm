@@ -2,17 +2,22 @@
 
 namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ScreenCategory;
 
-/**
- * Model factory for a screen category.
- */
-$factory->define(ScreenCategory::class, function (Faker $faker) {
-    return [
-        'name' => $faker->unique()->sentence(),
-        'status' => $faker->randomElement(
-            ['ACTIVE', 'INACTIVE']
-        )
-    ];
-});
+class ScreenCategoryFactory extends Factory
+{
+    protected $model = ScreenCategory::class;
+    /**
+     * @return array{name: string, status: mixed}
+     */
+    public function definition(): array
+    {
+        return [
+            'name' => $this->faker->unique()->sentence(),
+            'status' => $this->faker->randomElement(
+                ['ACTIVE', 'INACTIVE']
+            )
+        ];
+    }
+}

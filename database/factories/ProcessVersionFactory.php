@@ -2,25 +2,30 @@
 
 namespace Database\Factories;
 
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\ProcessVersion;
 use App\Models\Process;
 use App\Models\ProcessCategory;
 
-/**
- * Model factory for a ProcessVersion
- */
-$factory->define(ProcessVersion::class, function (Faker $faker) {
-    $emptyProcess = $faker->file(Process::getProcessTemplatesPath());
-    return [
-        'bpmn' => file_get_contents($emptyProcess),
-        'name' => $faker->sentence(3),
-        'status' => $faker->randomElement(['ACTIVE', 'INACTIVE']),
-        'process_category_id' => function () {
-            return factory(ProcessCategory::class)->create()->getKey();
-        },
-        'process_id' => function () {
-            return factory(Process::class)->create()->getKey();
-        }
-    ];
-});
+class ProcessVersionFactory extends Factory
+{
+    protected $model = ProcessVersion::class;
+    /**
+     * @return array{bpmn: string|false, name: string, status: mixed, process_category_id: Closure, process_id: Closure}
+     */
+    public function definition(): array
+    {
+        $emptyProcess = $this->faker->file(Process::getProcessTemplatesPath());
+        return [
+            'bpmn' => file_get_contents($emptyProcess),
+            'name' => $this->faker->sentence(3),
+            'status' => $this->faker->randomElement(['ACTIVE', 'INACTIVE']),
+            'process_category_id' => function () {
+                return ProcessCategory::factory()->create()->getKey();
+            },
+            'process_id' => function () {
+                return Process::factory()->create()->getKey();
+            }
+        ];
+    }
+}
